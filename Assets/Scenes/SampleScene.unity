@@ -294,9 +294,11 @@ MonoBehaviour:
     m_PreInfinity: 1
     m_PostInfinity: 2
     m_RotationOrder: 4
+  normalJump: 0
   jumpMaxAcceleration: 800
   jumpMinAcceleration: 100
   jumpMaxDuration: 0.5
+  jumpImpulseStrength: 100
   coyoteTime: 0.1
   rayLength: 1.4
 --- !u!1 &593896875

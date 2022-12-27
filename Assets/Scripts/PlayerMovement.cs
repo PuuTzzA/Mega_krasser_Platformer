@@ -25,10 +25,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxRunAcceleration;
     [SerializeField] private AnimationCurve accelerationFactor;
 
+    // Toggle between "normal" and variable jump (variable jump >>>>>> normal jump)
+    [SerializeField] private bool normalJump;
+    // Variable jump
     [SerializeField] private float jumpMaxAcceleration;
     [SerializeField] private float jumpMinAcceleration;
     [SerializeField] private float jumpMaxDuration;
-
+    // Normal jump (always the same height)
+    [SerializeField] private float jumpImpulseStrength;
+    
     [SerializeField] private float coyoteTime; // <- allows player to jump, even if he is not grounded
 
     [SerializeField] private float rayLength;
@@ -80,7 +85,17 @@ public class PlayerMovement : MonoBehaviour
         // If there is a movement input add Forces in the desired direction
         Move();
         // If there is a jump input, add upwards Force as long as the inputKey is pressed
-        Jump();
+        // Toggle between "normal" and variable jump (variable jump >>>>>> normal jump)
+        if (normalJump)
+        {
+            // Add an impulse, always the same
+            JumpNormal();
+        }
+        else
+        {
+            // Add force as long as jump key is pressed or the max Jump time is over
+            JumpVariable();
+        }
     }
 
     private void UpdateHoverForce()
@@ -194,7 +209,27 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody.AddForce(neededAccel);
     }
 
-    private void Jump()
+    private void JumpNormal()
+    {      
+        // jumping with coyote Time and input buffering to allow for imprecise inputs 
+        if (((_jumpInput > 0 && !_jumpInputPrev) || _jumpPressedInAir) && _timeSinceLeavingGround < coyoteTime && !_jumping)
+        {
+            _jumpTime = 0;
+            _jumping = true;
+            _jumpPressedInAir = false;
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.AddForce(new Vector3(0, jumpImpulseStrength, 0), ForceMode.Impulse);
+        }
+
+        if (_jumping && _rigidbody.velocity.y < 0)
+        {
+            _jumping = false;
+        }
+        
+        _jumpInputPrev = _jumpInput > 0;
+    }
+
+    private void JumpVariable()
     {
         // jumping with coyote Time and input buffering to allow for imprecise inputs 
         if (((_jumpInput > 0 && !_jumpInputPrev) || _jumpPressedInAir) && _timeSinceLeavingGround < coyoteTime &&
