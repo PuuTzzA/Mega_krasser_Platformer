@@ -28,7 +28,7 @@ public class CameraFollow : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float y = followedObject.rotation.eulerAngles.y * Mathf.Deg2Rad;
+        float y = followedObject.GetComponent<PlayerMovement>().toGoalRotation.eulerAngles.y * Mathf.Deg2Rad;
         
         _vertical += _verticalMouse * verticalSpeed;
         _vertical = _vertical >= verticalMax ? verticalMax : _vertical;

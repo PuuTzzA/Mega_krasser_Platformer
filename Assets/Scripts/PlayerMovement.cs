@@ -12,35 +12,48 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float gravity;
 
-    [SerializeField] private float hoverHeight;
+    [Header("Hovering above the ground")] [SerializeField]
+    private float hoverHeight;
+
     [SerializeField] private float hoverSpringStrength;
     [SerializeField] private float hoverSpringDamper;
 
-    [SerializeField] private float uprightSpringStrength;
+    [Header("Stay in a upright rotation")] [SerializeField]
+    private float uprightSpringStrength;
+
     [SerializeField] private float uprightSpringDamper;
 
-    [SerializeField] private float turnSpeed;
+    [Header("Movement")] [SerializeField] private float turnSpeed;
     [SerializeField] private float maxRunSpeed;
     [SerializeField] private float runAcceleration;
     [SerializeField] private float maxRunAcceleration;
     [SerializeField] private AnimationCurve accelerationFactor;
 
+    [Header("Jumping")]
     // Toggle between "normal" and variable jump (variable jump >>>>>> normal jump)
-    [SerializeField] private bool normalJump;
+    [SerializeField]
+    private bool normalJump;
+
     // Variable jump
     [SerializeField] private float jumpMaxAcceleration;
     [SerializeField] private float jumpMinAcceleration;
+
     [SerializeField] private float jumpMaxDuration;
+
     // Normal jump (always the same height)
     [SerializeField] private float jumpImpulseStrength;
-    
+
     [SerializeField] private float coyoteTime; // <- allows player to jump, even if he is not grounded
 
+    [Header("Raycast to check if grounded")] 
     [SerializeField] private float rayLength;
 
-    private Rigidbody _rigidbody;
-    private Quaternion _toGoalRotation;
+    [Header("References for other Scripts")]
+    public Quaternion toGoalRotation;
 
+    
+    private Rigidbody _rigidbody;
+    
     private Vector3 _otherVel;
 
     private float _horizontalInput;
@@ -54,11 +67,13 @@ public class PlayerMovement : MonoBehaviour
 
     private float _timeSinceLeavingGround;
     private bool _jumpPressedInAir;
-    
+
+    private bool _activeGrapple;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _toGoalRotation = Quaternion.identity;
+        toGoalRotation = Quaternion.identity;
     }
 
     private void Update()
@@ -76,6 +91,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_activeGrapple)
+        {
+            _rigidbody.AddForce(new Vector3(0, -gravity, 0), ForceMode.Acceleration);
+            return;
+        }
+
         // Hover above the ground at fixed Height
         UpdateHoverForce();
         // If there is a turn input, set the desired rotation according to the input
@@ -145,13 +166,12 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-           
             // Additional Gravity
             _rigidbody.AddForce(new Vector3(0, -gravity, 0), ForceMode.Acceleration);
-            
+
             // Keep Momentum when jumping from a moving platform
             _otherVel = new Vector3(_otherVel.x, 0, _otherVel.z);
-            
+
             // For coyote Time
             _timeSinceLeavingGround += Time.fixedDeltaTime;
 
@@ -173,14 +193,14 @@ public class PlayerMovement : MonoBehaviour
         if (Mathf.Abs(_turnInput) > 0)
         {
             float amtToRotate = _turnInput * Time.deltaTime * turnSpeed;
-            _toGoalRotation *= Quaternion.AngleAxis(amtToRotate, Vector3.up);
+            toGoalRotation *= Quaternion.AngleAxis(amtToRotate, Vector3.up);
         }
     }
 
     private void UpdateUprightForce()
     {
         Quaternion characterCurrent = transform.rotation;
-        Quaternion toGoal = ShortestRotation(_toGoalRotation, characterCurrent);
+        Quaternion toGoal = ShortestRotation(toGoalRotation, characterCurrent);
 
         toGoal.ToAngleAxis(out float rotDegrees, out Vector3 rotAxis);
         rotAxis.Normalize();
@@ -210,9 +230,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void JumpNormal()
-    {      
+    {
         // jumping with coyote Time and input buffering to allow for imprecise inputs 
-        if (((_jumpInput > 0 && !_jumpInputPrev) || _jumpPressedInAir) && _timeSinceLeavingGround < coyoteTime && !_jumping)
+        if (((_jumpInput > 0 && !_jumpInputPrev) || _jumpPressedInAir) && _timeSinceLeavingGround < coyoteTime &&
+            !_jumping)
         {
             _jumpTime = 0;
             _jumping = true;
@@ -225,7 +246,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _jumping = false;
         }
-        
+
         _jumpInputPrev = _jumpInput > 0;
     }
 
@@ -255,6 +276,33 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _jumpInputPrev = _jumpInput > 0;
+    }
+
+    public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
+    {
+        _activeGrapple = true;
+        _rigidbody.velocity = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (_activeGrapple)
+        {
+            _activeGrapple = false;
+            GetComponent<Grappling>().StopGrapple();
+        }
+    }
+
+    private Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
+    {
+        float displacementY = endPoint.y - startPoint.y;
+        Vector3 displacementXZ = new Vector3(endPoint.x - startPoint.x, 0, endPoint.z - startPoint.z);
+
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * trajectoryHeight * -gravity);
+        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / -gravity)
+                                               + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / -gravity));
+
+        return velocityY + velocityXZ;
     }
 
     private static float MapRange(float value, float inMin, float inMax, float outMin, float outMax)
