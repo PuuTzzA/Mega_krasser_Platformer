@@ -15,10 +15,12 @@ public class CameraFollow : MonoBehaviour
 
     private float _verticalMouse;
     private float _vertical;
+    private PlayerMovement _pm;
 
     private void Awake()
     {
         _vertical = startVertical;
+        _pm = followedObject.GetComponent<PlayerMovement>();
     }
 
     private void Update()
@@ -28,12 +30,12 @@ public class CameraFollow : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float y = followedObject.GetComponent<PlayerMovement>().toGoalRotation.eulerAngles.y * Mathf.Deg2Rad;
-        
+        float y = _pm.toGoalRotation.eulerAngles.y * Mathf.Deg2Rad;
+
         _vertical += _verticalMouse * verticalSpeed;
         _vertical = _vertical >= verticalMax ? verticalMax : _vertical;
         _vertical = _vertical <= verticalMin ? verticalMin : _vertical;
-        
+
         // Only consider y rotation, because otherwise there is strong screen shake if you bump into Objects and the 
         // player is not rotated perfectly upwards
         Vector3 toPosition = followedObject.position -

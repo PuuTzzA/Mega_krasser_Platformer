@@ -46,8 +46,14 @@ public class PlayerMovement : MonoBehaviour
 
     // Normal jump (always the same height)
     [SerializeField] private float jumpImpulseStrength;
-
     [SerializeField] private float coyoteTime; // <- allows player to jump, even if he is not grounded
+
+    // Sliding based on:
+    // https://www.youtube.com/watch?v=SsckrYYxcuM&ab_channel=Dave%2FGameDevelopment
+    [Header("Sliding")] 
+    [SerializeField] private float maxSlideTime;
+    [SerializeField] private float slideForce;
+    [SerializeField] private KeyCode slideKey = KeyCode.LeftShift;
 
     [Header("Raycast to check if grounded")] [SerializeField]
     private float rayLength;
@@ -76,6 +82,9 @@ public class PlayerMovement : MonoBehaviour
     private bool _jumpPressedInAir;
 
     private bool _activeGrapple;
+    private bool _sliding;
+
+    private float _slideTimer;
 
     private void Awake()
     {
@@ -86,6 +95,15 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         GetInput();
+        if (Input.GetKeyDown(slideKey))
+        {
+            StartSlide();
+        }
+
+        if (Input.GetKeyUp(slideKey) && _sliding)
+        {
+            StopSlide();
+        }
     }
 
     private void GetInput()
@@ -102,6 +120,12 @@ public class PlayerMovement : MonoBehaviour
         {
             _rigidbody.AddForce(new Vector3(0, -gravity, 0), ForceMode.Acceleration);
             return;
+        }
+
+        if (_onSlope)
+        {
+            // to stick properly on the slope
+            _rigidbody.AddForce(Vector3.down * 30, ForceMode.Acceleration);
         }
 
         // Hover above the ground at fixed Height
@@ -124,6 +148,12 @@ public class PlayerMovement : MonoBehaviour
             // Add force as long as jump key is pressed or the max Jump time is over
             JumpVariable();
         }
+
+        // Sliding
+        if (_sliding)
+        {
+            SlidingMovement();
+        }
     }
 
     private void UpdateHoverForce()
@@ -133,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, rayLength))
         {
             Vector3 vel = _rigidbody.velocity;
-            Vector3 rayDir = transform.TransformDirection(Vector3.down);
+            Vector3 rayDir = Vector3.down;
 
             Vector3 otherVel = Vector3.zero;
             Rigidbody hitBody = hit.rigidbody;
@@ -207,8 +237,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Mathf.Abs(_turnInput) > 0)
         {
-            float amtToRotate = _turnInput * Time.deltaTime * turnSpeed;
-            toGoalRotation *= Quaternion.AngleAxis(amtToRotate, Vector3.up);
+            if (_sliding)
+            {
+                float amtToRotate = _turnInput * Time.deltaTime * turnSpeed;
+                toGoalRotation = Quaternion.Euler(toGoalRotation.eulerAngles.x, toGoalRotation.eulerAngles.y,
+                    toGoalRotation.eulerAngles.z - amtToRotate);
+            }
+            else
+            {
+                float amtToRotate = _turnInput * Time.deltaTime * turnSpeed;
+                toGoalRotation *= Quaternion.AngleAxis(amtToRotate, Vector3.up);
+            }
         }
     }
 
@@ -228,7 +267,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        Vector3 move = transform.TransformDirection(new Vector3(_horizontalInput, 0, _verticalInput));
+        Vector3 move = _sliding
+            ? transform.TransformDirection(new Vector3(_horizontalInput, _verticalInput, 0))
+            : transform.TransformDirection(new Vector3(_horizontalInput, 0, _verticalInput));
 
         // If on slope
         if (_onSlope && _otherVel.magnitude < 0.01f)
@@ -239,7 +280,7 @@ public class PlayerMovement : MonoBehaviour
         // Limit the speed to a magnitude of one
         // Prevents that diagonal walking is faster than straight walking
         move = move.magnitude > 1 ? move.normalized : move;
-        
+
         // If the player is or was on a moving Platform
         move += _otherVel / maxRunSpeed;
 
@@ -303,6 +344,51 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _jumpInputPrev = _jumpInput > 0;
+    }
+
+    private void StartSlide()
+    {
+        _sliding = true;
+        toGoalRotation *= Quaternion.Euler(90, 0, 0);
+        _slideTimer = maxSlideTime;
+    }
+
+    private void SlidingMovement()
+    {
+        if (!_onSlope)
+        {
+            // transform.up because you are lying when sliding
+            _rigidbody.AddForce(transform.up * slideForce);
+
+            _slideTimer -= Time.fixedDeltaTime;
+            
+            if (_slideTimer <= 0)
+            {
+                StopSlide();
+            }
+            return;
+        }
+        if (_rigidbody.velocity.y > 0)
+        {
+            _rigidbody.AddForce(GetSlopeMovementDirection(transform.up)* slideForce);
+
+            _slideTimer -= Time.fixedDeltaTime;
+            
+            if (_slideTimer <= 0)
+            {
+                StopSlide();
+            }
+            return;
+        }
+        // On slopes, going down you get infinite sliding time
+        _rigidbody.AddForce(Vector3.down * 200, ForceMode.Acceleration);
+        _rigidbody.AddForce(GetSlopeMovementDirection(transform.up) * slideForce);
+    }
+
+    private void StopSlide()
+    {
+        _sliding = false;
+        toGoalRotation *= Quaternion.Euler(-90, 0, 0);
     }
 
     private Vector3 GetSlopeMovementDirection(Vector3 movementDirection)
