@@ -29,6 +29,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxRunAcceleration;
     [SerializeField] private AnimationCurve accelerationFactor;
 
+    [Header("Slope Handling")] [SerializeField]
+    private float maxSlopeAngle;
+
+
     [Header("Jumping")]
     // Toggle between "normal" and variable jump (variable jump >>>>>> normal jump)
     [SerializeField]
@@ -45,21 +49,24 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float coyoteTime; // <- allows player to jump, even if he is not grounded
 
-    [Header("Raycast to check if grounded")] 
-    [SerializeField] private float rayLength;
+    [Header("Raycast to check if grounded")] [SerializeField]
+    private float rayLength;
 
     [Header("References for other Scripts")]
     public Quaternion toGoalRotation;
 
-    
+
     private Rigidbody _rigidbody;
-    
+
     private Vector3 _otherVel;
 
     private float _horizontalInput;
     private float _verticalInput;
     private float _turnInput;
     private float _jumpInput;
+
+    private bool _onSlope;
+    private Vector3 _slopeNormal;
 
     private bool _jumpInputPrev;
     private float _jumpTime;
@@ -163,9 +170,17 @@ public class PlayerMovement : MonoBehaviour
             }
 
             _timeSinceLeavingGround = 0;
+
+            // check if on slope
+            float slopeAngle = Vector3.Angle(Vector3.up, hit.normal);
+            _onSlope = 0.1f < slopeAngle && slopeAngle < maxSlopeAngle;
+            _slopeNormal = hit.normal;
         }
         else
         {
+            // not on slope
+            _onSlope = false;
+
             // Additional Gravity
             _rigidbody.AddForce(new Vector3(0, -gravity, 0), ForceMode.Acceleration);
 
@@ -213,10 +228,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        Vector3 move = transform.TransformDirection(new Vector3(_horizontalInput, 0, _verticalInput)) +
-                       _otherVel / maxRunSpeed; // <- If the player is or was on a moving Platform
+        Vector3 move = transform.TransformDirection(new Vector3(_horizontalInput, 0, _verticalInput));
 
-        float velDot = Vector3.Dot(_rigidbody.velocity.normalized, move);
+        // If on slope
+        if (_onSlope && _otherVel.magnitude < 0.01f)
+        {
+            move = GetSlopeMovementDirection(move);
+        }
+
+        // Limit the speed to a magnitude of one
+        // Prevents that diagonal walking is faster than straight walking
+        move = move.magnitude > 1 ? move.normalized : move;
+        
+        // If the player is or was on a moving Platform
+        move += _otherVel / maxRunSpeed;
+
+        float velDot = Vector3.Dot(_rigidbody.velocity.normalized, move.normalized);
         float accel = runAcceleration * accelerationFactor.Evaluate(velDot);
 
         Vector3 goalVel = move * maxRunSpeed;
@@ -276,6 +303,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _jumpInputPrev = _jumpInput > 0;
+    }
+
+    private Vector3 GetSlopeMovementDirection(Vector3 movementDirection)
+    {
+        return Vector3.ProjectOnPlane(movementDirection, _slopeNormal).normalized;
     }
 
     public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
