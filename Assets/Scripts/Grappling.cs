@@ -60,7 +60,8 @@ public class Grappling : MonoBehaviour
 
         _grappling = true;
 
-        if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hit, maxGrappleDistance, layerMaskGrapple))
+        // Start the ray at the position of the position of the player away from the camera
+        if (Physics.Raycast(cam.position + cam.forward * Vector3.Distance(cam.position, transform.position), cam.forward, out RaycastHit hit, maxGrappleDistance, layerMaskGrapple))
         {
             _grapplePoint = hit.point;
             
@@ -90,7 +91,8 @@ public class Grappling : MonoBehaviour
         
         GetComponent<PlayerMovement>().JumpToPosition(_grapplePoint, highestPointOnArc);
         
-        Invoke(nameof(StopGrapple), 1f);
+        // If you dont collide with nothing, stop the grapple after 2 seconds
+        Invoke(nameof(StopGrapple), 2f);
     }
 
     public void StopGrapple()
