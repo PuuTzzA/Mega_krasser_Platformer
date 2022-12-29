@@ -584,6 +584,9 @@ MonoBehaviour:
   jumpMaxDuration: 0.5
   jumpImpulseStrength: 100
   coyoteTime: 0.1
+  maxSlideTime: 0.75
+  slideForce: 307.09
+  slideKey: 304
   rayLength: 1.4
   toGoalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &506155369
@@ -1461,14 +1464,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1107335259}
-  m_LocalRotation: {x: -0.23961881, y: -0, z: -0, w: 0.9708671}
+  m_LocalRotation: {x: -0.18684201, y: -0, z: -0, w: 0.98239}
   m_LocalPosition: {x: 14.2, y: 2.081296, z: 32.9}
-  m_LocalScale: {x: 1.6165, y: 1, z: 4.0651}
+  m_LocalScale: {x: 1.6165, y: 1, z: 31.617943}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: -27.728, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -21.537, y: 0, z: 0}
 --- !u!1 &1225186142
 GameObject:
   m_ObjectHideFlags: 0
@@ -1916,7 +1919,7 @@ Transform:
   m_GameObject: {fileID: 1952234082}
   m_LocalRotation: {x: -0.0784143, y: -0, z: -0, w: 0.9969209}
   m_LocalPosition: {x: 30.2, y: 2.081296, z: 32.9}
-  m_LocalScale: {x: 1.6165, y: 1, z: 4.0651}
+  m_LocalScale: {x: 1.6165, y: 1, z: 46.480354}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
