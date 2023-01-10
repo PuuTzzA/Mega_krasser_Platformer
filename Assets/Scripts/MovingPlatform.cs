@@ -7,7 +7,7 @@ public class MovingPlatform : MonoBehaviour
 {
     // Muls lossts bitte als Transforms
     // Es isch anfoch viel gschickta as wie la pura Vector3s
-    [SerializeField] private Transform[] positions;
+    [SerializeField] private List<Transform> positions = new List<Transform>();
 
     [SerializeField] private float maxSpeed;
     [SerializeField] private float acceleration;
@@ -18,7 +18,7 @@ public class MovingPlatform : MonoBehaviour
 
     [SerializeField] private GameObject indicator;
     [SerializeField] private float indicatorSpacing;
-    
+
     private int _currentIndex;
 
     private Rigidbody _rigidbody;
@@ -27,11 +27,11 @@ public class MovingPlatform : MonoBehaviour
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-
-        for (int i = 0; i < positions.Length; i++)
+        FetchWaypoints();
+        for (int i = 0; i < positions.Count; i++)
         {
             Vector3 current = positions[i].position;
-            Vector3 next = positions[(i + 1) % positions.Length].position;
+            Vector3 next = positions[(i + 1) % positions.Count].position;
             float dis = Vector3.Distance(current, next);
             int amount = (int)(dis / indicatorSpacing);
             float magnitude = dis / amount;
@@ -48,11 +48,11 @@ public class MovingPlatform : MonoBehaviour
         UpdateSpringForce();
         UpdateUprightForce();
     }
-    
+
     private void UpdateSpringForce()
     {
         Vector3 pos = transform.position;
-        
+
         Vector3 targetPosition = positions[_currentIndex].position;
 
         Vector3 move = (targetPosition - pos).normalized;
@@ -65,12 +65,12 @@ public class MovingPlatform : MonoBehaviour
         neededAccel = Vector3.ClampMagnitude(neededAccel, maxAcceleration);
 
         _rigidbody.AddForce(neededAccel);
-        
+
         Debug.DrawLine(pos, pos + neededAccel, Color.green);
 
         if (Vector3.Distance(pos, targetPosition) < 0.2f)
         {
-            _currentIndex = (_currentIndex + 1) % positions.Length;
+            _currentIndex = (_currentIndex + 1) % positions.Count;
         }
     }
 
@@ -92,9 +92,23 @@ public class MovingPlatform : MonoBehaviour
     {
         Gizmos.color = Color.red;
 
-        for (int i = 0; i < positions.Length; i++)
+        FetchWaypoints();
+
+        for (int i = 0; i < positions.Count; i++)
         {
-            Gizmos.DrawLine(positions[i].position, positions[(i + 1) % positions.Length].position);
+            Gizmos.DrawLine(positions[i].position, positions[(i + 1) % positions.Count].position);
         }
     }
+
+    private void FetchWaypoints()
+    {
+        foreach (Transform t in transform.parent)
+        {
+            if (t.CompareTag("Waypoint"))
+            {
+                positions.Add(t);
+            }
+        }
+    }
+
 }
