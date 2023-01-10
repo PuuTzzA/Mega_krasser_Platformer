@@ -91,7 +91,6 @@ public class MovingPlatform : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-
         FetchWaypoints();
 
         for (int i = 0; i < positions.Count; i++)
@@ -102,6 +101,7 @@ public class MovingPlatform : MonoBehaviour
 
     private void FetchWaypoints()
     {
+        positions.Clear();
         foreach (Transform t in transform.parent)
         {
             if (t.CompareTag("Waypoint"))
