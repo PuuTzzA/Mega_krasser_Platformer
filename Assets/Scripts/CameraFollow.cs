@@ -1,47 +1,50 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] private Transform followedObject;
-    [SerializeField] private float distanceAway, startVertical, offsetUp;
-    [SerializeField] private float smooth;
+    [SerializeField]
+    private GameObject _pointOfReference;
+    [SerializeField]
+    private GameObject player;
+    private GameObject _rotationPoint;
+    private GameObject tmp;
 
-    [SerializeField] private float verticalSpeed;
-    [SerializeField] private float verticalMin;
-    [SerializeField] private float verticalMax;
-
-    private float _verticalMouse;
-    private float _vertical;
-    private PlayerMovement _pm;
-
-    private void Awake()
+    [SerializeField]
+    float sensibility = 1f;
+    // Start is called before the first frame update
+    void Start()
     {
-        _vertical = startVertical;
-        _pm = followedObject.GetComponent<PlayerMovement>();
+        tmp = new GameObject();
+        _rotationPoint = new GameObject("RotationPoint");
+        _rotationPoint.transform.localScale = new Vector3(1, 1, 1);
+        if (_pointOfReference == null)
+        {
+            _rotationPoint.transform.position = new Vector3(0, 0, 0);
+        }
+        else
+        {
+            _rotationPoint.transform.position = _pointOfReference.transform.position;
+        }
+        this.transform.SetParent(_rotationPoint.transform);
+        this.transform.eulerAngles = new Vector3(0, 180, 0);
+        this.transform.position = new Vector3(0, 0, 20);
     }
 
-    private void Update()
+    // Update is called once per frame
+    void LateUpdate()
     {
-        _verticalMouse = Input.GetAxis("Mouse Y");
-    }
+        if (player != null)
+        {
+            
+            tmp.transform.position = _rotationPoint.transform.position;
+            tmp.transform.localScale = _rotationPoint.transform.localScale;
+            tmp.transform.rotation = _rotationPoint.transform.rotation;
+            tmp.transform.LookAt(new Vector3(player.transform.position.x - player.transform.localScale.x / 4, player.transform.position.y, player.transform.position.z - player.transform.localScale.z / 4));
+            _rotationPoint.transform.rotation = Quaternion.RotateTowards(_rotationPoint.transform.rotation, tmp.transform.rotation,Time.deltaTime * sensibility * Mathf.Abs(_rotationPoint.transform.eulerAngles.y - tmp.transform.eulerAngles.y));
+            Debug.Log(_rotationPoint.transform.eulerAngles.ToString() + " " +  tmp.transform.eulerAngles.ToString());
 
-    private void FixedUpdate()
-    {
-        float y = _pm.toGoalRotation.eulerAngles.y * Mathf.Deg2Rad;
-
-        _vertical += _verticalMouse * verticalSpeed;
-        _vertical = _vertical >= verticalMax ? verticalMax : _vertical;
-        _vertical = _vertical <= verticalMin ? verticalMin : _vertical;
-
-        // Only consider y rotation, because otherwise there is strong screen shake if you bump into Objects and the 
-        // player is not rotated perfectly upwards
-        Vector3 toPosition = followedObject.position -
-                             new Vector3(MathF.Sin(y), 0, Mathf.Cos(y)) * (Mathf.Sin(_vertical * Mathf.Deg2Rad) * distanceAway) +
-                             Vector3.up * (Mathf.Cos(_vertical * Mathf.Deg2Rad) * distanceAway);
-        transform.position = Vector3.Lerp(transform.position, toPosition, smooth * Time.deltaTime);
-        transform.LookAt(followedObject.position + new Vector3(0, offsetUp, 0));
+        }
     }
 }
