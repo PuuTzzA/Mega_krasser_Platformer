@@ -4,33 +4,26 @@ using UnityEngine;
 
 public class MulsisMovement : MonoBehaviour
 {
-
     private CircularMovement m;
     private Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
-        m = new CircularMovement(gameObject, null);
-
+        m = GetComponent<CircularMovement>();
         rb = GetComponent<Rigidbody>();
+        rb.velocity = Vector3.right * 2;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector2 vector2 = m.get();
+        Vector2 velocity;
+        velocity.x = Input.GetAxisRaw("Horizontal") * 15;
+        if(Input.GetKeyDown(KeyCode.Space))
+            velocity.y = 10;
+        else
+            velocity.y = rb.velocity.y;
 
-        //Debug.Log(vector2.ToString());
-
-        vector2.x += Input.GetAxis("Horizontal") * 0.01f;
-
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            var vel = rb.velocity;
-            vel.y = 5;
-            rb.velocity = vel;
-        }
-
-        m.set(vector2);
-        
+        rb.velocity = m.fromLocal(velocity);
     }
 }
