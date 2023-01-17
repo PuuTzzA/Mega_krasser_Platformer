@@ -2,38 +2,92 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CircularMovement
+public class CircularMovement : MonoBehaviour
 {
+    private Transform _prevTransform;
 
-    public Transform refPoint;
-    public Transform mutablePoint;
-    public float radius;
+    private float _radius;
+    private Rigidbody _rb;
 
-    public CircularMovement(GameObject mutablePoint, Transform parent)
+    private void Start()
     {
-        this.mutablePoint = mutablePoint.transform;
-        this.refPoint = new GameObject("empty").transform;
+        _prevTransform = transform;
+        _rb = GetComponent<Rigidbody>();
 
-        this.refPoint.SetParent(parent);
-        this.mutablePoint.SetParent(this.refPoint);
+        UpdateRadius();
 
-        this.radius = new Vector2(this.mutablePoint.position.x, this.mutablePoint.position.z).magnitude;
-
-        Debug.Log(radius);
+        Debug.Log(Mathf.Atan2(0, 1));
+        Debug.Log(Mathf.Atan2(1, 0));
+        Debug.Log(Mathf.Atan2(0, -1));
+        Debug.Log(Mathf.Atan2(-1, 0));
     }
 
-    public Vector2 get()
+    private void FixedUpdate()
     {
-        return new Vector2(-refPoint.eulerAngles.y / 180.0f * Mathf.PI, refPoint.position.y);
+        PullOnCircle();
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, GetDegrees(), transform.eulerAngles.z);
+        Debug.Log(GetDegrees());
+        //Debug.Log(_rb.velocity.ToString());
     }
 
-    public void set(Vector2 pos)
+    public void UpdateRadius()
     {
-        Debug.Log(pos.ToString());
-        refPoint.position.Set(refPoint.position.x, pos.y, refPoint.position.z);
-        refPoint.eulerAngles = new Vector3(refPoint.eulerAngles.x, -pos.x / Mathf.PI * 180.0f, refPoint.eulerAngles.z);
-        Vector2 vec = new Vector2(mutablePoint.position.x, mutablePoint.position.z);
-        mutablePoint.position = vec.normalized * radius;
-        Debug.Log(refPoint.eulerAngles.y);
+        _radius = GetXZPosition().magnitude;
+    }
+
+    public void SetRadius(float radius)
+    {
+        this._radius = radius;
+    }
+
+    public float GetRadius()
+    {
+        return _radius;
+    }
+
+    public void PullOnCircle()
+    {
+        SetXZPosition(GetXZPosition().normalized * _radius);
+    }
+
+    public Vector2 GetXZPosition()
+    {
+        return new Vector2(transform.position.x, transform.position.z);
+    }
+
+    public void SetXZPosition(Vector2 vec)
+    {
+        transform.position = new Vector3(vec.x, transform.position.y, vec.y);
+    }
+
+    public float GetHeight()
+    {
+        return transform.position.y;
+    }
+
+    public void SetHeight(float height)
+    {
+        transform.position = new Vector3(transform.position.x, height, transform.position.z);
+    }
+
+    public float GetDegrees()
+    {
+        return -Mathf.Atan2(GetXZPosition().y, GetXZPosition().x) * 180 / Mathf.PI;
+    }
+
+    public void SetDegrees(float degrees)
+    {
+        SetXZPosition(new Vector2(Mathf.Cos(degrees * Mathf.PI / 180.0f), - Mathf.Sin(degrees * Mathf.PI / 180.0f)));
+    }
+
+    public Vector2 toLocal(Vector3 vec)
+    {
+        Vector3 temp = transform.InverseTransformDirection(vec);
+        return new Vector2(temp.z, temp.y);
+    }
+
+    public Vector3 fromLocal(Vector2 vec)
+    {
+        return transform.TransformDirection(new Vector3(0, vec.y, vec.x));
     }
 }
