@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class CircularMovement : MonoBehaviour
 {
-    private Transform _prevTransform;
 
     private float _radius;
     private Rigidbody _rb;
 
     private void Start()
     {
-        _prevTransform = transform;
+        
         _rb = GetComponent<Rigidbody>();
 
         UpdateRadius();
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, GetDegrees(), transform.eulerAngles.z);
 
         Debug.Log(Mathf.Atan2(0, 1));
         Debug.Log(Mathf.Atan2(1, 0));
@@ -25,9 +25,15 @@ public class CircularMovement : MonoBehaviour
     private void FixedUpdate()
     {
         PullOnCircle();
+        var velocity = toLocal(_rb.velocity);
+        //Debug.Log(velocity + " " + _rb.velocity);
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, GetDegrees(), transform.eulerAngles.z);
-        Debug.Log(GetDegrees());
-        //Debug.Log(_rb.velocity.ToString());
+        _rb.velocity = fromLocal(velocity);
+    }
+
+    void StorePrevValues()
+    {
+
     }
 
     public void UpdateRadius()
