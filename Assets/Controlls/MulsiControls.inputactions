@@ -1,0 +1,45 @@
+{
+    "name": "MulsiControls",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "0cfdd7b9-313e-4a28-ab6a-4a73c2c3ff2e",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "48b7f926-67be-4949-85fe-217337e14db1",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "50d9fdbe-ea16-47d6-ba11-c2e63dd2b93e",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "32d98c09-5f90-47ac-b0af-d3a51e8b3dd3",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
