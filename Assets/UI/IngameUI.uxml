@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/IngameUIStyles.uss?fileID=7433441132597879392&amp;guid=60c58bd2c830bfb41acf580424558329&amp;type=3#IngameUIStyles" />
+    <ui:VisualElement name="Healthbar" style="width: 30%; height: 50px; flex-direction: row; margin-left: 5px;">
+        <ui:VisualElement name="Heart" class="heart" style="width: 33%; height: 100%; background-image: url(&apos;project://database/Assets/Icons/Love_Heart_symbol.svg.png?fileID=2800000&amp;guid=ad853b3abf82a364aabea196bc0212ed&amp;type=3#Love_Heart_symbol.svg&apos;);" />
+        <ui:VisualElement name="Heart" class="heart" style="width: 33%; height: 100%; background-image: url(&apos;project://database/Assets/Icons/Love_Heart_symbol.svg.png?fileID=2800000&amp;guid=ad853b3abf82a364aabea196bc0212ed&amp;type=3#Love_Heart_symbol.svg&apos;);" />
+        <ui:VisualElement name="Heart" class="heart" style="width: 33%; height: 100%; background-image: url(&apos;project://database/Assets/Icons/Love_Heart_symbol.svg.png?fileID=2800000&amp;guid=ad853b3abf82a364aabea196bc0212ed&amp;type=3#Love_Heart_symbol.svg&apos;);" />
+    </ui:VisualElement>
+</ui:UXML>
