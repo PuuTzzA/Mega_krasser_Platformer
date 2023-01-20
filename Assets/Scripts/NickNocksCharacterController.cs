@@ -27,6 +27,7 @@ public class NickNocksCharacterController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+
         move = context.ReadValue<Vector2>();
     }
 
