@@ -47,7 +47,7 @@ public class CameraFollow : MonoBehaviour
         _rotationPoint.transform.rotation = Quaternion.RotateTowards(_rotationPoint.transform.rotation, tmp.transform.rotation, 360);
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         Vector3 relativePos = player.transform.position - _rotationPoint.transform.position;
