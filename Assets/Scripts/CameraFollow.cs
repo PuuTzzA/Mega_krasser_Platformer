@@ -55,7 +55,7 @@ public class CameraFollow : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(relativePos);
 
         Quaternion current = _rotationPoint.transform.localRotation;
-        Debug.Log(Time.deltaTime);
+        //Debug.Log(Time.deltaTime);
         //Debug.Log(Quaternion.Angle(current, rotation) * Time.deltaTime * rotationSensibility);
         _rotationPoint.transform.localRotation = Quaternion.Slerp(current, rotation, Time.deltaTime * rotationSensibility);
 
