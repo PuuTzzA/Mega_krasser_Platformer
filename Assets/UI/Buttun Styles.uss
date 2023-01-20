@@ -1,0 +1,25 @@
+.play-button {
+    background-color: rgba(24, 24, 24, 0);
+    font-size: 50px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    top: 50%;
+    color: rgba(255, 255, 255, 255);
+}
+
+.button:hover {
+    font-size: 50px;
+    color: rgba(30, 255, 0, 255);
+    -unity-font-style: normal;
+}
+
+.arrows {
+    width: 60px;
+    height: 60px;
+    top: 50%;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    font-size: 60px;
+}
