@@ -34,7 +34,6 @@ public class TentaclePlantTentacle : MonoBehaviour
     {
         IDLE,
         GRAPPLING,
-        DRAGGING
     }
 
     private State _state = State.IDLE;
@@ -73,8 +72,6 @@ public class TentaclePlantTentacle : MonoBehaviour
                     (posPlayer - transform.position).normalized * -grappleStrength);
                 UpdatePositionsGrappling(posPlayer);
                 _playerPosOld = posPlayer;
-                break;
-            case State.DRAGGING:
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
