@@ -9,16 +9,16 @@ public class TentaclePlantTentacle : MonoBehaviour
 {
     [Header("General Settings")] public GameObject player;
 
-    [SerializeField] private float detectionRadius;
+    public float detectionRadius;
 
     [SerializeField] private int length;
     [SerializeField] private float smoothSpeed;
     [SerializeField] private float smoothSpeedHead;
 
-    [Header("Grappling Settings")] [SerializeField]
-    private float grappleStrength;
-
-    [SerializeField] private float breakFreeDistance;
+    [Header("Set over Tentacle Plant, not here!!!")] 
+    public float grappleStrength;
+    public float breakFreeDistance;
+    public float maxLength;
 
     private LineRenderer _lineRenderer;
     private Vector3[] _segmentPositions;
@@ -83,7 +83,7 @@ public class TentaclePlantTentacle : MonoBehaviour
         bool chasing = false;
         for (int i = 0; i < length; i++)
         {
-            if (IsInsideCollider(_segmentPositions[i]))
+            if (IsInsideCollider(_segmentPositions[i]) && Vector3.Distance(transform.position, _segmentPositions[i]) <= maxLength)
             {
                 _state = State.GRAPPLING;
                 chasing = true;
@@ -180,8 +180,13 @@ public class TentaclePlantTentacle : MonoBehaviour
 
     private void UpdateIdlePosition()
     {
-        _idleGoal = new Vector3(UnityEngine.Random.Range(-detectionRadius, detectionRadius),
-            UnityEngine.Random.Range(0, detectionRadius),
-            UnityEngine.Random.Range(-detectionRadius, detectionRadius)) + transform.position;
+        do
+        {
+            _idleGoal = new Vector3(UnityEngine.Random.Range(-detectionRadius, detectionRadius),
+                UnityEngine.Random.Range(-detectionRadius, detectionRadius),
+                UnityEngine.Random.Range(-detectionRadius, detectionRadius));
+        } while (Vector3.Dot(transform.up, _idleGoal) < 0 || _idleGoal.magnitude > detectionRadius);
+
+        _idleGoal += transform.position;
     }
 }
