@@ -16,24 +16,25 @@ public class CircularMovement : MonoBehaviour
         UpdateRadius();
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, GetDegrees(), transform.eulerAngles.z);
 
-        Debug.Log(Mathf.Atan2(0, 1));
-        Debug.Log(Mathf.Atan2(1, 0));
-        Debug.Log(Mathf.Atan2(0, -1));
-        Debug.Log(Mathf.Atan2(-1, 0));
+        //Debug.Log(Mathf.Atan2(0, 1));
+        //Debug.Log(Mathf.Atan2(1, 0));
+        //Debug.Log(Mathf.Atan2(0, -1));
+        //Debug.Log(Mathf.Atan2(-1, 0));
     }
 
     private void FixedUpdate()
     {
         PullOnCircle();
-        var velocity = toLocal(_rb.velocity);
-        //Debug.Log(velocity + " " + _rb.velocity);
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, GetDegrees(), transform.eulerAngles.z);
-        _rb.velocity = fromLocal(velocity);
-    }
-
-    void StorePrevValues()
-    {
-
+        if(_rb != null)
+        {
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, GetDegrees(), transform.eulerAngles.z);
+        }
+        else
+        {
+            var velocity = toLocal(_rb.velocity);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, GetDegrees(), transform.eulerAngles.z);
+            _rb.velocity = fromLocal(velocity);
+        }
     }
 
     public void UpdateRadius()
