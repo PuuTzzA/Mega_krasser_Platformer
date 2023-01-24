@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 357937418}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.34, y: 0.34095716, z: 0.61}
+  m_LocalPosition: {x: -2.71, y: 0.34095716, z: 1.589}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -277,7 +277,7 @@ Transform:
   m_GameObject: {fileID: 919860581}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 22.178, y: 22.178, z: 22.178}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -301,11 +301,25 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1447305736}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.014896517, y: 0.032578934, z: 0.01697126}
   m_Center: {x: -0.000008592298, y: -0.00034940176, z: -0.0019246242}
+--- !u!114 &1447305743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447305736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c3595dc1748614b87a46c63f140a7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackStrength: 30
+  knockbackDirection: {x: 0, y: 2, z: 0}
 --- !u!1 &1456785888
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,7 +412,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1456785888}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.05, z: 1.72}
+  m_LocalPosition: {x: -0.36, y: 1.05, z: 4.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -937,13 +951,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1456785888}
-  detectionRange: 0
+  detectionRange: 10
   patrolPoints:
   - {fileID: 517345762}
   - {fileID: 1722026440}
   - {fileID: 357937419}
-  patrolMaxSpeed: 7.95
-  patrolAcceleration: 8
+  patrolMaxSpeed: 5
+  patrolAcceleration: 40
+  rotationSpeed: 5
+  attackWindup: 2
+  attackStrenght: 30
 --- !u!1001 &381204007584324987
 PrefabInstance:
   m_ObjectHideFlags: 0
