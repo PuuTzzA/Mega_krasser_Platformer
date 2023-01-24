@@ -16,6 +16,8 @@ public class UIStart : MonoBehaviour
 
     private UIDocument _Doc;
 
+    private Button _playButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,13 +26,23 @@ public class UIStart : MonoBehaviour
         _currentPreview.AddComponent<RotateObject>();
 
         _Doc = GetComponent<UIDocument>();
-        Button playButton = _Doc.rootVisualElement.Q<Button>("PlayButton");
+        _playButton = _Doc.rootVisualElement.Q<Button>("PlayButton");
         Button forwardButton = _Doc.rootVisualElement.Q<Button>("ForwardButton");
         Button backwardButton = _Doc.rootVisualElement.Q<Button>("BackwardButton");
-        playButton.clicked += playButtonOnClicked;
+        _playButton.clicked += playButtonOnClicked;
         forwardButton.clicked += forwardButtonOnClicked;
         backwardButton.clicked += backwardButtonOnClicked;
+
+         _Doc.rootVisualElement.RegisterCallback<GeometryChangedEvent>(ev =>
+        {
+            if (ev.oldRect.width != ev.newRect.width && ev.oldRect.height != ev.newRect.height)
+            {
+                _playButton.style.fontSize = _playButton.resolvedStyle.height;
+            }
+
+        });
     }
+
 
     private void playButtonOnClicked()
     {
@@ -46,7 +58,7 @@ public class UIStart : MonoBehaviour
     }
 
 
-     public void nextPreview()
+    public void nextPreview()
     {
         Destroy(_currentPreview);
         _currentIndex = (_currentIndex + 1) % levels.Length;
