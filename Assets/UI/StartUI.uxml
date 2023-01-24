@@ -3,12 +3,14 @@
     <ui:VisualElement name="Screen" style="width: 100%; height: 100%; flex-direction: row;">
         <ui:VisualElement name="Options" style="left: 0; top: 0; bottom: auto; width: 40%; height: 100%; -unity-background-image-tint-color: rgb(0, 0, 0); background-color: rgba(0, 0, 0, 0);">
             <ui:VisualElement name="Buttonarea" style="margin-left: 0; height: 100%; background-color: rgba(0, 0, 0, 0.98);">
-                <ui:Button text="START" display-tooltip-when-elided="true" name="PlayButton" class="play-button button" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; top: 40%;" />
+                <ui:Button text="START" display-tooltip-when-elided="true" name="PlayButton" class="play-button button" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; top: 45%;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Stage_Select" style="width: 60%; height: 100%; flex-direction: row; font-size: 20px; justify-content: space-between; margin-left: 10px; margin-right: 10px; align-items: stretch;">
-            <ui:Button text="⇦" display-tooltip-when-elided="true" name="BackwardButton" class="arrows button" style="justify-content: flex-start; -unity-text-align: middle-center;" />
-            <ui:Button text="⇨" display-tooltip-when-elided="true" name="ForwardButton" class="arrows button" style="justify-content: flex-start; -unity-text-align: middle-center;" />
+            <ui:VisualElement name="Navigation" style="width: 100%; height: 10%; top: 45%; flex-direction: row; align-items: center; justify-content: space-between;">
+                <ui:Button text="⇦" display-tooltip-when-elided="true" name="BackwardButton" class="arrows button" style="justify-content: flex-start; -unity-text-align: middle-center; top: auto;" />
+                <ui:Button text="⇨" display-tooltip-when-elided="true" name="ForwardButton" class="arrows button" style="justify-content: flex-start; -unity-text-align: middle-center; top: auto;" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
