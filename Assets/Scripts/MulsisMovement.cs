@@ -11,7 +11,7 @@ public class MulsisMovement : MonoBehaviour
     {
         m = GetComponent<CircularMovement>();
         rb = GetComponent<Rigidbody>();
-        rb.velocity = Vector3.right * 15;
+        //rb.velocity = Vector3.right * 15;
     }
 
     // Update is called once per frame
