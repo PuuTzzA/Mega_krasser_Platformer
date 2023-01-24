@@ -10,11 +10,11 @@ public class UIIngame : MonoBehaviour
 
     private UIDocument _Doc;
 
-    private Label counter;
-    private VisualElement heart1;
-    private VisualElement heart2;
-    private VisualElement heart3;
-    private float lives;
+    private Label _counter;
+    private VisualElement _heart1;
+    private VisualElement _heart2;
+    private VisualElement _heart3;
+    private float _lives;
     [SerializeField]
     private Texture2D heart;
     [SerializeField]
@@ -25,10 +25,10 @@ public class UIIngame : MonoBehaviour
     void Awake()
     {
         _Doc = GetComponent<UIDocument>();
-        counter = _Doc.rootVisualElement.Q<Label>("Counter");
-        heart1 = _Doc.rootVisualElement.Q<VisualElement>("Heart1");
-        heart2 = _Doc.rootVisualElement.Q<VisualElement>("Heart2");
-        heart3 = _Doc.rootVisualElement.Q<VisualElement>("Heart3");
+        _counter = _Doc.rootVisualElement.Q<Label>("Counter");
+        _heart1 = _Doc.rootVisualElement.Q<VisualElement>("Heart1");
+        _heart2 = _Doc.rootVisualElement.Q<VisualElement>("Heart2");
+        _heart3 = _Doc.rootVisualElement.Q<VisualElement>("Heart3");
 
         setLives(1);
         setCollectableText("0");
@@ -41,44 +41,44 @@ public class UIIngame : MonoBehaviour
         {
             if (ev.oldRect.width != ev.newRect.width && ev.oldRect.height != ev.newRect.height)
             {
-                counter.style.fontSize = counter.resolvedStyle.height;
+                _counter.style.fontSize = _counter.resolvedStyle.height;
             }
 
         });
     }
 
     public void setCollectableText(string text){
-        counter.text = text;
+        _counter.text = text;
     }
 
     public void setLives(int lives)
     {
-        if (lives < 4 && lives > -1 && this.lives != lives)
+        if (lives < 4 && lives > -1 && this._lives != lives)
         {
-            this.lives = lives;
+            this._lives = lives;
             if (lives == 0)
             {
-                heart1.style.backgroundImage = brokenHeart;
-                heart2.style.backgroundImage = brokenHeart;
-                heart3.style.backgroundImage = brokenHeart;
+                _heart1.style.backgroundImage = brokenHeart;
+                _heart2.style.backgroundImage = brokenHeart;
+                _heart3.style.backgroundImage = brokenHeart;
             }
             else if (lives == 1)
             {
-                heart1.style.backgroundImage = heart;
-                heart2.style.backgroundImage = brokenHeart;
-                heart3.style.backgroundImage = brokenHeart;
+                _heart1.style.backgroundImage = heart;
+                _heart2.style.backgroundImage = brokenHeart;
+                _heart3.style.backgroundImage = brokenHeart;
             }
             else if (lives == 2)
             {
-                heart1.style.backgroundImage = heart;
-                heart2.style.backgroundImage = heart;
-                heart3.style.backgroundImage = brokenHeart;
+                _heart1.style.backgroundImage = heart;
+                _heart2.style.backgroundImage = heart;
+                _heart3.style.backgroundImage = brokenHeart;
             }
             else if (lives == 3)
             {
-                heart1.style.backgroundImage = heart;
-                heart2.style.backgroundImage = heart;
-                heart3.style.backgroundImage = heart;
+                _heart1.style.backgroundImage = heart;
+                _heart2.style.backgroundImage = heart;
+                _heart3.style.backgroundImage = heart;
             }
 
         }
