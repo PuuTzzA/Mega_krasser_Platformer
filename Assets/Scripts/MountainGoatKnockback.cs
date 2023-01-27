@@ -16,8 +16,7 @@ public class MountainGoatKnockback : MonoBehaviour
     {
         if (other.gameObject == player)
         {
-            Debug.Log("add damage");
-            // player.GetComponent<Player>().addDamage();
+            player.GetComponent<Player>().damage();
         }
     }
     
