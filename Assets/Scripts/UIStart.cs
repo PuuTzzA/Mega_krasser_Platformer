@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class UIStart : MonoBehaviour
@@ -23,7 +24,6 @@ public class UIStart : MonoBehaviour
     {
 
         _currentPreview = Object.Instantiate(levels[_currentIndex]);
-        _currentPreview.AddComponent<RotateObject>();
 
         _Doc = GetComponent<UIDocument>();
         _playButton = _Doc.rootVisualElement.Q<Button>("PlayButton");
@@ -46,7 +46,7 @@ public class UIStart : MonoBehaviour
 
     private void PlayButtonOnClicked()
     {
-        Debug.Log("play Button pressed");
+        SceneManager.LoadScene(_currentPreview.GetComponent<PreviewSettings>().GetScene(), LoadSceneMode.Single);
     }
     private void ForwardButtonOnClicked()
     {
@@ -63,7 +63,6 @@ public class UIStart : MonoBehaviour
         Destroy(_currentPreview);
         _currentIndex = (_currentIndex + 1) % levels.Length;
         _currentPreview = Object.Instantiate(levels[_currentIndex]);
-        _currentPreview.AddComponent<RotateObject>();
     }
 
     public void LastPreview()
@@ -71,6 +70,5 @@ public class UIStart : MonoBehaviour
         Destroy(_currentPreview);
         _currentIndex = (_currentIndex - 1 + levels.Length) % levels.Length;
         _currentPreview = Object.Instantiate(levels[_currentIndex]);
-        _currentPreview.AddComponent<RotateObject>();
     }
 }
