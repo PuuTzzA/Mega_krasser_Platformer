@@ -216,8 +216,8 @@ MonoBehaviour:
   patrolMaxSpeed: 5
   patrolAcceleration: 40
   rotationSpeed: 5
-  attackWindup: 1.5
-  attackStrenght: 30
+  attackWindup: 0.5
+  attackStrenght: 50
   layerMask:
     serializedVersion: 2
     m_Bits: 1048627
