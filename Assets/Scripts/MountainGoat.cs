@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -20,12 +21,19 @@ public class MountainGoat : MonoBehaviour
     private float attackWindup;
 
     [SerializeField] private float attackStrenght;
+    [SerializeField] private LayerMask layerMask;
 
+    [Header("Stun Settings")] [SerializeField]
+    private float stunDuration;
+
+    [SerializeField] private GameObject indicator;
+    [SerializeField] private Transform stunPosition;
 
     enum State
     {
         PATROLE,
         ATTACKING,
+        STUNNED
     }
 
     private State _state = State.PATROLE;
@@ -36,6 +44,8 @@ public class MountainGoat : MonoBehaviour
     private bool _attackFp;
     private bool _attackBefore;
     private bool _attackImpulseFp;
+    private GameObject _stunIndicator;
+    private float _stunTime;
 
     // Start is called before the first frame update
     void Start()
@@ -52,30 +62,56 @@ public class MountainGoat : MonoBehaviour
                 Patrol();
                 break;
             case State.ATTACKING:
+                RotateToPlayer();
                 break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            case State.STUNNED:
+                _stunTime += Time.fixedDeltaTime;
+                if (_stunTime > stunDuration)
+                {
+                    Destroy(_stunIndicator);
+                    _state = State.PATROLE;
+                }
+
+                break;
+        }
+
+        if (_state == State.STUNNED)
+        {
+            return;
         }
 
         transform.rotation = Quaternion.Lerp(transform.rotation, _goalRotation, Time.fixedDeltaTime * rotationSpeed);
-
+        
         // Check if Player is in Detection Range and in front of the goat 
         if (Vector3.Distance(player.transform.position, transform.position) <= detectionRange &&
-            Vector3.Dot(transform.forward, player.transform.position) < 0)
+            Vector3.Dot(transform.forward.normalized, player.transform.position.normalized) < 0 &&
+            Mathf.Abs(player.transform.position.y - transform.position.y) < 5f)
         {
-            _attackFp = true;
-            if (!_attackBefore && _attackFp)
+            RaycastHit hit;
+            Physics.Raycast(transform.position, player.transform.position - transform.position, out hit, layerMask);
+            if (hit.collider.gameObject == player)
             {
-                _state = State.ATTACKING;
-                StartAttack();
+                _attackFp = true;
+                if (!_attackBefore && _attackFp)
+                {
+                    _state = State.ATTACKING;
+                    StartAttack();
+                }
+
+                Attack();
             }
-            Attack();
+            else
+            {
+                _attackFp = false;
+                _state = State.PATROLE;
+            }
         }
         else
         {
             _attackFp = false;
             _state = State.PATROLE;
         }
+
         _attackBefore = _attackFp;
     }
 
@@ -108,6 +144,13 @@ public class MountainGoat : MonoBehaviour
 
     private void StartAttack()
     {
+        RotateToPlayer();
+        _attackTime = 0;
+        _attackImpulseFp = true;
+    }
+
+    private void RotateToPlayer()
+    {
         Quaternion tempRotationStart = transform.rotation;
 
         transform.LookAt(player.transform.position);
@@ -116,8 +159,6 @@ public class MountainGoat : MonoBehaviour
         _goalRotation = Quaternion.Euler(0, _goalRotation.eulerAngles.y, 0);
 
         transform.rotation = tempRotationStart;
-        _attackTime = 0;
-        _attackImpulseFp = true;
     }
 
     private void Attack()
@@ -127,6 +168,7 @@ public class MountainGoat : MonoBehaviour
             _attackTime += Time.fixedDeltaTime;
             return;
         }
+
         if (_attackImpulseFp)
         {
             _attackImpulseFp = false;
@@ -138,6 +180,18 @@ public class MountainGoat : MonoBehaviour
         if (_rigidbody.velocity.magnitude < 0.5f)
         {
             StartAttack();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Snowball"))
+        {
+            _state = State.STUNNED;
+            Destroy(_stunIndicator);
+            _stunIndicator = (GameObject)Instantiate(indicator, stunPosition.position, Quaternion.identity);
+            _stunIndicator.transform.parent = transform;
+            _stunTime = 0;
         }
     }
 }
