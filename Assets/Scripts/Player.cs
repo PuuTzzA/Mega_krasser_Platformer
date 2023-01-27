@@ -118,10 +118,10 @@ public class Player : MonoBehaviour
 
                 float targetSpeed = speed * _movement;
 
-                Debug.Log(targetSpeed + "   " + velocity.x + "   " + _movement);
+                // Debug.Log(targetSpeed + "   " + velocity.x + "   " + _movement);
                 if (Mathf.Abs(targetSpeed - velocity.x) <= _airAcc)
                 {
-                    Debug.Log("Setting to target speed");
+                    // Debug.Log("Setting to target speed");
                     velocity.x = targetSpeed;
                 }
                 else
@@ -130,7 +130,7 @@ public class Player : MonoBehaviour
                     if (targetSpeed < velocity.x)
                         factor = -1;
                     velocity.x += _airAcc * factor;
-                    Debug.Log(velocity.x);
+                    // Debug.Log(velocity.x);
                 }
 
             }
@@ -239,6 +239,6 @@ public class Player : MonoBehaviour
 
     public void damage()
     {
-
+        Debug.Log("DAMAGE!!");
     }
 }
