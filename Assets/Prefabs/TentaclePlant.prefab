@@ -49,7 +49,7 @@ MonoBehaviour:
   player: {fileID: 0}
   tentacleAmount: 39
   detectionRadius: 2.46
-  grappleStrength: 0.75
+  grappleStrength: 10
   breakFreeDistance: 0.15
   maxLength: 7
 --- !u!135 &5417875365630371302
