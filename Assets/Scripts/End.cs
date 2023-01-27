@@ -6,6 +6,10 @@ using UnityEngine;
 public class End : MonoBehaviour
 {
     [SerializeField] private GameObject player;
+
+    [SerializeField] private GameObject endUI;
+
+    private bool _triggered;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,9 +24,12 @@ public class End : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == player)
+        if (other.gameObject == player && !_triggered)
         {
-            Debug.Log("Nock du huso do konnsche tian wose willsch");
+            player.GetComponent<Player>().enabled = false;
+            player.GetComponent<Rigidbody>().isKinematic = true;
+            Instantiate(endUI);
+            _triggered = true;
         }
     }
 }
