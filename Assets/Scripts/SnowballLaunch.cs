@@ -21,7 +21,7 @@ public class SnowballLaunch : MonoBehaviour
   private void Update()
   { if (Input.GetButtonDown("Fire1")){
           var snowballing = Instantiate(snowball, throwPoint.position, throwPoint.rotation);
-          snowballing.GetComponent<Rigidbody>().velocity = m.fromLocal(new Vector2(throwVelocity, throwVelocity));
+          snowballing.GetComponent<Rigidbody>().velocity = m.FromLocal(new Vector2(throwVelocity, throwVelocity));
           
           
       }

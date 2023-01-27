@@ -29,9 +29,9 @@ public class UIStart : MonoBehaviour
         _playButton = _Doc.rootVisualElement.Q<Button>("PlayButton");
         Button forwardButton = _Doc.rootVisualElement.Q<Button>("ForwardButton");
         Button backwardButton = _Doc.rootVisualElement.Q<Button>("BackwardButton");
-        _playButton.clicked += playButtonOnClicked;
-        forwardButton.clicked += forwardButtonOnClicked;
-        backwardButton.clicked += backwardButtonOnClicked;
+        _playButton.clicked += PlayButtonOnClicked;
+        forwardButton.clicked += ForwardButtonOnClicked;
+        backwardButton.clicked += BackwardButtonOnClicked;
 
          _Doc.rootVisualElement.RegisterCallback<GeometryChangedEvent>(ev =>
         {
@@ -44,21 +44,21 @@ public class UIStart : MonoBehaviour
     }
 
 
-    private void playButtonOnClicked()
+    private void PlayButtonOnClicked()
     {
         Debug.Log("play Button pressed");
     }
-    private void forwardButtonOnClicked()
+    private void ForwardButtonOnClicked()
     {
-        nextPreview();
+        NextPreview();
     }
-    private void backwardButtonOnClicked()
+    private void BackwardButtonOnClicked()
     {
-        lastPreview();
+        LastPreview();
     }
 
 
-    public void nextPreview()
+    public void NextPreview()
     {
         Destroy(_currentPreview);
         _currentIndex = (_currentIndex + 1) % levels.Length;
@@ -66,7 +66,7 @@ public class UIStart : MonoBehaviour
         _currentPreview.AddComponent<RotateObject>();
     }
 
-    public void lastPreview()
+    public void LastPreview()
     {
         Destroy(_currentPreview);
         _currentIndex = (_currentIndex - 1 + levels.Length) % levels.Length;
