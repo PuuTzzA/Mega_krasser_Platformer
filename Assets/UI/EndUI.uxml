@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Root" style="width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.96);">
+        <ui:VisualElement name="WinLoose" style="height: 40%; align-items: center;">
+            <ui:VisualElement name="WinLoosePic" style="width: 100%; height: 100%; background-image: url(&apos;project://database/Assets/Icons/Death%201.png?fileID=2800000&amp;guid=0f8a69e049c903f4999ebc78fbe6409b&amp;type=3#Death 1&apos;);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Stats" style="height: 40%; width: 100%;" />
+        <ui:VisualElement name="Buttons" style="width: 100%; align-items: center; height: 20%;">
+            <ui:VisualElement name="RetryButton" style="width: 40%;">
+                <ui:Button text="Retry" display-tooltip-when-elided="true" name="Retry" />
+            </ui:VisualElement>
+            <ui:VisualElement name="HomeButton" style="width: 40%;">
+                <ui:Button text="Home" display-tooltip-when-elided="true" name="Home" style="width: auto;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
