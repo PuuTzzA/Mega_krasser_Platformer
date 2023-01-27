@@ -49,7 +49,7 @@ MonoBehaviour:
   player: {fileID: 0}
   tentacleAmount: 39
   detectionRadius: 2.46
-  grappleStrength: 0.75
+  grappleStrength: 10
   breakFreeDistance: 0.15
   maxLength: 7
 --- !u!135 &5417875365630371302
@@ -63,5 +63,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.9
   m_Center: {x: 0, y: 0, z: 0}
