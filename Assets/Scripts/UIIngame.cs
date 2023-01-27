@@ -30,8 +30,8 @@ public class UIIngame : MonoBehaviour
         _heart2 = _Doc.rootVisualElement.Q<VisualElement>("Heart2");
         _heart3 = _Doc.rootVisualElement.Q<VisualElement>("Heart3");
 
-        setLives(1);
-        setCollectableText("0");
+        SetLives(1);
+        SetCollectableText("0");
 
 
     }
@@ -47,11 +47,11 @@ public class UIIngame : MonoBehaviour
         });
     }
 
-    public void setCollectableText(string text){
+    public void SetCollectableText(string text){
         _counter.text = text;
     }
 
-    public void setLives(int lives)
+    public void SetLives(int lives)
     {
         if (lives < 4 && lives > -1 && this._lives != lives)
         {

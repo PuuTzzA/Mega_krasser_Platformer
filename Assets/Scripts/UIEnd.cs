@@ -28,23 +28,23 @@ public class UIEnd : MonoBehaviour
         _homeButton = _Doc.rootVisualElement.Q<Button>("Home");
         _winLoosePic = _Doc.rootVisualElement.Q<Button>("WinLoosePic");
 
-        _retryButton.clicked += retryButtonOnClicked;
-        _homeButton.clicked += retryButtonOnClicked;
+        _retryButton.clicked += RetryButtonOnClicked;
+        _homeButton.clicked += RetryButtonOnClicked;
 
         _winLoosePic.style.backgroundImage = won ? winPicture : loosePicture;
     }
 
-    private void retryButtonOnClicked()
+    private void RetryButtonOnClicked()
     {
         Debug.Log("play Button pressed");
     }
 
-    private void homeButtonOnClicked()
+    private void HomeButtonOnClicked()
     {
         Debug.Log("play Button pressed");
     }
 
-    private void setWon(bool won)
+    private void SetWon(bool won)
     {
         if (this.won != won)
         {
