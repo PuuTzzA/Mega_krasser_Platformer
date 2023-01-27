@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Snowball : MonoBehaviour
 {
-    private float delay = 0.1f;
+   // private float delay = 0.1f;
     [SerializeField] private GameObject snow;
 
     private void Start()
