@@ -36,6 +36,7 @@ public class Arrow : MonoBehaviour
         {
             // Remove Lives
             Debug.Log("Remove Lives");
+            // player.GetComponent<Player>().addDamage();
             Destroy(gameObject);
         }
     }

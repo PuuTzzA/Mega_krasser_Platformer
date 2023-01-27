@@ -21,11 +21,16 @@ public class MountainGoat : MonoBehaviour
 
     [SerializeField] private float attackStrenght;
 
-
+    [Header("Stun Settings")] [SerializeField]
+    private float stunDuration;
+    [SerializeField] private GameObject indicator;
+    [SerializeField] private Transform stunPosition;
+    
     enum State
     {
         PATROLE,
         ATTACKING,
+        STUNNED
     }
 
     private State _state = State.PATROLE;
@@ -36,6 +41,8 @@ public class MountainGoat : MonoBehaviour
     private bool _attackFp;
     private bool _attackBefore;
     private bool _attackImpulseFp;
+    private GameObject _stunIndicator;
+    private float _stunTime;
 
     // Start is called before the first frame update
     void Start()
@@ -53,15 +60,27 @@ public class MountainGoat : MonoBehaviour
                 break;
             case State.ATTACKING:
                 break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            case State.STUNNED:
+                _stunTime += Time.fixedDeltaTime;
+                if (_stunTime > stunDuration)
+                {
+                    Destroy(_stunIndicator);
+                    _state = State.PATROLE;
+                }
+                break;
+        }
+
+        if (_state == State.STUNNED)
+        {
+            return;
         }
 
         transform.rotation = Quaternion.Lerp(transform.rotation, _goalRotation, Time.fixedDeltaTime * rotationSpeed);
 
         // Check if Player is in Detection Range and in front of the goat 
         if (Vector3.Distance(player.transform.position, transform.position) <= detectionRange &&
-            Vector3.Dot(transform.forward, player.transform.position) < 0)
+            Vector3.Dot(transform.forward, player.transform.position) < 0 &&
+            Mathf.Abs(player.transform.position.y - transform.position.y) < 5f)
         {
             _attackFp = true;
             if (!_attackBefore && _attackFp)
@@ -69,13 +88,15 @@ public class MountainGoat : MonoBehaviour
                 _state = State.ATTACKING;
                 StartAttack();
             }
+
             Attack();
         }
         else
         {
-            _attackFp = false;
-            _state = State.PATROLE;
+                _attackFp = false;
+                _state = State.PATROLE;
         }
+
         _attackBefore = _attackFp;
     }
 
@@ -127,6 +148,7 @@ public class MountainGoat : MonoBehaviour
             _attackTime += Time.fixedDeltaTime;
             return;
         }
+
         if (_attackImpulseFp)
         {
             _attackImpulseFp = false;
@@ -140,4 +162,17 @@ public class MountainGoat : MonoBehaviour
             StartAttack();
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Snowball"))
+        {
+            _state = State.STUNNED;
+            Destroy(_stunIndicator);
+            _stunIndicator = (GameObject) Instantiate(indicator, stunPosition.position, Quaternion.identity);
+            _stunIndicator.transform.parent = transform;
+            _stunTime = 0;
+        }
+    }
+
 }
