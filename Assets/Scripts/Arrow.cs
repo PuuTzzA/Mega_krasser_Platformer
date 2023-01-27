@@ -35,8 +35,7 @@ public class Arrow : MonoBehaviour
         if (collision.gameObject == player)
         {
             // Remove Lives
-            Debug.Log("Remove Lives");
-            // player.GetComponent<Player>().addDamage();
+            player.GetComponent<Player>().damage();
             Destroy(gameObject);
         }
     }
