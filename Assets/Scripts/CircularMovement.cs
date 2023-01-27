@@ -7,6 +7,7 @@ public class CircularMovement : MonoBehaviour
 
     private float _radius;
     private Rigidbody _rb;
+    private bool _frontFacing;
 
     private void Start()
     {
@@ -27,13 +28,13 @@ public class CircularMovement : MonoBehaviour
         PullOnCircle();
         if(_rb != null)
         {
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, GetDegrees(), transform.eulerAngles.z);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, GetDegrees() + (_frontFacing ? 0 : 180), transform.eulerAngles.z);
         }
         else
         {
-            var velocity = toLocal(_rb.velocity);
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, GetDegrees(), transform.eulerAngles.z);
-            _rb.velocity = fromLocal(velocity);
+            var velocity = ToLocal(_rb.velocity);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, GetDegrees() + (_frontFacing ? 0 : 180), transform.eulerAngles.z);
+            _rb.velocity = FromLocal(velocity);
         }
     }
 
@@ -87,14 +88,35 @@ public class CircularMovement : MonoBehaviour
         SetXZPosition(new Vector2(Mathf.Cos(degrees * Mathf.PI / 180.0f), - Mathf.Sin(degrees * Mathf.PI / 180.0f)));
     }
 
-    public Vector2 toLocal(Vector3 vec)
+    public Vector2 ToLocal(Vector3 vec)
     {
         Vector3 temp = transform.InverseTransformDirection(vec);
         return new Vector2(temp.z, temp.y);
     }
 
-    public Vector3 fromLocal(Vector2 vec)
+    public Vector3 FromLocal(Vector2 vec)
     {
         return transform.TransformDirection(new Vector3(0, vec.y, vec.x));
+    }
+
+    public bool IsFrontFacing()
+    {
+        return _frontFacing;
+    }
+
+    public void SetFrontFacing(bool frontFacing)
+    {
+        if(frontFacing != _frontFacing)
+            if (_rb != null)
+            {
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, GetDegrees() + (_frontFacing ? 0 : 180), transform.eulerAngles.z);
+            }
+            else
+            {
+                var velocity = ToLocal(_rb.velocity);
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, GetDegrees() + (_frontFacing ? 0 : 180), transform.eulerAngles.z);
+                _rb.velocity = FromLocal(velocity);
+            }
+        _frontFacing = frontFacing;
     }
 }
