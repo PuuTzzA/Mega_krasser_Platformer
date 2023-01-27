@@ -4872,3 +4872,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  endUI: {fileID: 6232111397413692074, guid: 299479b53c79fe5488e64c7c21715e58, type: 3}

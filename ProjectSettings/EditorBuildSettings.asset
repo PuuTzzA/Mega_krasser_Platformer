@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StartUI.unity
     guid: 29786f4b8bcf10a44ab6812da71b1f46
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Testthings/MulsiScene.unity
-    guid: 9f9d416d73a837f478f9d5451d934cff
+    path: Assets/Scenes/Level0.unity
+    guid: f82ad3c76ed79df4a8346a5ae148b6ed
   m_configObjects: {}
