@@ -128,27 +128,6 @@ public class Player : MonoBehaviour
 
     }
 
-    public void OnStateEnd(State state)
-    {
-
-    }
-
-    public void OnStateBegin(State state)
-    {
-    }
-
-    public void SetState(State newState)
-    {
-        OnStateEnd(_state);
-        _state = newState;
-        OnStateEnd(_state);
-    }
-
-    public State GetState()
-    {
-        return _state;
-    }
-
     public void SetGrounded(bool grounded)
     {
         this._grounded = grounded;
