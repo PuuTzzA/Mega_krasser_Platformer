@@ -24,6 +24,12 @@ public class Arrow : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject == player)
+        {
+            // Remove Lives
+            player.GetComponent<Player>().damage();
+            Destroy(gameObject);
+        }
         if (other.gameObject == despawnZone)
         {
             Destroy(gameObject);
@@ -35,7 +41,7 @@ public class Arrow : MonoBehaviour
         if (collision.gameObject == player)
         {
             // Remove Lives
-            Debug.Log("Remove Lives");
+            player.GetComponent<Player>().damage();
             Destroy(gameObject);
         }
     }
