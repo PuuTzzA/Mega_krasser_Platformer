@@ -35,8 +35,7 @@ public class TentaclePlant : MonoBehaviour
     {
         if (other.gameObject == player)
         {
-            Debug.Log("remove Live");
-            
+            player.GetComponent<Player>().damage();
         }
     }
 }
