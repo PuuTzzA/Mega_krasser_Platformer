@@ -11,6 +11,12 @@ public class GroundChecker : MonoBehaviour
         player = transform.parent.GetComponent<Player>();
     }
 
+    private void FixedUpdate()
+    {
+        Debug.Log("setting false");
+        player.SetGrounded(false);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject != player.gameObject)
@@ -44,6 +50,7 @@ public class GroundChecker : MonoBehaviour
 
         if (other.gameObject != player.gameObject)
         {
+            Debug.Log("stayed, so true");
             player.SetGrounded(true);
             RaycastHit hit;
             if (player.IsGrounded() && Physics.Raycast(transform.position, Vector3.down, out hit))
