@@ -7,23 +7,35 @@ public class Player : MonoBehaviour
 {
     private CircularMovement _m;
     private Rigidbody _rb;
+    private UIIngame _ingameUI;
+
     private bool _grounded;
     private int _direction;
     private int _movement;
     private Vector2 _moveVector;
     private bool _touchingWall;
+
     private bool _hasSecondJump;
+    private float _airAcc;
 
     private bool _dashing;
     private bool _hasAirDash = true;
-    private float _groundDashCooldown;
+    private float _groundDashRemainingCooldown;
 
+    private bool _invisFrames;
+    
+    private int _coins;
+
+    private int _health;
+
+    private float _speed = 8.0f;
     private float _baseAirAcc = 80.0f;
-    private float _airAcc;
+    private float _groundDashCooldown = 2.0f;
+    private int _maxHealth = 3;
+    private float _invisFramesDuration = 2.0f;
 
-    public float speed = 8.0f;
-    public GameObject groundChecker, wallChecker;
-    private int coinsAdd;
+    public GameObject groundChecker, wallChecker, uiIngameObj, endScreenPrefab;
+
     public void OnMove(InputAction.CallbackContext context)
     {
         var value = context.ReadValue<Vector2>().x;
@@ -84,15 +96,15 @@ public class Player : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (context.started && (_grounded ? _groundDashCooldown <= 0 : _hasAirDash))
+        if (context.started && (_grounded ? _groundDashRemainingCooldown <= 0 : _hasAirDash))
         {
             var velocity = _m.ToLocal(_rb.velocity);
-            velocity.x = speed * 4;
+            velocity.x = _speed * 4;
             _rb.velocity = _m.FromLocal(velocity);
             StartDashing();
             StartCoroutine(DashCoroutine());
             if (_grounded)
-                _groundDashCooldown = 2;
+                _groundDashRemainingCooldown = _groundDashCooldown;
             else
                 _hasAirDash = false;
         }
@@ -108,6 +120,14 @@ public class Player : MonoBehaviour
         _hasSecondJump = true;
 
         _airAcc = _baseAirAcc;
+
+        _coins = 0;
+
+        _health = _maxHealth;
+
+        _ingameUI = uiIngameObj.GetComponent<UIIngame>();
+
+        _invisFrames = false;
     }
 
 
@@ -119,7 +139,7 @@ public class Player : MonoBehaviour
             if (!_grounded)
             {
 
-                float targetSpeed = speed * _movement;
+                float targetSpeed = _speed * _movement;
                 if (Mathf.Abs(targetSpeed - velocity.x) <= _airAcc * Time.deltaTime)
                 {
                     velocity.x = targetSpeed;
@@ -136,15 +156,15 @@ public class Player : MonoBehaviour
             /**/
             else
             {
-                velocity.x = speed * _movement * _moveVector.x;
-                velocity.y = speed * _movement * _moveVector.y;
+                velocity.x = _speed * _movement * _moveVector.x;
+                velocity.y = _speed * _movement * _moveVector.y;
             }
 
             if (_touchingWall)
             {
                 velocity.y = Mathf.Max(velocity.y, -3.0f);
             }/**/
-            velocity.x = Mathf.Clamp(velocity.x, -speed, speed);
+            velocity.x = Mathf.Clamp(velocity.x, -_speed, _speed);
             velocity.y = Mathf.Clamp(velocity.y, -30.0f, 30.0f);
             _rb.velocity = _m.FromLocal(velocity);
 
@@ -156,8 +176,8 @@ public class Player : MonoBehaviour
             velocity.x -= 1.0f;
             _rb.velocity = _m.FromLocal(velocity);
         }
-        if (_groundDashCooldown >= 0)
-            _groundDashCooldown -= Time.deltaTime;
+        if (_groundDashRemainingCooldown >= 0)
+            _groundDashRemainingCooldown -= Time.deltaTime;
     }
 
     public void SetGrounded(bool grounded)
@@ -217,6 +237,13 @@ public class Player : MonoBehaviour
         EndDashing();
     }
 
+    public IEnumerator InvisFramesCoroutine()
+    {
+        _invisFrames = true;
+        yield return new WaitForSeconds(_invisFramesDuration);
+        _invisFrames = false;
+    }
+
     public void StartDashing()
     {
         _dashing = true;
@@ -240,12 +267,19 @@ public class Player : MonoBehaviour
 
     public void addCoin()
     {
-        coinsAdd++; 
-
+        _coins++;
+        _ingameUI.SetCollectableText("" + (++_coins));
     }
 
     public void damage()
     {
-        Debug.Log("DAMAGE!!");
+        //Debug.Log("DAMAGE!!");
+        if (!_invisFrames)
+        {
+            StartCoroutine(InvisFramesCoroutine());
+            _ingameUI.SetLives(--_health);
+            if (_health <= 0)
+                Instantiate(endScreenPrefab);
+        }
     }
 }
