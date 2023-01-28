@@ -18,7 +18,8 @@ public class Player : MonoBehaviour
     private bool _hasAirDash = true;
     private float _groundDashCooldown;
 
-    private float _airAcc = 1.0f;
+    private float _baseAirAcc = 80.0f;
+    private float _airAcc;
 
     public float speed = 8.0f;
     public GameObject groundChecker, wallChecker;
@@ -55,15 +56,15 @@ public class Player : MonoBehaviour
                 var velocity = _m.ToLocal(_rb.velocity);
                 velocity.y = 15.0f;
                 _rb.velocity = _m.FromLocal(velocity);
-                groundChecker.GetComponent<CapsuleCollider>().enabled = false;
+                GroundCheckerEnabled(false);
                 _grounded = false;
                 StartCoroutine(JumpCoroutine());
             }
             else if (_touchingWall)
             {
                 var velocity = _m.ToLocal(_rb.velocity);
-                velocity.y = 15.0f;
-                velocity.x = -15.0f;
+                velocity.y = 13.0f;
+                velocity.x = -13.0f;
                 _rb.velocity = _m.FromLocal(velocity);
                 _airAcc = 0.0f;
                 StartCoroutine(WallJumpCoroutine());
@@ -73,7 +74,7 @@ public class Player : MonoBehaviour
                 var velocity = _m.ToLocal(_rb.velocity);
                 velocity.y = 15.0f;
                 _rb.velocity = _m.FromLocal(velocity);
-                groundChecker.GetComponent<CapsuleCollider>().enabled = false;
+                GroundCheckerEnabled(false);
                 _grounded = false;
                 _hasSecondJump = false;
                 StartCoroutine(JumpCoroutine());
@@ -105,10 +106,12 @@ public class Player : MonoBehaviour
         //rb.velocity = Vector3.right * 15;
         _direction = 1;
         _hasSecondJump = true;
+
+        _airAcc = _baseAirAcc;
     }
 
 
-    void FixedUpdate()
+    void Update()
     {
         if (!_dashing)
         {
@@ -117,11 +120,8 @@ public class Player : MonoBehaviour
             {
 
                 float targetSpeed = speed * _movement;
-
-                Debug.Log(targetSpeed + "   " + velocity.x + "   " + _movement);
-                if (Mathf.Abs(targetSpeed - velocity.x) <= _airAcc)
+                if (Mathf.Abs(targetSpeed - velocity.x) <= _airAcc * Time.deltaTime)
                 {
-                    Debug.Log("Setting to target speed");
                     velocity.x = targetSpeed;
                 }
                 else
@@ -129,8 +129,7 @@ public class Player : MonoBehaviour
                     float factor = 1;
                     if (targetSpeed < velocity.x)
                         factor = -1;
-                    velocity.x += _airAcc * factor;
-                    Debug.Log(velocity.x);
+                    velocity.x += _airAcc * Time.deltaTime * factor;
                 }
 
             }
@@ -158,7 +157,7 @@ public class Player : MonoBehaviour
             _rb.velocity = _m.FromLocal(velocity);
         }
         if (_groundDashCooldown >= 0)
-            _groundDashCooldown -= Time.fixedDeltaTime;
+            _groundDashCooldown -= Time.deltaTime;
     }
 
     public void SetGrounded(bool grounded)
@@ -169,6 +168,11 @@ public class Player : MonoBehaviour
             this._hasSecondJump = true;
             this._hasAirDash = true;
         }
+    }
+
+    public void GroundCheckerEnabled(bool enabled)
+    {
+        groundChecker.GetComponent<CapsuleCollider>().enabled = enabled;
     }
 
     public bool IsGrounded()
@@ -194,17 +198,17 @@ public class Player : MonoBehaviour
     public IEnumerator JumpCoroutine()
     {
         yield return new WaitForSeconds(0.2f);
-        groundChecker.GetComponent<CapsuleCollider>().enabled = true;
+        GroundCheckerEnabled(true);
     }
 
     public IEnumerator WallJumpCoroutine()
     {
-        yield return new WaitForSeconds(0.2f);
-        _airAcc = 0.2f;
-        yield return new WaitForSeconds(0.2f);
-        _airAcc = 0.5f;
+        yield return new WaitForSeconds(0.25f);
+        _airAcc = 0.2f * _baseAirAcc;
+        yield return new WaitForSeconds(0.25f);
+        _airAcc = 0.5f * _baseAirAcc;
         yield return new WaitForSeconds(0.1f);
-        _airAcc = 1.0f;
+        _airAcc = 1.0f * _baseAirAcc;
     }
 
     public IEnumerator DashCoroutine()
@@ -218,12 +222,14 @@ public class Player : MonoBehaviour
         _dashing = true;
         _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
         _rb.useGravity = false;
+        GroundCheckerEnabled(false);
     }
 
     public void EndDashing()
     {
         _dashing = false;
         _rb.useGravity = true;
+        GroundCheckerEnabled(true);
     }
 
     public void OnCollisionEnter(Collision collision)
