@@ -16,7 +16,8 @@ public class Collectables : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
-        { Destroy(coin);
+        { other.GetComponent<Player>().addCoin();
+            Destroy(coin);
         }
     }
 }

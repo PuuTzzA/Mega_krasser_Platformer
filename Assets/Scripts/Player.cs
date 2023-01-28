@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
 
     public float speed = 8.0f;
     public GameObject groundChecker, wallChecker;
-
+    private int coinsAdd;
     public void OnMove(InputAction.CallbackContext context)
     {
         var value = context.ReadValue<Vector2>().x;
@@ -240,11 +240,12 @@ public class Player : MonoBehaviour
 
     public void addCoin()
     {
+        coinsAdd++; 
 
     }
 
     public void damage()
     {
-
+        Debug.Log("DAMAGE!!");
     }
 }
