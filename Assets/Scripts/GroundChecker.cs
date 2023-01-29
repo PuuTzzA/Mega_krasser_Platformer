@@ -13,7 +13,6 @@ public class GroundChecker : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log("setting false");
         player.SetGrounded(false);
     }
 
@@ -26,7 +25,6 @@ public class GroundChecker : MonoBehaviour
             if (player.IsGrounded() && Physics.Raycast(transform.position, Vector3.down, out hit))
             {
                 Vector2 normal2D = player.GetComponent<CircularMovement>().ToLocal(hit.normal);
-                Debug.Log(normal2D.ToString());
                 player.SetMoveVector(new Vector2(normal2D.y, -normal2D.x));
             }
             else
@@ -50,7 +48,6 @@ public class GroundChecker : MonoBehaviour
 
         if (other.gameObject != player.gameObject)
         {
-            Debug.Log("stayed, so true");
             player.SetGrounded(true);
             RaycastHit hit;
             if (player.IsGrounded() && Physics.Raycast(transform.position, Vector3.down, out hit))
