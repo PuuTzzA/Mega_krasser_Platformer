@@ -267,7 +267,6 @@ public class Player : MonoBehaviour
 
     public void addCoin()
     {
-        _coins++;
         _ingameUI.SetCollectableText("" + (++_coins));
     }
 
