@@ -1356,7 +1356,7 @@
             "x": 1.0,
             "y": 1.0,
             "z": 1.0,
-            "w": 0.011657892726361752
+            "w": 0.14868390560150147
         },
         {
             "x": 0.7547169923782349,
@@ -1900,7 +1900,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Scale",
     "m_StageCapability": 3,
-    "m_Value": 817.5999755859375,
+    "m_Value": 198.6999969482422,
     "m_DefaultValue": 500.0,
     "m_Labels": []
 }
@@ -2751,7 +2751,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Scale",
     "m_StageCapability": 3,
-    "m_Value": 1163.0,
+    "m_Value": 93.69999694824219,
     "m_DefaultValue": 500.0,
     "m_Labels": []
 }

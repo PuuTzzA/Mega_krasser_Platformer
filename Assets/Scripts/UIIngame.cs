@@ -30,7 +30,7 @@ public class UIIngame : MonoBehaviour
         _heart2 = _Doc.rootVisualElement.Q<VisualElement>("Heart2");
         _heart3 = _Doc.rootVisualElement.Q<VisualElement>("Heart3");
 
-        SetLives(1);
+        SetLives(3);
         SetCollectableText("0");
 
 

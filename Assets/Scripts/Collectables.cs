@@ -5,19 +5,14 @@ using UnityEngine;
 
 public class Collectables : MonoBehaviour
 {
-    private float rotation = 1f;
-    [SerializeField] private GameObject coin;
-    void Update()
-    {
-       transform.Rotate(0, rotation, 0,Space.World);
-
-    }
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("coin touched other " + other.ToString());
         if (other.gameObject.tag == "Player")
-        { other.GetComponent<Player>().addCoin();
-            Destroy(coin);
+        {
+            other.GetComponent<Player>().addCoin();
+            Destroy(gameObject);
         }
     }
 }
