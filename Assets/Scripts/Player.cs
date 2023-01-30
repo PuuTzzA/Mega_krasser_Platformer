@@ -284,7 +284,7 @@ public class Player : MonoBehaviour
 
     public void damage()
     {
-        //Debug.Log("DAMAGE!!");
+        Debug.Log("DAMAGE!!");
         if (!_invisFrames)
         {
             StartCoroutine(InvisFramesCoroutine());
