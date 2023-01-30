@@ -165,7 +165,6 @@ public class Player : MonoBehaviour
             else
             {
                 velocity.x = _speed * _movement;
-                velocity.y = _speed * _movement;
             }
 
             if (_touchingWall)
