@@ -115,6 +115,9 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        Debug.Log(DefaultNamespace.GameManager.GetInstance().PlayerName);
+
         _m = GetComponent<CircularMovement>();
         _rb = GetComponent<Rigidbody>();
         //rb.velocity = Vector3.right * 15;
