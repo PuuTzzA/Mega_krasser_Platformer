@@ -13,19 +13,19 @@ public class WallChecker : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject != player)
+        if (other.gameObject != player && other.CompareTag("terrain"))
             player.SetTouchingWall(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject != player)
+        if (other.gameObject != player && other.CompareTag("terrain"))
             player.SetTouchingWall(false);
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject != player)
+        if (other.gameObject != player && other.CompareTag("terrain"))
             player.SetTouchingWall(true);
     }
 }
