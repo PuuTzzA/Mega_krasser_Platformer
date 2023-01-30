@@ -11,9 +11,14 @@ public class GroundChecker : MonoBehaviour
         player = transform.parent.GetComponent<Player>();
     }
 
+    private void FixedUpdate()
+    {
+        player.SetGrounded(false);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject != player.gameObject)
+        if (other.gameObject != player.gameObject && other.CompareTag("terrain"))
         {
             player.SetGrounded(true);
             RaycastHit hit;
@@ -31,7 +36,7 @@ public class GroundChecker : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject != player.gameObject)
+        if (other.gameObject != player.gameObject && other.CompareTag("terrain"))
         {
             player.SetGrounded(false);
             player.SetMoveVector(new Vector2(1.0f, 0.0f));
@@ -41,7 +46,7 @@ public class GroundChecker : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
 
-        if (other.gameObject != player.gameObject)
+        if (other.gameObject != player.gameObject && other.CompareTag("terrain"))
         {
             player.SetGrounded(true);
             RaycastHit hit;
@@ -56,15 +61,4 @@ public class GroundChecker : MonoBehaviour
             }
         }
     }
-
-    public float GetVerticalSpeedDiff(GameObject other)
-    {
-        float ySpeed = player.GetComponent<Rigidbody>().velocity.y;
-        var rb = other.GetComponent<Rigidbody>();
-        if(rb != null)
-        {
-            return ySpeed - rb.velocity.y;
-        }
-        return ySpeed;
-    }/**/
 }

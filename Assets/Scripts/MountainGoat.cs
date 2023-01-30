@@ -22,6 +22,7 @@ public class MountainGoat : MonoBehaviour
 
     [SerializeField] private float attackStrenght;
     [SerializeField] private LayerMask layerMask;
+    [SerializeField] private GameObject angryIndicator;
 
     [Header("Stun Settings")] [SerializeField]
     private float stunDuration;
@@ -29,14 +30,14 @@ public class MountainGoat : MonoBehaviour
     [SerializeField] private GameObject indicator;
     [SerializeField] private Transform stunPosition;
 
-    enum State
+    public enum State
     {
         PATROLE,
         ATTACKING,
         STUNNED
     }
 
-    private State _state = State.PATROLE;
+    public State _state = State.PATROLE;
     private Rigidbody _rigidbody;
     private int _currentPatrolPoint;
     private Quaternion _goalRotation;
@@ -56,9 +57,15 @@ public class MountainGoat : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (transform.position.y < -20)
+        {
+            Destroy(gameObject);
+        }
+        
         switch (_state)
         {
             case State.PATROLE:
+                Destroy(_stunIndicator);
                 Patrol();
                 break;
             case State.ATTACKING:
@@ -68,7 +75,6 @@ public class MountainGoat : MonoBehaviour
                 _stunTime += Time.fixedDeltaTime;
                 if (_stunTime > stunDuration)
                 {
-                    Destroy(_stunIndicator);
                     _state = State.PATROLE;
                 }
 
@@ -147,6 +153,9 @@ public class MountainGoat : MonoBehaviour
         RotateToPlayer();
         _attackTime = 0;
         _attackImpulseFp = true;
+        Destroy(_stunIndicator);
+        _stunIndicator = (GameObject)Instantiate(angryIndicator, stunPosition.position, Quaternion.identity);
+        _stunIndicator.transform.parent = transform;
     }
 
     private void RotateToPlayer()
@@ -168,6 +177,8 @@ public class MountainGoat : MonoBehaviour
             _attackTime += Time.fixedDeltaTime;
             return;
         }
+
+        Destroy(_stunIndicator);
 
         if (_attackImpulseFp)
         {
