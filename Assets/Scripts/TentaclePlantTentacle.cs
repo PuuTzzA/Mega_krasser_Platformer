@@ -42,7 +42,7 @@ public class TentaclePlantTentacle : MonoBehaviour
     void Start()
     {
         _lineRenderer = GetComponent<LineRenderer>();
-        _playerCollider = player.GetComponent<Collider>();
+        _playerCollider = player.GetComponent<CapsuleCollider>();
         _playerRigidbody = player.GetComponent<Rigidbody>();
 
         _segmentPositions = new Vector3[length];

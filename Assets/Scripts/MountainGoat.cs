@@ -30,14 +30,14 @@ public class MountainGoat : MonoBehaviour
     [SerializeField] private GameObject indicator;
     [SerializeField] private Transform stunPosition;
 
-    enum State
+    public enum State
     {
         PATROLE,
         ATTACKING,
         STUNNED
     }
 
-    private State _state = State.PATROLE;
+    public State _state = State.PATROLE;
     private Rigidbody _rigidbody;
     private int _currentPatrolPoint;
     private Quaternion _goalRotation;
