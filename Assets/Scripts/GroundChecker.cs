@@ -11,11 +11,6 @@ public class GroundChecker : MonoBehaviour
         player = transform.parent.GetComponent<Player>();
     }
 
-    private void FixedUpdate()
-    {
-        player.SetGrounded(false);
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject != player.gameObject && other.CompareTag("terrain"))
