@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6742040674887134138}
   m_Layer: 0
   m_Name: BridgeG
-  m_TagString: Untagged
+  m_TagString: terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,8 +89,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2091346902605338467, guid: e155e05a1ba668f42a20f0dc2c39d96c, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 2091346902605338467, guid: e155e05a1ba668f42a20f0dc2c39d96c, type: 3}
       propertyPath: m_Name
       value: End
+      objectReference: {fileID: 0}
+    - target: {fileID: 2091346902605338467, guid: e155e05a1ba668f42a20f0dc2c39d96c, type: 3}
+      propertyPath: m_TagString
+      value: terrain
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e155e05a1ba668f42a20f0dc2c39d96c, type: 3}
@@ -107,8 +115,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 6742040674887134138}
     m_Modifications:
     - target: {fileID: 1843813950628473256, guid: 8f19c364d0e3bb4488ae1243aea2e19a, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 1843813950628473256, guid: 8f19c364d0e3bb4488ae1243aea2e19a, type: 3}
       propertyPath: m_Name
       value: Start
+      objectReference: {fileID: 0}
+    - target: {fileID: 1843813950628473256, guid: 8f19c364d0e3bb4488ae1243aea2e19a, type: 3}
+      propertyPath: m_TagString
+      value: terrain
       objectReference: {fileID: 0}
     - target: {fileID: 1843813950628473260, guid: 8f19c364d0e3bb4488ae1243aea2e19a, type: 3}
       propertyPath: m_RootOrder

@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     private float _groundDashCooldown = 2.0f;
     private int _maxHealth = 3;
     private float _invisFramesDuration = 2.0f;
-    private float _deathDepth;
+    private float _deathDepth ;
 
     public GameObject groundChecker, wallChecker, uiIngameObj, endScreenPrefab;
 
