@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
     void Start()
     {
 
-        Debug.Log(DefaultNamespace.GameManager.GetInstance().PlayerName);
+      
 
         _m = GetComponent<CircularMovement>();
         _rb = GetComponent<Rigidbody>();
