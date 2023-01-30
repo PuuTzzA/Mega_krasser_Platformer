@@ -111,6 +111,9 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+      
+
         _m = GetComponent<CircularMovement>();
         _rb = GetComponent<Rigidbody>();
         //rb.velocity = Vector3.right * 15;

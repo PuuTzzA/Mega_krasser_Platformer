@@ -14,7 +14,7 @@ public class MountainGoatKnockback : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == player)
+        if (other.gameObject == player && transform.parent.gameObject.GetComponent<MountainGoat>()._state != MountainGoat.State.STUNNED)
         {
             player.GetComponent<Player>().damage();
         }

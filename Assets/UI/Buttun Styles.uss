@@ -3,13 +3,11 @@
     font-size: 50px;
     -unity-text-outline-color: rgba(0, 0, 0, 0);
     top: 50%;
-    color: rgb(255, 255, 255);
+    color: rgb(88, 250, 223);
 }
 
 .button:hover {
-    font-size: 50px;
-    color: rgb(30, 255, 0);
-    -unity-font-style: normal;
+    color: rgba(255, 255, 255, 255);
 }
 
 .arrows {
@@ -23,4 +21,8 @@
     border-bottom-color: rgba(0, 0, 0, 0);
     font-size: 60px;
     background-image: url('project://database/Assets/Icons/arrow.png?fileID=2800000&guid=749aaaccc4747e744a342335d99aa222&type=3#arrow');
+}
+
+.button {
+    color: rgba(88, 250, 223, 255);
 }
