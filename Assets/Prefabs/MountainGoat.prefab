@@ -221,6 +221,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1048627
+  angryIndicator: {fileID: 5158215866169505807, guid: 1d1c411c85995ed46bd5fe5f2433b06f, type: 3}
   stunDuration: 2.5
   indicator: {fileID: 3737021715445592066, guid: e1a855187c4108943913ae9d69f4dab8, type: 3}
   stunPosition: {fileID: 2409331915263567873}
