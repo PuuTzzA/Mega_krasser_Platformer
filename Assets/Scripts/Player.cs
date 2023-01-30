@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     private bool _dashing;
     private bool _hasAirDash = true;
     private float _groundDashRemainingCooldown;
+    private float _dashSpeed = 40.0f;
+    private float _currentDashSpeed;
 
     private bool _invisFrames;
     
@@ -29,10 +31,14 @@ public class Player : MonoBehaviour
     private int _health;
 
     private float _speed = 8.0f;
+    private float _jumpSpeed = 15.0f;
+    private Vector2 _wallJumpSpeed = new Vector2(-13.0f, 13.0f);
+    private float _wallSlideSpeed = 3.0f;
     private float _baseAirAcc = 80.0f;
     private float _groundDashCooldown = 2.0f;
     private int _maxHealth = 3;
     private float _invisFramesDuration = 2.0f;
+    private float _deathDepth;
 
     public GameObject groundChecker, wallChecker, uiIngameObj, endScreenPrefab;
 
@@ -66,7 +72,7 @@ public class Player : MonoBehaviour
             if (_grounded)
             {
                 var velocity = _m.ToLocal(_rb.velocity);
-                velocity.y = 15.0f;
+                velocity.y = _jumpSpeed;
                 _rb.velocity = _m.FromLocal(velocity);
                 GroundCheckerEnabled(false);
                 _grounded = false;
@@ -75,8 +81,7 @@ public class Player : MonoBehaviour
             else if (_touchingWall)
             {
                 var velocity = _m.ToLocal(_rb.velocity);
-                velocity.y = 13.0f;
-                velocity.x = -13.0f;
+                velocity = _wallJumpSpeed;
                 _rb.velocity = _m.FromLocal(velocity);
                 _airAcc = 0.0f;
                 StartCoroutine(WallJumpCoroutine());
@@ -84,7 +89,7 @@ public class Player : MonoBehaviour
             else if (_hasSecondJump)
             {
                 var velocity = _m.ToLocal(_rb.velocity);
-                velocity.y = 15.0f;
+                velocity.y = _jumpSpeed;
                 _rb.velocity = _m.FromLocal(velocity);
                 GroundCheckerEnabled(false);
                 _grounded = false;
@@ -98,9 +103,6 @@ public class Player : MonoBehaviour
     {
         if (context.started && (_grounded ? _groundDashRemainingCooldown <= 0 : _hasAirDash))
         {
-            var velocity = _m.ToLocal(_rb.velocity);
-            velocity.x = _speed * 4;
-            _rb.velocity = _m.FromLocal(velocity);
             StartDashing();
             StartCoroutine(DashCoroutine());
             if (_grounded)
@@ -133,6 +135,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (transform.position.y < -_deathDepth)
+        {
+            death();
+            return;
+        }
         if (!_dashing)
         {
             var velocity = _m.ToLocal(_rb.velocity);
@@ -162,7 +169,7 @@ public class Player : MonoBehaviour
 
             if (_touchingWall)
             {
-                velocity.y = Mathf.Max(velocity.y, -3.0f);
+                velocity.y = Mathf.Max(velocity.y, -_wallSlideSpeed);
             }/**/
             velocity.x = Mathf.Clamp(velocity.x, -_speed, _speed);
             velocity.y = Mathf.Clamp(velocity.y, -30.0f, 30.0f);
@@ -172,8 +179,9 @@ public class Player : MonoBehaviour
         }
         else
         {
+            _currentDashSpeed -= 1.0f;
             var velocity = _m.ToLocal(_rb.velocity);
-            velocity.x -= 1.0f;
+            velocity.x = _currentDashSpeed;
             _rb.velocity = _m.FromLocal(velocity);
         }
         if (_groundDashRemainingCooldown >= 0)
@@ -246,8 +254,12 @@ public class Player : MonoBehaviour
 
     public void StartDashing()
     {
+        _currentDashSpeed = _dashSpeed;
+        var velocity = _m.ToLocal(_rb.velocity);
+        velocity.x = _currentDashSpeed;
+        velocity.y = 0;
+        _rb.velocity = _m.FromLocal(velocity);
         _dashing = true;
-        _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
         _rb.useGravity = false;
         GroundCheckerEnabled(false);
     }
@@ -278,7 +290,12 @@ public class Player : MonoBehaviour
             StartCoroutine(InvisFramesCoroutine());
             _ingameUI.SetLives(--_health);
             if (_health <= 0)
-                Instantiate(endScreenPrefab);
+                death();
         }
+    }
+
+    public void death()
+    {
+        Instantiate(endScreenPrefab);
     }
 }
