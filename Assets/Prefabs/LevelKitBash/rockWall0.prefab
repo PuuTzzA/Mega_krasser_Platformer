@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7568272538313525671}
   m_Layer: 0
   m_Name: rockWall0
-  m_TagString: Untagged
+  m_TagString: terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
