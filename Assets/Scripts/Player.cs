@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
     private bool _grounded;
     private int _direction;
     private int _movement;
-    private Vector2 _moveVector;
     private bool _touchingWall;
 
     private bool _hasSecondJump;
@@ -25,7 +24,7 @@ public class Player : MonoBehaviour
     private float _currentDashSpeed;
 
     private bool _invisFrames;
-    
+
     private int _coins;
 
     private int _health;
@@ -38,9 +37,10 @@ public class Player : MonoBehaviour
     private float _groundDashCooldown = 2.0f;
     private int _maxHealth = 3;
     private float _invisFramesDuration = 2.0f;
-    private float _deathDepth;
+    private float _deathDepth = 20;
 
-    public GameObject groundChecker, wallChecker, uiIngameObj, endScreenPrefab;
+    public GameObject wallChecker, uiIngameObj, endScreenPrefab;
+    private bool _isDead;
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -74,9 +74,7 @@ public class Player : MonoBehaviour
                 var velocity = _m.ToLocal(_rb.velocity);
                 velocity.y = _jumpSpeed;
                 _rb.velocity = _m.FromLocal(velocity);
-                GroundCheckerEnabled(false);
                 _grounded = false;
-                StartCoroutine(JumpCoroutine());
             }
             else if (_touchingWall)
             {
@@ -91,10 +89,8 @@ public class Player : MonoBehaviour
                 var velocity = _m.ToLocal(_rb.velocity);
                 velocity.y = _jumpSpeed;
                 _rb.velocity = _m.FromLocal(velocity);
-                GroundCheckerEnabled(false);
                 _grounded = false;
                 _hasSecondJump = false;
-                StartCoroutine(JumpCoroutine());
             }
         }
     }
@@ -130,10 +126,12 @@ public class Player : MonoBehaviour
         _ingameUI = uiIngameObj.GetComponent<UIIngame>();
 
         _invisFrames = false;
+
+        _isDead = false;
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         if (transform.position.y < -_deathDepth)
         {
@@ -147,7 +145,7 @@ public class Player : MonoBehaviour
             {
 
                 float targetSpeed = _speed * _movement;
-                if (Mathf.Abs(targetSpeed - velocity.x) <= _airAcc * Time.deltaTime)
+                if (Mathf.Abs(targetSpeed - velocity.x) <= _airAcc * Time.fixedDeltaTime)
                 {
                     velocity.x = targetSpeed;
                 }
@@ -156,15 +154,15 @@ public class Player : MonoBehaviour
                     float factor = 1;
                     if (targetSpeed < velocity.x)
                         factor = -1;
-                    velocity.x += _airAcc * Time.deltaTime * factor;
+                    velocity.x += _airAcc * Time.fixedDeltaTime * factor;
                 }
 
             }
             /**/
             else
             {
-                velocity.x = _speed * _movement * _moveVector.x;
-                velocity.y = _speed * _movement * _moveVector.y;
+                velocity.x = _speed * _movement;
+                velocity.y = _speed * _movement;
             }
 
             if (_touchingWall)
@@ -185,7 +183,9 @@ public class Player : MonoBehaviour
             _rb.velocity = _m.FromLocal(velocity);
         }
         if (_groundDashRemainingCooldown >= 0)
-            _groundDashRemainingCooldown -= Time.deltaTime;
+            _groundDashRemainingCooldown -= Time.fixedDeltaTime;
+
+        _grounded = false;
     }
 
     public void SetGrounded(bool grounded)
@@ -196,11 +196,6 @@ public class Player : MonoBehaviour
             this._hasSecondJump = true;
             this._hasAirDash = true;
         }
-    }
-
-    public void GroundCheckerEnabled(bool enabled)
-    {
-        groundChecker.GetComponent<CapsuleCollider>().enabled = enabled;
     }
 
     public bool IsGrounded()
@@ -216,17 +211,6 @@ public class Player : MonoBehaviour
     public bool IsTouchingWall()
     {
         return _touchingWall;
-    }
-
-    public void SetMoveVector(Vector2 vec)
-    {
-        _moveVector = vec;
-    }
-
-    public IEnumerator JumpCoroutine()
-    {
-        yield return new WaitForSeconds(0.2f);
-        GroundCheckerEnabled(true);
     }
 
     public IEnumerator WallJumpCoroutine()
@@ -261,20 +245,12 @@ public class Player : MonoBehaviour
         _rb.velocity = _m.FromLocal(velocity);
         _dashing = true;
         _rb.useGravity = false;
-        GroundCheckerEnabled(false);
     }
 
     public void EndDashing()
     {
         _dashing = false;
         _rb.useGravity = true;
-        GroundCheckerEnabled(true);
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        if (_dashing)
-            EndDashing();
     }
 
     public void addCoin()
@@ -296,6 +272,50 @@ public class Player : MonoBehaviour
 
     public void death()
     {
-        Instantiate(endScreenPrefab);
+        if(!_isDead)
+        {
+            Instantiate(endScreenPrefab);
+            _isDead = true;
+        }
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (_dashing)
+            EndDashing();
+        if (collision.gameObject != gameObject && collision.gameObject.CompareTag("terrain"))
+        {
+            if (collision.impulse.y > new Vector2(collision.impulse.x, collision.impulse.z).magnitude * 3)
+            {
+                SetGrounded(true);
+                /*
+                RaycastHit hit;
+                if (_grounded && Physics.Raycast(transform.position, Vector3.down, out hit))
+                {
+                    Vector2 normal2D = GetComponent<CircularMovement>().ToLocal(hit.normal);
+                    Debug.Log(normal2D.ToString());
+                    _moveVector = new Vector2(normal2D.y, -normal2D.x);
+                }
+                else
+                {
+                    _moveVector = new Vector2(1.0f, 0.0f);
+                }
+                /**/
+            }
+        }
+    }
+
+    public void OnCollisionStay(Collision collision)
+    {
+        if (_dashing)
+            EndDashing();
+        if (collision.gameObject != gameObject && collision.gameObject.CompareTag("terrain"))
+        {
+            if (collision.impulse.y > new Vector2(collision.impulse.x, collision.impulse.z).magnitude * 3)
+            {
+                SetGrounded(true);
+
+            }
+        }
     }
 }
