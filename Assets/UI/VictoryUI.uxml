@@ -1,0 +1,21 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Root" style="width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.99);">
+        <ui:VisualElement name="TextBox" style="height: 25%; width: 100%;">
+            <ui:VisualElement style="height: 100%; width: 100%; background-image: url(&apos;project://database/Packages/com.unity.inputsystem/InputSystem/Editor/Icons/Gamepad@4x.png?fileID=2800000&amp;guid=7543bb6341c2140f292c8c852e7a3bbf&amp;type=3#Gamepad@4x&apos;);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="PictureStats" style="height: 50%; width: 100%; flex-direction: row;">
+            <ui:VisualElement name="WinLoose" style="height: 100%; align-items: center; width: 28.13%;">
+                <ui:VisualElement name="WinLoosePic" style="width: 100%; height: 100%; background-image: url(&apos;project://database/Assets/Icons/Winner_Pingu.png?fileID=2800000&amp;guid=a999c9caf7be2c84a8bba7f72dbf9595&amp;type=3#Winner_Pingu&apos;);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Stats" style="height: 100%; width: 71.87%; background-color: rgba(255, 255, 255, 0);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Buttons" style="width: 100%; align-items: center; height: 25%;">
+            <ui:VisualElement name="RetryButton" style="width: 40%;">
+                <ui:Button text="Retry" display-tooltip-when-elided="true" name="Retry" />
+            </ui:VisualElement>
+            <ui:VisualElement name="HomeButton" style="width: 40%;">
+                <ui:Button text="Home" display-tooltip-when-elided="true" name="Home" style="width: auto;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
