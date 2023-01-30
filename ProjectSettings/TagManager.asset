@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Waypoint
   - Snowball
+  - coin
+  - ground
   layers:
   - Default
   - TransparentFX
