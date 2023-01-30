@@ -20,7 +20,6 @@ public class GroundChecker : MonoBehaviour
             if (player.IsGrounded() && Physics.Raycast(transform.position, Vector3.down, out hit))
             {
                 Vector2 normal2D = player.GetComponent<CircularMovement>().ToLocal(hit.normal);
-                Debug.Log(normal2D.ToString());
                 player.SetMoveVector(new Vector2(normal2D.y, -normal2D.x));
             }
             else
@@ -49,7 +48,6 @@ public class GroundChecker : MonoBehaviour
             if (player.IsGrounded() && Physics.Raycast(transform.position, Vector3.down, out hit))
             {
                 Vector2 normal2D = player.GetComponent<CircularMovement>().ToLocal(hit.normal);
-                Debug.Log(normal2D.ToString());
                 player.SetMoveVector(new Vector2(normal2D.y, -normal2D.x));
             }
             else
