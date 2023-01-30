@@ -9,6 +9,8 @@ public class SnowballLaunch : MonoBehaviour
 {
   public Transform throwPoint;
   public GameObject snowball;
+
+  [SerializeField]
   private float throwVelocity= 7f;
 
   private CircularMovement m;
