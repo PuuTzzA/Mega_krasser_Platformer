@@ -1027,6 +1027,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelnumber: 0
-  jsonFile: {fileID: 4900000, guid: 7b8b182bfe52fe54ba8fd925838ead1e, type: 3}
+  textasset: {fileID: 4900000, guid: 7b8b182bfe52fe54ba8fd925838ead1e, type: 3}
   totalCollectables: 0.00001
   sceneToLoad: Assets/Scenes/Level0.unity
