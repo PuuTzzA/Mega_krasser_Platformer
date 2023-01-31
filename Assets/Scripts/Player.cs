@@ -59,6 +59,10 @@ public class Player : MonoBehaviour
     private bool _triggered;
 
 
+    public void OnPause(InputAction.CallbackContext context){
+        Time.timeScale = 0;
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         var value = context.ReadValue<Vector2>().x;
