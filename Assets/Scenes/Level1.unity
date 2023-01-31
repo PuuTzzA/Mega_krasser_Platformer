@@ -248,7 +248,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 2
@@ -668,7 +668,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 1.5
@@ -737,7 +737,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 1.5
@@ -990,7 +990,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 2
@@ -1218,7 +1218,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 1.5
@@ -1364,7 +1364,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 2
@@ -1433,7 +1433,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 1.5
@@ -1507,7 +1507,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 2
@@ -1576,7 +1576,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 1.5
@@ -1702,7 +1702,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 1.5
@@ -2420,7 +2420,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 2
@@ -2489,7 +2489,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 1.5
@@ -2615,7 +2615,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 1.5
@@ -2741,7 +2741,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 2
@@ -3180,7 +3180,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 2
@@ -3249,7 +3249,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 1.5
@@ -3503,7 +3503,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 2
@@ -3645,7 +3645,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 1.5
@@ -4002,7 +4002,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 2
@@ -4255,7 +4255,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 1.5
@@ -4324,7 +4324,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 1.5
@@ -4510,7 +4510,7 @@ PrefabInstance:
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 381204006682901117, guid: bf957e53cc3b80c4ea077383a059987a, type: 3}
       propertyPath: timeBetweenFiring
       value: 1.5
@@ -4806,7 +4806,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrow: {fileID: 7398125431332206904, guid: 4a03f4b9242ec8c4e89b079103b68a57, type: 3}
   despawnZone: {fileID: 381204006178463992}
-  player: {fileID: 0}
+  player: {fileID: 857000991}
   timeBetweenFiring: 2
 --- !u!1 &381204006435409642
 GameObject:
@@ -4839,7 +4839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrow: {fileID: 7398125431332206904, guid: 4a03f4b9242ec8c4e89b079103b68a57, type: 3}
   despawnZone: {fileID: 381204005717468937}
-  player: {fileID: 0}
+  player: {fileID: 857000991}
   timeBetweenFiring: 2
 --- !u!4 &381204006494406937
 Transform:
