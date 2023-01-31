@@ -104,19 +104,19 @@ public class CircularMovement : MonoBehaviour
         return _frontFacing;
     }
 
+    public int GetDirection()
+    {
+        return _frontFacing ? 1 : -1;
+    }
+
+    public void SetDirection(int dir)
+    {
+        SetFrontFacing(dir == 1 ? true : false);
+    }
+
     public void SetFrontFacing(bool frontFacing)
     {
-        if(frontFacing != _frontFacing)
-            if (_rb != null)
-            {
-                transform.eulerAngles = new Vector3(transform.eulerAngles.x, GetDegrees() + (_frontFacing ? 0 : 180), transform.eulerAngles.z);
-            }
-            else
-            {
-                var velocity = ToLocal(_rb.velocity);
-                transform.eulerAngles = new Vector3(transform.eulerAngles.x, GetDegrees() + (_frontFacing ? 0 : 180), transform.eulerAngles.z);
-                _rb.velocity = FromLocal(velocity);
-            }
+       transform.eulerAngles = new Vector3(transform.eulerAngles.x, GetDegrees() + (_frontFacing ? 0 : 180), transform.eulerAngles.z);
         _frontFacing = frontFacing;
     }
 }
