@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
     private float _invisFramesDuration = 2.0f;
     private float _deathDepth = 20;
 
-    public GameObject wallChecker, uiIngameObj, endScreenPrefab, winScreenPrefab;
+    public GameObject wallChecker, uiIngameObj, endScreenPrefab, winScreenPrefab, pausePrefab;
     private bool _isDead;
 
     private float _time;
@@ -59,8 +59,13 @@ public class Player : MonoBehaviour
     private bool _triggered;
 
 
-    public void OnPause(InputAction.CallbackContext context){
-        Time.timeScale = 0;
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            Time.timeScale = 0;
+            Instantiate(pausePrefab);
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -370,14 +375,13 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("hallo");
         if (other.gameObject.layer == 6 && !_triggered)
         {
-                        
+
             GetComponent<CenterMouse>().enabled = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            
+
             this.GetComponent<Player>().enabled = false;
             this.GetComponent<Rigidbody>().isKinematic = true;
             GameObject o = Instantiate(winScreenPrefab);
