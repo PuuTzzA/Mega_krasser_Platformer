@@ -470,7 +470,20 @@ private bool _isPaused;
     {
         if (collision.gameObject != gameObject && collision.gameObject.CompareTag("terrain"))
         {
-            if (collision.impulse.y > new Vector2(collision.impulse.x, collision.impulse.z).magnitude * 3)
+            //Debug.Log(collision.impulse.ToString());
+            Vector3 vec;
+            bool validVectorFound = false;
+            for (int i = 0; i < collision.contactCount; i++)
+            {
+                vec = collision.GetContact(i).point - transform.position;
+                if (-vec.y > new Vector2(vec.x, vec.z).magnitude * 5)
+                {
+                    validVectorFound = true;
+                    break;
+                }
+
+            }
+            if (validVectorFound)
             {
                 SetGrounded(true);
             }
