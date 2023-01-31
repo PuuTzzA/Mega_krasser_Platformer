@@ -96,7 +96,6 @@ public class AdvancedEnemy : MonoBehaviour
         float distance = Vector3.Distance(targetPosition, _rigidbody.position);
         float timeToClose = distance / velocityRelative.magnitude;
         Vector3 predictedInterceptionPoint = targetPosition + timeToClose * targetVelocity;
-        Debug.Log(predictedInterceptionPoint);
         Chase(predictedInterceptionPoint);
     }
 
