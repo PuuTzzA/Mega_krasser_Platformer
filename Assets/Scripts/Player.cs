@@ -370,7 +370,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.layer == 6 && !_triggered)
         {
                         
-            player.GetComponent<CenterMouse>().enabled = false;
+            GetComponent<CenterMouse>().enabled = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             
