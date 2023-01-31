@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6742040674887134138}
+  - component: {fileID: 5283558122092208478}
   m_Layer: 0
   m_Name: BridgeG
   m_TagString: terrain
@@ -33,6 +34,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5283558122092208478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4390042874905952649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b992ecdecc66e84bb0210975cc781b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  start: {fileID: 6603399350346305918}
+  end: {fileID: 3597451596144754215}
+  plank: {fileID: 6119863501226395482, guid: 9f04f29dce276ab4781afb26231d3070, type: 3}
 --- !u!1001 &3236192332629485892
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -107,6 +123,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2091346902605338466, guid: e155e05a1ba668f42a20f0dc2c39d96c, type: 3}
   m_PrefabInstance: {fileID: 3236192332629485892}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3597451596144754215 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2091346902605338467, guid: e155e05a1ba668f42a20f0dc2c39d96c, type: 3}
+  m_PrefabInstance: {fileID: 3236192332629485892}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4770851037868292310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -175,5 +196,10 @@ PrefabInstance:
 --- !u!4 &6603399350346305914 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1843813950628473260, guid: 8f19c364d0e3bb4488ae1243aea2e19a, type: 3}
+  m_PrefabInstance: {fileID: 4770851037868292310}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6603399350346305918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1843813950628473256, guid: 8f19c364d0e3bb4488ae1243aea2e19a, type: 3}
   m_PrefabInstance: {fileID: 4770851037868292310}
   m_PrefabAsset: {fileID: 0}
