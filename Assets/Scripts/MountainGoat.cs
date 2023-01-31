@@ -66,7 +66,7 @@ public class MountainGoat : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (Vector3.Distance(transform.position, _oldPosition) < .05f)
+        if (Vector3.Distance(transform.position, _oldPosition) < .05f && _state != State.STUNNED)
         {
             _timeSinceNotMoving += Time.fixedDeltaTime;
             if (_timeSinceNotMoving > 3.5f)
@@ -94,6 +94,7 @@ public class MountainGoat : MonoBehaviour
                 if (_stunTime > stunDuration)
                 {
                     _state = State.PATROLE;
+                    _attackBefore = false;
                 }
 
                 break;
