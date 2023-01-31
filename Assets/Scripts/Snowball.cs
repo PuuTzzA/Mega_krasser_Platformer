@@ -8,7 +8,7 @@ public class Snowball : MonoBehaviour
 {
    // private float delay = 0.1f;
     [SerializeField] private GameObject snow;
-
+    public AudioClip snowballhit;
     private void Start()
     {
         
@@ -20,7 +20,8 @@ public class Snowball : MonoBehaviour
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         
         if (other.gameObject.tag == "enemy")
-        {
+        { Debug.Log("SNOW BALL AUDIO");
+            AudioSource.PlayClipAtPoint(snowballhit, other.transform.position);
             //Destroy(gameObject, delay);
             Destroy(gameObject);
             GameObject _snow = Instantiate(snow, transform.position,transform.rotation);
