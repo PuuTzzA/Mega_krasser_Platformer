@@ -23,7 +23,6 @@ public class DroppingPlatform : MonoBehaviour
     private IEnumerator drop()
     {
         yield return new WaitForSeconds(1f);
-        Debug.Log("drop");
         platform.GetComponent<Rigidbody>().isKinematic = false;
         yield return new WaitForSeconds(3f); SetComponentsEnabled(false);
         yield return new WaitForSeconds(1f);
