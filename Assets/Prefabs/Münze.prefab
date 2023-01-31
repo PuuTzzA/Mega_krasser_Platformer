@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b295bc1643b24654daa6d60eecfbab76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinSound: {fileID: 8300000, guid: db72fa11e4deabe40a23937d076310a1, type: 3}
 --- !u!135 &6473311277197063335
 SphereCollider:
   m_ObjectHideFlags: 0
