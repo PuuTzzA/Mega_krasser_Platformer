@@ -316,14 +316,8 @@ MonoBehaviour:
   wallChecker: {fileID: 3055087337763931827}
   uiIngameObj: {fileID: 0}
   endScreenPrefab: {fileID: 0}
---- !u!81 &5031716915852892131
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3055087337050774605}
-  m_Enabled: 1
+  levelnumber: 0
+  jsonFile: {fileID: 0}
 --- !u!1 &3055087337763931827
 GameObject:
   m_ObjectHideFlags: 0
