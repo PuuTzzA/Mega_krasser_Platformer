@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8599645342925935375}
   - component: {fileID: 4681430743140687018}
   - component: {fileID: 7427349740874803296}
-  - component: {fileID: 3824652737043254744}
+  - component: {fileID: 692483671371516170}
   m_Layer: 0
   m_Name: woodPlatform0
   m_TagString: terrain
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3824652737043254744
-MeshCollider:
+--- !u!65 &692483671371516170
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -94,7 +94,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5495902117074765545, guid: d4ed7be7c3b7d0441a4f8f5f9361bfa2, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.1604043, y: 0.13541728, z: 0.0069435267}
+  m_Center: {x: -0.00054873154, y: 0.0009802657, z: 0.000027277514}

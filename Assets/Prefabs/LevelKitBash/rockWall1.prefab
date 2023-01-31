@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7014697112810631853}
   - component: {fileID: 6266457952824474888}
   - component: {fileID: 8147602195803982274}
-  - component: {fileID: 5070222613821724356}
+  - component: {fileID: -7653008924185889141}
   m_Layer: 0
   m_Name: rockWall1
   m_TagString: terrain
@@ -85,8 +85,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5070222613821724356
-MeshCollider:
+--- !u!65 &-7653008924185889141
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -95,7 +95,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5822037541599503073, guid: f0ccc7cd632f24e49915a28bff25acf6, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.043, y: 0.12, z: 0.133}
+  m_Center: {x: -0.00036005024, y: 0.0006357191, z: -0.002574899}

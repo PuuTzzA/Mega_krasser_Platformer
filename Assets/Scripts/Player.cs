@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     private int _direction;
     private int _movement;
     private bool _touchingWall;
+    private float _remainingCoyoteTime;
 
     private IEnumerator _currentWalljump;
 
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
 
     private int _health;
 
+
     private float _speed = 8.0f;
     private float _jumpSpeed = 15.0f;
     private Vector2 _wallJumpSpeed = new Vector2(-13.0f, 13.0f);
@@ -45,8 +47,9 @@ public class Player : MonoBehaviour
     private int _maxHealth = 3;
     private float _invisFramesDuration = 2.0f;
     private float _deathDepth = 20;
+    private float _coyoteTime = 0.1f;
 
-    public GameObject wallChecker, uiIngameObj, endScreenPrefab, winScreenPrefab;
+    public GameObject wallChecker, uiIngameObj, endScreenPrefab, winScreenPrefab, pausePrefab;
     private bool _isDead;
 
     private float _time;
@@ -58,6 +61,15 @@ public class Player : MonoBehaviour
 
     private bool _triggered;
 
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            Time.timeScale = 0;
+            Instantiate(pausePrefab);
+        }
+    }
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -88,12 +100,13 @@ public class Player : MonoBehaviour
     {
         if (context.started)
         {
-            if (_grounded)
+            if (_grounded || _remainingCoyoteTime > 0)
             {
                 var velocity = _m.ToLocal(_rb.velocity);
                 velocity.y = _jumpSpeed;
                 _rb.velocity = _m.FromLocal(velocity);
                 SetGrounded(false);
+                _remainingCoyoteTime = -1;
             }
             else if (_touchingWall)
             {
@@ -214,6 +227,8 @@ public class Player : MonoBehaviour
         }
         if (_groundDashRemainingCooldown >= 0)
             _groundDashRemainingCooldown -= Time.fixedDeltaTime;
+        if (_remainingCoyoteTime >= 0)
+            _remainingCoyoteTime -= Time.fixedDeltaTime;
 
         SetGrounded(false);
 
@@ -249,6 +264,7 @@ public class Player : MonoBehaviour
         {
             this._hasSecondJump = true;
             this._hasAirDash = true;
+            _remainingCoyoteTime = _coyoteTime;
         }
     }
 
@@ -366,14 +382,12 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("hallo");
         if (other.gameObject.layer == 6 && !_triggered)
         {
-                        
             GetComponent<CenterMouse>().enabled = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            
+
             this.GetComponent<Player>().enabled = false;
             this.GetComponent<Rigidbody>().isKinematic = true;
             GameObject o = Instantiate(winScreenPrefab);
@@ -411,9 +425,23 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject != gameObject && collision.gameObject.CompareTag("terrain"))
         {
-            if (collision.impulse.y > new Vector2(collision.impulse.x, collision.impulse.z).magnitude * 3)
+            //Debug.Log(collision.impulse.ToString());
+            Vector3 vec;
+            bool validVectorFound = false;
+            for(int i = 0; i < collision.contactCount; i++)
+            {
+                vec = collision.GetContact(i).point - transform.position;
+                if (-vec.y > new Vector2(vec.x, vec.z).magnitude * 5)
+                {
+                    validVectorFound = true;
+                    break;
+                }
+
+            }
+            if (validVectorFound)
             {
                 SetGrounded(true);
+                //Debug.Log("grounded");
                 /*
                 RaycastHit hit;
                 if (_grounded && Physics.Raycast(transform.position, Vector3.down, out hit))
