@@ -87,6 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snow: {fileID: 7795165267291791583, guid: 8357ff80485d48948829c11e1af06cec, type: 3}
+  snowballhit: {fileID: 8300000, guid: 0f709aa623df6e040bc7ea4a487945b2, type: 3}
 --- !u!114 &2994569069758197058
 MonoBehaviour:
   m_ObjectHideFlags: 0
