@@ -2,6 +2,6 @@
     margin-right: 2%;
     height: 100%;
     width: 28.125%;
-    background-image: url('project://database/Assets/Icons/M%C3%BCnze.png?fileID=2800000&guid=e14deaa53f7a9634b9259aab099aa4af&type=3#Münze');
+    background-image: url('project://database/Assets/Icons/Pingu_Heart.png?fileID=2800000&guid=37fce6589a179764aa6dd334ef89cc9e&type=3#Pingu_Heart');
     position: relative;
 }

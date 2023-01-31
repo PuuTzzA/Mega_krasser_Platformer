@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
@@ -26,7 +27,7 @@ public class UIStart : MonoBehaviour
     void Start()
     {
 
-        _currentPreview = Object.Instantiate(levels[_currentIndex]);
+        _currentPreview = Instantiate(levels[_currentIndex]);
 
         _Doc = GetComponent<UIDocument>();
         _playButton = _Doc.rootVisualElement.Q<Button>("PlayButton");
@@ -35,11 +36,13 @@ public class UIStart : MonoBehaviour
         _record = _Doc.rootVisualElement.Q<Label>("Record");
 
 
-        List<LevelSettings> l = JsonConvert.DeserializeObject<List<LevelSettings>>(PreviewSettings.jsonFile.text);
-
-        _record.text = "123";
-
-        _playButton.clicked += PlayButtonOnClicked;
+        float fastestTime = _currentPreview.GetComponent<PreviewSettings>().settings.fastestTime;
+        int minutes = Mathf.FloorToInt(fastestTime / 60F);
+        int seconds = Mathf.FloorToInt(fastestTime - minutes * 60);
+        int milliseconds = Mathf.FloorToInt(fastestTime * 1000);
+        milliseconds = milliseconds % 1000;
+        milliseconds /= 10;
+        _record.text = fastestTime == -1 ? "-----------" : string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds); _playButton.clicked += PlayButtonOnClicked;
         forwardButton.clicked += ForwardButtonOnClicked;
         backwardButton.clicked += BackwardButtonOnClicked;
 
@@ -79,13 +82,30 @@ public class UIStart : MonoBehaviour
     {
         Destroy(_currentPreview);
         _currentIndex = (_currentIndex + 1) % levels.Length;
-        _currentPreview = Object.Instantiate(levels[_currentIndex]);
+        _currentPreview = Instantiate(levels[_currentIndex]);
+
+        float fastestTime = _currentPreview.GetComponent<PreviewSettings>().settings.fastestTime;
+        int minutes = Mathf.FloorToInt(fastestTime / 60F);
+        int seconds = Mathf.FloorToInt(fastestTime - minutes * 60);
+        int milliseconds = Mathf.FloorToInt(fastestTime * 1000);
+        milliseconds = milliseconds % 1000;
+        milliseconds /= 10;
+        _record.text = fastestTime == -1 ? "-----------" : string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
+
     }
 
     public void LastPreview()
     {
         Destroy(_currentPreview);
         _currentIndex = (_currentIndex - 1 + levels.Length) % levels.Length;
-        _currentPreview = Object.Instantiate(levels[_currentIndex]);
+        _currentPreview = Instantiate(levels[_currentIndex]);
+
+        float fastestTime = _currentPreview.GetComponent<PreviewSettings>().settings.fastestTime;
+        int minutes = Mathf.FloorToInt(fastestTime / 60F);
+        int seconds = Mathf.FloorToInt(fastestTime - minutes * 60);
+        int milliseconds = Mathf.FloorToInt(fastestTime * 1000);
+        milliseconds = milliseconds % 1000;
+        milliseconds /= 10;
+        _record.text = fastestTime == -1 ? "-----------" : string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
     }
 }
