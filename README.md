@@ -35,6 +35,8 @@ Springen          | Space
 Dash              | "O" / rechte Maustaste / Shift
 Schneeball werfen | "I" / linke Maustaste
 
+Man kann zusätzlich nochmals in der Luft einmal springen und in der Luft einmal dashen. Man kann auch auf dem Boden einen Dash ausführen, allerdings hat dieser einen Cooldown von 2 Sekunden. Es gibt auch einen Wall-Jump, den man immer ausführen kann, wenn man an einer Wand herunter rutscht.
+
 ## Credits
 Sound:
 - https://www.fesliyanstudios.com/ (Trailer Musik)
