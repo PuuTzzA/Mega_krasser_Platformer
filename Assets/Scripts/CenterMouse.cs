@@ -11,13 +11,4 @@ public class CenterMouse : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
-    private void OnApplicationFocus(bool hasFocus)
-    {
-        if (hasFocus)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
-    }
 }
