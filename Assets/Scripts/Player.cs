@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -46,7 +49,14 @@ public class Player : MonoBehaviour
     public GameObject wallChecker, uiIngameObj, endScreenPrefab;
     private bool _isDead;
 
-    private float time;
+    private float _time;
+
+    [SerializeField]
+    private int levelnumber;
+    [SerializeField]
+    public TextAsset jsonFile;
+
+
     public void OnMove(InputAction.CallbackContext context)
     {
         var value = context.ReadValue<Vector2>().x;
@@ -91,7 +101,7 @@ public class Player : MonoBehaviour
                 var velocity = _wallJumpSpeed;
                 _rb.velocity = _m.FromLocal(velocity);
                 _airAcc = 0.0f;
-                if(_currentWalljump != null)
+                if (_currentWalljump != null)
                     StopCoroutine(_currentWalljump);
                 _currentWalljump = WallJumpCoroutine();
                 StartCoroutine(_currentWalljump);
@@ -124,8 +134,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        time = 0;
-      
+        _time = 0;
+
 
         _m = GetComponent<CircularMovement>();
         _rb = GetComponent<Rigidbody>();
@@ -204,29 +214,30 @@ public class Player : MonoBehaviour
             _groundDashRemainingCooldown -= Time.fixedDeltaTime;
 
         SetGrounded(false);
-        
-        
+
+
     }
 
     private void Update()
     {
-        time = time + Time.deltaTime;
+        if (!_isDead)
+            _time = _time + Time.deltaTime;
         string _format = timeFormat();
         _ingameUI.SetTimer(_format);
-        
+
     }
 
     private string timeFormat()
     {
-        int minutes = Mathf.FloorToInt(time / 60F);
-        int seconds = Mathf.FloorToInt(time - minutes * 60);
-        int milliseconds = Mathf.FloorToInt(time * 1000);
-        milliseconds= milliseconds % 1000; 
-       string format = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds,milliseconds);
+        int minutes = Mathf.FloorToInt(_time / 60F);
+        int seconds = Mathf.FloorToInt(_time - minutes * 60);
+        int milliseconds = Mathf.FloorToInt(_time * 1000);
+        milliseconds = milliseconds % 1000;
+        string format = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
         return format;
     }
 
-  
+
 
     public void SetGrounded(bool grounded)
     {
@@ -311,7 +322,6 @@ public class Player : MonoBehaviour
 
     public void damage()
     {
-        Debug.Log("DAMAGE!!");
         if (!_invisFrames)
         {
             StartCoroutine(InvisFramesCoroutine());
@@ -323,10 +333,31 @@ public class Player : MonoBehaviour
 
     public void death()
     {
-        if(!_isDead)
+        if (!_isDead)
         {
+
             Instantiate(endScreenPrefab);
             _isDead = true;
+            UIEnd e = endScreenPrefab.GetComponent<UIEnd>();
+            e.SetCollectedCoinsText(_coins + "");
+            e.SetTimeText(_time + "");
+            List<LevelSettings> l = JsonConvert.DeserializeObject<List<LevelSettings>>(jsonFile.text);
+            if (l == null)
+            {
+                l = new List<LevelSettings>();
+            }
+            LevelSettings settings;
+            try
+            {
+                settings = l[levelnumber];
+                if (settings.fastestTime != -1)
+                    e.SetRecordTimeText(settings.fastestTime + "");
+                e.SetRecordTimeText("----------");
+
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+            }
         }
     }
 
@@ -361,7 +392,6 @@ public class Player : MonoBehaviour
             if (collision.impulse.y > new Vector2(collision.impulse.x, collision.impulse.z).magnitude * 3)
             {
                 SetGrounded(true);
-
             }
         }
     }
