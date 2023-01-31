@@ -29,7 +29,7 @@ public class PreviewSettings : MonoBehaviour
     public static TextAsset jsonFile;
     public static string jsonFilePath = "Assets/JsonFiles/levelSettings.json";
 
-    private LevelSettings _settings;
+    public LevelSettings settings;
     public float totalCollectables;
 
     [SerializeField]
@@ -46,15 +46,17 @@ public class PreviewSettings : MonoBehaviour
         }
         try
         {
-            _settings = l[levelnumber];
+            foreach(var x in l)
+            if(x.levelnumber == levelnumber)
+                settings = x;
         }
         catch (ArgumentOutOfRangeException)
         {
-            _settings = new LevelSettings();
-            _settings.collectablesCollected = 0;
-            _settings.fastestTime = -1;
-            _settings.levelnumber = l.Count;
-            l.Add(_settings);
+            settings = new LevelSettings();
+            settings.collectablesCollected = 0;
+            settings.fastestTime = -1;
+            settings.levelnumber = l.Count;
+            l.Add(settings);
             FileStream fcreate = File.Open(jsonFilePath, FileMode.Create);
 
             StreamWriter writer = new StreamWriter(fcreate);
@@ -66,7 +68,7 @@ public class PreviewSettings : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.RotateAround(transform.position, Vector3.up, Time.deltaTime * _settings.rotationSpeed);
+        transform.RotateAround(transform.position, Vector3.up, Time.deltaTime * settings.rotationSpeed);
     }
 
     public string GetScene()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
@@ -64,6 +65,7 @@ public class UIPause : MonoBehaviour
 
     private void ResumeButtonOnClicked()
     {
+        player. GetComponent<PlayerInput>().enabled = true;
         player.setPaused(false);
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         UnityEngine.Cursor.visible = false;

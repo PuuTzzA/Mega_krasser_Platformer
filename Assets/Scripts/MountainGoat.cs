@@ -48,6 +48,9 @@ public class MountainGoat : MonoBehaviour
     private GameObject _stunIndicator;
     private float _stunTime;
 
+    private float _timeSinceNotMoving;
+    private Vector3 _oldPosition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,11 +60,26 @@ public class MountainGoat : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        // Destroy the goat if it wants to commit suicide
         if (transform.position.y < -20)
         {
             Destroy(gameObject);
         }
-        
+
+        if (Vector3.Distance(transform.position, _oldPosition) < .05f && _state != State.STUNNED)
+        {
+            _timeSinceNotMoving += Time.fixedDeltaTime;
+            if (_timeSinceNotMoving > 3.5f)
+            {
+                Destroy(gameObject);
+            }
+        }
+        else
+        {
+            _timeSinceNotMoving = 0;
+        }
+        _oldPosition = transform.position;
+
         switch (_state)
         {
             case State.PATROLE:
@@ -76,6 +94,7 @@ public class MountainGoat : MonoBehaviour
                 if (_stunTime > stunDuration)
                 {
                     _state = State.PATROLE;
+                    _attackBefore = false;
                 }
 
                 break;
@@ -87,7 +106,7 @@ public class MountainGoat : MonoBehaviour
         }
 
         transform.rotation = Quaternion.Lerp(transform.rotation, _goalRotation, Time.fixedDeltaTime * rotationSpeed);
-        
+
         // Check if Player is in Detection Range and in front of the goat 
         if (Vector3.Distance(player.transform.position, transform.position) <= detectionRange &&
             Vector3.Dot(transform.forward.normalized, player.transform.position.normalized) < 0 &&
