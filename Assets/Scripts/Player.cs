@@ -441,13 +441,6 @@ public class Player : MonoBehaviour
             }
             if (validVectorFound)
             {
-                int a = -40, b = 103, c;
-
-                a = b - a + (b = a);
-
-                Debug.Log("a: " + a  + " b: " + b);
-
-                Debug.Log("grounding");
                 SetGrounded(true);
                 //Debug.Log("grounded");
                 /*
