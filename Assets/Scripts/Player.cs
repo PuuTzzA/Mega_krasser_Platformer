@@ -368,16 +368,16 @@ private bool _isPaused;
             _isDead = true;
             UIEnd e = o.GetComponent<UIEnd>();
             e.SetCollectedCoinsText(_coins + "");
-            e.SetTimeText(_time + "");
+            e.SetTimeText(_time);
             List<LevelSettings> l = JsonConvert.DeserializeObject<List<LevelSettings>>(PreviewSettings.jsonFile.text);
             LevelSettings settings;
             try
             {
                 settings = l[levelnumber];
                 if (settings.fastestTime == -1)
-                    e.SetRecordTimeText("----------");
+                    e.SetRecordTimeText("----------",0);
                 else
-                    e.SetRecordTimeText(settings.fastestTime + "");
+                    e.SetRecordTimeText(null,settings.fastestTime);
 
             }
             catch (ArgumentOutOfRangeException)
@@ -402,7 +402,7 @@ private bool _isPaused;
 
             UIEnd e = o.GetComponent<UIEnd>();
             e.SetCollectedCoinsText(_coins + "");
-            e.SetTimeText(_time + "");
+            e.SetTimeText(_time );
             List<LevelSettings> l = JsonConvert.DeserializeObject<List<LevelSettings>>(PreviewSettings.jsonFile.text);
             LevelSettings settings;
             try
@@ -418,7 +418,7 @@ private bool _isPaused;
                     writer.Close();
                 }
 
-                e.SetRecordTimeText(settings.fastestTime + "");
+                e.SetRecordTimeText(null,settings.fastestTime );
 
 
             }
