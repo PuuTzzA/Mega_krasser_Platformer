@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -19,6 +20,8 @@ public class UIStart : MonoBehaviour
 
     private Button _playButton;
 
+    private Label _record;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,13 @@ public class UIStart : MonoBehaviour
         _playButton = _Doc.rootVisualElement.Q<Button>("PlayButton");
         Button forwardButton = _Doc.rootVisualElement.Q<Button>("ForwardButton");
         Button backwardButton = _Doc.rootVisualElement.Q<Button>("BackwardButton");
+        _record = _Doc.rootVisualElement.Q<Label>("Record");
+
+
+        List<LevelSettings> l = JsonConvert.DeserializeObject<List<LevelSettings>>(PreviewSettings.jsonFile.text);
+
+        _record.text = "123";
+
         _playButton.clicked += PlayButtonOnClicked;
         forwardButton.clicked += ForwardButtonOnClicked;
         backwardButton.clicked += BackwardButtonOnClicked;
@@ -38,10 +48,17 @@ public class UIStart : MonoBehaviour
            if (ev.oldRect.width != ev.newRect.width && ev.oldRect.height != ev.newRect.height)
            {
                _playButton.style.fontSize = _playButton.resolvedStyle.height * 90 / 100;
+               _record.style.fontSize = _record.resolvedStyle.height * 4 / 10;
            }
 
        });
     }
+
+    public void SetCollectableText(string text)
+    {
+        _record.text = text;
+    }
+
 
 
     private void PlayButtonOnClicked()

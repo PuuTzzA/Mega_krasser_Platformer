@@ -17,6 +17,8 @@ public class UIPause : MonoBehaviour
     private Button _resumeButton;
     private Label _text;
 
+    public Player player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +32,7 @@ public class UIPause : MonoBehaviour
 
         _homeButton.clicked += HomeButtonOnClicked;
         _resumeButton.clicked += ResumeButtonOnClicked;
-        
+
 
         _Doc.rootVisualElement.RegisterCallback<GeometryChangedEvent>(ev =>
         {
@@ -49,17 +51,22 @@ public class UIPause : MonoBehaviour
 
     private void RetryButtonOnClicked()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Destroy(gameObject);
     }
 
     private void HomeButtonOnClicked()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(startScene);
     }
 
     private void ResumeButtonOnClicked()
     {
+        player.setPaused(false);
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
         Time.timeScale = 1;
         Destroy(gameObject);
     }
