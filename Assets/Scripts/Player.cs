@@ -324,6 +324,10 @@ public class Player : MonoBehaviour
     {
         if(!_isDead)
         {
+            GetComponent<CenterMouse>().enabled = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
             Instantiate(endScreenPrefab);
             _isDead = true;
         }
