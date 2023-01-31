@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 3055087337050774598}
   - component: {fileID: 1546128421}
   - component: {fileID: 3345785552853301355}
-  - component: {fileID: -4772066743917795435}
+  - component: {fileID: 2907786528488855295}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -300,6 +300,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 29727d4f-d3ba-4fd9-a709-9bc05bd500d3
     m_ActionName: Player/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1546128421}
+        m_TargetAssemblyTypeName: SnowballLaunch, Assembly-CSharp
+        m_MethodName: OnSnowballThrow
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 43a1be2e-8674-47c8-8121-28bd6e809172
+    m_ActionName: Player/Snowball[/Keyboard/i,/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -351,7 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9fe599e48c3c7848bbf2f972d37212e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!81 &-4772066743917795435
+--- !u!81 &2907786528488855295
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
