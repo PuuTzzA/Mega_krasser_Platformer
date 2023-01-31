@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Snowball",
+                    "type": "Button",
+                    "id": "43a1be2e-8674-47c8-8121-28bd6e809172",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -231,7 +240,7 @@
                 {
                     "name": "",
                     "id": "9bea7e72-0cf6-4204-ae05-709f121e0795",
-                    "path": "<Keyboard>/#(I)",
+                    "path": "<Keyboard>/#(O)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -269,6 +278,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "14b5721c-171a-4a7d-bdb5-8f52b6519641",
+                    "path": "<Keyboard>/#(I)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Snowball",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "67ef2d78-c6fa-4e71-af59-6c0bf93de7bf",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Snowball",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
