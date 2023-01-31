@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,6 +46,7 @@ public class Player : MonoBehaviour
     public GameObject wallChecker, uiIngameObj, endScreenPrefab;
     private bool _isDead;
 
+    private float time;
     public void OnMove(InputAction.CallbackContext context)
     {
         var value = context.ReadValue<Vector2>().x;
@@ -122,6 +124,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        time = 0;
+      
 
         _m = GetComponent<CircularMovement>();
         _rb = GetComponent<Rigidbody>();
@@ -200,7 +204,29 @@ public class Player : MonoBehaviour
             _groundDashRemainingCooldown -= Time.fixedDeltaTime;
 
         SetGrounded(false);
+        
+        
     }
+
+    private void Update()
+    {
+        time = time + Time.deltaTime;
+        string _format = timeFormat();
+        _ingameUI.SetTimer(_format);
+        
+    }
+
+    private string timeFormat()
+    {
+        int minutes = Mathf.FloorToInt(time / 60F);
+        int seconds = Mathf.FloorToInt(time - minutes * 60);
+        int milliseconds = Mathf.FloorToInt(time * 1000);
+        milliseconds= milliseconds % 1000; 
+       string format = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds,milliseconds);
+        return format;
+    }
+
+  
 
     public void SetGrounded(bool grounded)
     {

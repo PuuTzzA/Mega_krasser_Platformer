@@ -11,6 +11,7 @@ public class UIIngame : MonoBehaviour
     private UIDocument _Doc;
 
     private Label _counter;
+    private Label _timer;
     private VisualElement _heart1;
     private VisualElement _heart2;
     private VisualElement _heart3;
@@ -26,6 +27,7 @@ public class UIIngame : MonoBehaviour
     {
         _Doc = GetComponent<UIDocument>();
         _counter = _Doc.rootVisualElement.Q<Label>("Counter");
+        _timer = _Doc.rootVisualElement.Q<Label>("Time");
         _heart1 = _Doc.rootVisualElement.Q<VisualElement>("Heart1");
         _heart2 = _Doc.rootVisualElement.Q<VisualElement>("Heart2");
         _heart3 = _Doc.rootVisualElement.Q<VisualElement>("Heart3");
@@ -33,21 +35,24 @@ public class UIIngame : MonoBehaviour
         SetLives(3);
         SetCollectableText("0");
 
-
-    }
-    private void OnEnable()
-    {
         _Doc.rootVisualElement.RegisterCallback<GeometryChangedEvent>(ev =>
         {
             if (ev.oldRect.width != ev.newRect.width && ev.oldRect.height != ev.newRect.height)
             {
                 _counter.style.fontSize = _counter.resolvedStyle.height;
+                _timer.style.fontSize = _timer.resolvedStyle.height * 9 / 10;
             }
 
         });
+
     }
 
-    public void SetCollectableText(string text){
+    public void SetTimer(string text){
+        _timer.text = text;
+    }
+
+    public void SetCollectableText(string text)
+    {
         _counter.text = text;
     }
 
