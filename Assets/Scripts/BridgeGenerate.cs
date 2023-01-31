@@ -43,7 +43,6 @@ public class BridgeGenerate : MonoBehaviour
         Vector3 distance = end.transform.position - start.transform.position;
         float mag = distance.magnitude;
         int numberofplanks= this.Numberofplanks(mag);
-        Debug.Log(numberofplanks);
         GameObject prev = start;
         for (int i=0; i < numberofplanks; i++)
         {

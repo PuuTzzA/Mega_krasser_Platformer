@@ -20,13 +20,14 @@ public class UIEnd : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _Doc = GetComponent<UIDocument>();
         _retryButton = _Doc.rootVisualElement.Q<Button>("Retry");
         _homeButton = _Doc.rootVisualElement.Q<Button>("Home");
 
         _collectedCoins = _Doc.rootVisualElement.Q<Label>("CollectedCoins");
+        Debug.Log(_collectedCoins);
         _timeUsed = _Doc.rootVisualElement.Q<Label>("TimeUsed");
         _recordTime = _Doc.rootVisualElement.Q<Label>("RecordTime");
 

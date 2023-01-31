@@ -1,4 +1,9 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -41,10 +46,19 @@ public class Player : MonoBehaviour
     private float _invisFramesDuration = 2.0f;
     private float _deathDepth = 20;
 
-    public GameObject wallChecker, uiIngameObj, endScreenPrefab;
+    public GameObject wallChecker, uiIngameObj, endScreenPrefab, winScreenPrefab;
     private bool _isDead;
 
-    private float time;
+    private float _time;
+
+    [SerializeField]
+    private int levelnumber;
+    [SerializeField]
+    public TextAsset jsonFile;
+
+    private bool _triggered;
+
+
     public void OnMove(InputAction.CallbackContext context)
     {
         var value = context.ReadValue<Vector2>().x;
@@ -89,7 +103,7 @@ public class Player : MonoBehaviour
                 var velocity = _wallJumpSpeed;
                 _rb.velocity = _m.FromLocal(velocity);
                 _airAcc = 0.0f;
-                if(_currentWalljump != null)
+                if (_currentWalljump != null)
                     StopCoroutine(_currentWalljump);
                 _currentWalljump = WallJumpCoroutine();
                 StartCoroutine(_currentWalljump);
@@ -122,8 +136,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        time = 0;
-      
+        _time = 0;
+
 
         _m = GetComponent<CircularMovement>();
         _rb = GetComponent<Rigidbody>();
@@ -202,30 +216,31 @@ public class Player : MonoBehaviour
             _groundDashRemainingCooldown -= Time.fixedDeltaTime;
 
         SetGrounded(false);
-        
-        
+
+
     }
 
     private void Update()
     {
-        time = time + Time.deltaTime;
+        if (!_isDead)
+            _time = _time + Time.deltaTime;
         string _format = timeFormat();
         _ingameUI.SetTimer(_format);
-        
+
     }
 
     private string timeFormat()
     {
-        int minutes = Mathf.FloorToInt(time / 60F);
-        int seconds = Mathf.FloorToInt(time - minutes * 60);
-        int milliseconds = Mathf.FloorToInt(time * 1000);
-        milliseconds= milliseconds % 1000;
+        int minutes = Mathf.FloorToInt(_time / 60F);
+        int seconds = Mathf.FloorToInt(_time - minutes * 60);
+        int milliseconds = Mathf.FloorToInt(_time * 1000);
+        milliseconds = milliseconds % 1000;
         milliseconds /= 10;
-        string format = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds,milliseconds);
+        string format = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
         return format;
     }
 
-  
+
 
     public void SetGrounded(bool grounded)
     {
@@ -310,7 +325,6 @@ public class Player : MonoBehaviour
 
     public void damage()
     {
-        Debug.Log("DAMAGE!!");
         if (!_invisFrames)
         {
             StartCoroutine(InvisFramesCoroutine());
@@ -322,14 +336,74 @@ public class Player : MonoBehaviour
 
     public void death()
     {
-        if(!_isDead)
+        if (!_isDead)
         {
             GetComponent<CenterMouse>().enabled = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
-            Instantiate(endScreenPrefab);
+            GameObject o = Instantiate(endScreenPrefab);
             _isDead = true;
+            UIEnd e = o.GetComponent<UIEnd>();
+            e.SetCollectedCoinsText(_coins + "");
+            e.SetTimeText(_time + "");
+            List<LevelSettings> l = JsonConvert.DeserializeObject<List<LevelSettings>>(PreviewSettings.jsonFile.text);
+            LevelSettings settings;
+            try
+            {
+                settings = l[levelnumber];
+                if (settings.fastestTime == -1)
+                    e.SetRecordTimeText("----------");
+                else
+                    e.SetRecordTimeText(settings.fastestTime + "");
+
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("hallo");
+        if (other.gameObject.layer == 6 && !_triggered)
+        {
+                        
+            player.GetComponent<CenterMouse>().enabled = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            
+            this.GetComponent<Player>().enabled = false;
+            this.GetComponent<Rigidbody>().isKinematic = true;
+            GameObject o = Instantiate(winScreenPrefab);
+            _triggered = true;
+
+            UIEnd e = o.GetComponent<UIEnd>();
+            e.SetCollectedCoinsText(_coins + "");
+            e.SetTimeText(_time + "");
+            List<LevelSettings> l = JsonConvert.DeserializeObject<List<LevelSettings>>(PreviewSettings.jsonFile.text);
+            LevelSettings settings;
+            try
+            {
+                settings = l[levelnumber];
+                if (settings.fastestTime == -1 || settings.fastestTime > _time)
+                {
+                    settings.fastestTime = _time;
+                    FileStream fcreate = File.Open(PreviewSettings.jsonFilePath, FileMode.Create);
+
+                    StreamWriter writer = new StreamWriter(fcreate);
+                    writer.Write(JsonConvert.SerializeObject(l));
+                    writer.Close();
+                }
+
+                e.SetRecordTimeText(settings.fastestTime + "");
+
+
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+            }
         }
     }
 
@@ -364,7 +438,6 @@ public class Player : MonoBehaviour
             if (collision.impulse.y > new Vector2(collision.impulse.x, collision.impulse.z).magnitude * 3)
             {
                 SetGrounded(true);
-
             }
         }
     }
