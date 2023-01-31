@@ -342,6 +342,9 @@ public class Player : MonoBehaviour
     {
         if (!_isDead)
         {
+            GetComponent<CenterMouse>().enabled = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
 
             GameObject o = Instantiate(endScreenPrefab);
             _isDead = true;
@@ -370,6 +373,11 @@ public class Player : MonoBehaviour
         Debug.Log("hallo");
         if (other.gameObject.layer == 6 && !_triggered)
         {
+                        
+            GetComponent<CenterMouse>().enabled = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            
             this.GetComponent<Player>().enabled = false;
             this.GetComponent<Rigidbody>().isKinematic = true;
             GameObject o = Instantiate(winScreenPrefab);
