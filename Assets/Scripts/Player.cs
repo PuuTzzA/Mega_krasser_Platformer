@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
     public GameObject wallChecker, uiIngameObj, endScreenPrefab, winScreenPrefab, pausePrefab;
     private bool _isDead;
 
+private bool _isPaused;
     private float _time;
 
     [SerializeField]
@@ -64,10 +65,15 @@ public class Player : MonoBehaviour
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && !_isDead && !_isPaused)
         {
+            _isPaused = true;
+            GetComponent<CenterMouse>().enabled = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             Time.timeScale = 0;
-            Instantiate(pausePrefab);
+            GameObject o = Instantiate(pausePrefab);
+            o.GetComponent<UIPause>().player = this;
         }
     }
 
@@ -362,16 +368,16 @@ public class Player : MonoBehaviour
             _isDead = true;
             UIEnd e = o.GetComponent<UIEnd>();
             e.SetCollectedCoinsText(_coins + "");
-            e.SetTimeText(_time + "");
+            e.SetTimeText(_time);
             List<LevelSettings> l = JsonConvert.DeserializeObject<List<LevelSettings>>(PreviewSettings.jsonFile.text);
             LevelSettings settings;
             try
             {
                 settings = l[levelnumber];
                 if (settings.fastestTime == -1)
-                    e.SetRecordTimeText("----------");
+                    e.SetRecordTimeText("----------",0);
                 else
-                    e.SetRecordTimeText(settings.fastestTime + "");
+                    e.SetRecordTimeText(null,settings.fastestTime);
 
             }
             catch (ArgumentOutOfRangeException)
@@ -384,6 +390,7 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.layer == 6 && !_triggered)
         {
+            _isDead = true;
             GetComponent<CenterMouse>().enabled = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -395,7 +402,7 @@ public class Player : MonoBehaviour
 
             UIEnd e = o.GetComponent<UIEnd>();
             e.SetCollectedCoinsText(_coins + "");
-            e.SetTimeText(_time + "");
+            e.SetTimeText(_time );
             List<LevelSettings> l = JsonConvert.DeserializeObject<List<LevelSettings>>(PreviewSettings.jsonFile.text);
             LevelSettings settings;
             try
@@ -411,7 +418,7 @@ public class Player : MonoBehaviour
                     writer.Close();
                 }
 
-                e.SetRecordTimeText(settings.fastestTime + "");
+                e.SetRecordTimeText(null,settings.fastestTime );
 
 
             }
@@ -468,5 +475,9 @@ public class Player : MonoBehaviour
                 SetGrounded(true);
             }
         }
+    }
+
+    public void setPaused(bool paused){
+         _isPaused = paused;
     }
 }

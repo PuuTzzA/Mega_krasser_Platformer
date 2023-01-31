@@ -64,14 +64,30 @@ public class UIEnd : MonoBehaviour
         _collectedCoins.text = text;
     }
 
-    public void SetTimeText(string text)
-    {
-        _timeUsed.text = text;
+    public void SetTimeText(float text)
+    {int minutes = Mathf.FloorToInt(text/ 60F);
+        int seconds = Mathf.FloorToInt(text - minutes * 60);
+        int milliseconds = Mathf.FloorToInt(text * 1000);
+        milliseconds = milliseconds % 1000;
+        milliseconds /= 10;
+        string format = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
+        
+        _timeUsed.text = format;
+        
     }
 
-    public void SetRecordTimeText(string text)
+    public void SetRecordTimeText(string _text, float text)
     {
-        _recordTime.text = text;
+        if (text != 0)
+        {
+            int minutes = Mathf.FloorToInt(text / 60F);
+            int seconds = Mathf.FloorToInt(text - minutes * 60);
+            int milliseconds = Mathf.FloorToInt(text * 1000);
+            milliseconds = milliseconds % 1000;
+            milliseconds /= 10;
+            string format = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
+            _recordTime.text = format;
+        } else _recordTime.text = _text;
     }
 
 }
