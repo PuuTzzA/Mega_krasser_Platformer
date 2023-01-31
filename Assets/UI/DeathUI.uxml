@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI/Buttun%20Styles.uss?fileID=7433441132597879392&amp;guid=d47fb4971c8e20f498003dd4c1fd7679&amp;type=3#Buttun Styles" />
     <ui:VisualElement name="Root" style="width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.98);">
         <ui:VisualElement name="TextBox" style="height: 25%; width: 100%;">
-            <ui:VisualElement style="height: 100%; width: 100%; background-image: url(&apos;project://database/Assets/Icons/Death_Text%201.PNG?fileID=2800000&amp;guid=a168edd7f92ae814eb80d14d406f80de&amp;type=3#Death_Text 1&apos;);" />
+            <ui:VisualElement style="height: 100%; width: 100%; background-image: url(&apos;project://database/Assets/Icons/Death_Text.png?fileID=2800000&amp;guid=684f0b666167bf94d97fb9186eff04ca&amp;type=3#Death_Text&apos;);" />
         </ui:VisualElement>
         <ui:VisualElement name="PictureStats" style="height: 50%; width: 100%; flex-direction: row;">
             <ui:VisualElement name="WinLoose" style="height: 100%; align-items: center; width: 28.13%; padding-left: 0; margin-left: 14%;">

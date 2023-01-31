@@ -29,8 +29,27 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3055087337050774593}
+<<<<<<< HEAD
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!136 &3055087336814586066
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3055087336814586078}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.12
+  m_Height: 0.63
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+>>>>>>> 97aa4cda2c5e18a3ac620d95bf44ff7ef177e496
 --- !u!1 &3055087337050774605
 GameObject:
   m_ObjectHideFlags: 0
@@ -47,7 +66,11 @@ GameObject:
   - component: {fileID: 3055087337050774594}
   - component: {fileID: 3055087337050774599}
   - component: {fileID: 3055087337050774598}
+<<<<<<< HEAD
   - component: {fileID: 1546128421}
+=======
+  - component: {fileID: 5031716915852892131}
+>>>>>>> 97aa4cda2c5e18a3ac620d95bf44ff7ef177e496
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -301,6 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallChecker: {fileID: 3055087337763931827}
   uiIngameObj: {fileID: 0}
+<<<<<<< HEAD
   endScreenPrefab: {fileID: 6232111397413692074, guid: 299479b53c79fe5488e64c7c21715e58, type: 3}
 --- !u!114 &1546128421
 MonoBehaviour:
@@ -317,6 +341,11 @@ MonoBehaviour:
   throwPoint: {fileID: 815701765}
   snowball: {fileID: 5610977760629067448, guid: 1e445aa7279af6b418e867f8d07a8bcf, type: 3}
   throwVelocity: 7
+=======
+  endScreenPrefab: {fileID: 0}
+  levelnumber: 0
+  jsonFile: {fileID: 0}
+>>>>>>> 97aa4cda2c5e18a3ac620d95bf44ff7ef177e496
 --- !u!1 &3055087337763931827
 GameObject:
   m_ObjectHideFlags: 0
