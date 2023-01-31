@@ -83,7 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelnumber: 1
   textasset: {fileID: 4900000, guid: 7b8b182bfe52fe54ba8fd925838ead1e, type: 3}
-  totalCollectables: 0
+  totalCollectables: 3
   sceneToLoad: Assets/Scenes/Level1.unity
 --- !u!1001 &9041021209546348572
 PrefabInstance:
