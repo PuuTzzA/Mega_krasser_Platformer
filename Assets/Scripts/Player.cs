@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     private int _movement;
     private bool _touchingWall;
 
+    private IEnumerator _currentWalljump;
+
     private bool _hasSecondJump;
     private float _airAcc;
 
@@ -22,6 +24,7 @@ public class Player : MonoBehaviour
     private float _groundDashRemainingCooldown;
     private float _dashSpeed = 40.0f;
     private float _currentDashSpeed;
+    private bool _freezeDirection;
 
     private bool _invisFrames;
 
@@ -53,9 +56,11 @@ public class Player : MonoBehaviour
             _movement = 0;
         if (_movement != 0)
         {
-            _direction = _movement;
-            _m.SetFrontFacing(_direction == 1 ? true : false);
-            _movement = Mathf.Abs(_movement);
+            if (!_freezeDirection)
+            {
+                _direction = _movement;
+                _m.SetDirection(_direction);
+            }
             wallChecker.GetComponent<CapsuleCollider>().enabled = true;
         }
         else
@@ -74,22 +79,27 @@ public class Player : MonoBehaviour
                 var velocity = _m.ToLocal(_rb.velocity);
                 velocity.y = _jumpSpeed;
                 _rb.velocity = _m.FromLocal(velocity);
-                _grounded = false;
+                SetGrounded(false);
             }
             else if (_touchingWall)
             {
-                var velocity = _m.ToLocal(_rb.velocity);
-                velocity = _wallJumpSpeed;
+                _freezeDirection = true;
+                _direction = -_direction;
+                _m.SetDirection(_direction);
+                var velocity = _wallJumpSpeed;
                 _rb.velocity = _m.FromLocal(velocity);
                 _airAcc = 0.0f;
-                StartCoroutine(WallJumpCoroutine());
+                if(_currentWalljump != null)
+                    StopCoroutine(_currentWalljump);
+                _currentWalljump = WallJumpCoroutine();
+                StartCoroutine(_currentWalljump);
             }
             else if (_hasSecondJump)
             {
                 var velocity = _m.ToLocal(_rb.velocity);
                 velocity.y = _jumpSpeed;
                 _rb.velocity = _m.FromLocal(velocity);
-                _grounded = false;
+                SetGrounded(false);
                 _hasSecondJump = false;
             }
         }
@@ -99,6 +109,7 @@ public class Player : MonoBehaviour
     {
         if (context.started && (_grounded ? _groundDashRemainingCooldown <= 0 : _hasAirDash))
         {
+            UnfreezeDirection();
             StartDashing();
             StartCoroutine(DashCoroutine());
             if (_grounded)
@@ -111,8 +122,6 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-      
 
         _m = GetComponent<CircularMovement>();
         _rb = GetComponent<Rigidbody>();
@@ -131,6 +140,8 @@ public class Player : MonoBehaviour
         _invisFrames = false;
 
         _isDead = false;
+
+        _freezeDirection = false;
     }
 
 
@@ -147,7 +158,7 @@ public class Player : MonoBehaviour
             if (!_grounded)
             {
 
-                float targetSpeed = _speed * _movement;
+                float targetSpeed = _speed * _movement * _m.GetDirection();
                 if (Mathf.Abs(targetSpeed - velocity.x) <= _airAcc * Time.fixedDeltaTime)
                 {
                     velocity.x = targetSpeed;
@@ -164,7 +175,7 @@ public class Player : MonoBehaviour
             /**/
             else
             {
-                velocity.x = _speed * _movement;
+                velocity.x = _speed * _movement * _m.GetDirection();
             }
 
             if (_touchingWall)
@@ -182,12 +193,13 @@ public class Player : MonoBehaviour
             _currentDashSpeed -= 1.0f;
             var velocity = _m.ToLocal(_rb.velocity);
             velocity.x = _currentDashSpeed;
+            velocity.y = 0;
             _rb.velocity = _m.FromLocal(velocity);
         }
         if (_groundDashRemainingCooldown >= 0)
             _groundDashRemainingCooldown -= Time.fixedDeltaTime;
 
-        _grounded = false;
+        SetGrounded(false);
     }
 
     public void SetGrounded(bool grounded)
@@ -197,6 +209,16 @@ public class Player : MonoBehaviour
         {
             this._hasSecondJump = true;
             this._hasAirDash = true;
+        }
+    }
+
+    public void UnfreezeDirection()
+    {
+        _freezeDirection = false;
+        if (_movement != 0)
+        {
+            _direction = _movement;
+            _m.SetDirection(_direction);
         }
     }
 
@@ -221,6 +243,7 @@ public class Player : MonoBehaviour
         _airAcc = 0.2f * _baseAirAcc;
         yield return new WaitForSeconds(0.25f);
         _airAcc = 0.5f * _baseAirAcc;
+        UnfreezeDirection();
         yield return new WaitForSeconds(0.1f);
         _airAcc = 1.0f * _baseAirAcc;
     }
@@ -283,8 +306,6 @@ public class Player : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (_dashing)
-            EndDashing();
         if (collision.gameObject != gameObject && collision.gameObject.CompareTag("terrain"))
         {
             if (collision.impulse.y > new Vector2(collision.impulse.x, collision.impulse.z).magnitude * 3)
@@ -309,8 +330,6 @@ public class Player : MonoBehaviour
 
     public void OnCollisionStay(Collision collision)
     {
-        if (_dashing)
-            EndDashing();
         if (collision.gameObject != gameObject && collision.gameObject.CompareTag("terrain"))
         {
             if (collision.impulse.y > new Vector2(collision.impulse.x, collision.impulse.z).magnitude * 3)
