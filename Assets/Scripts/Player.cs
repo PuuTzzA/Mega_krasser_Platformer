@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
     public GameObject wallChecker, uiIngameObj, endScreenPrefab, winScreenPrefab, pausePrefab;
     private bool _isDead;
 
-private bool _isPaused;
+    private bool _isPaused;
     private float _time;
 
     [SerializeField]
