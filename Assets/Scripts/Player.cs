@@ -221,8 +221,9 @@ public class Player : MonoBehaviour
         int minutes = Mathf.FloorToInt(time / 60F);
         int seconds = Mathf.FloorToInt(time - minutes * 60);
         int milliseconds = Mathf.FloorToInt(time * 1000);
-        milliseconds= milliseconds % 1000; 
-       string format = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds,milliseconds);
+        milliseconds= milliseconds % 1000;
+        milliseconds /= 10;
+        string format = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds,milliseconds);
         return format;
     }
 
