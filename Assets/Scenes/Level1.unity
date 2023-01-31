@@ -523,7 +523,7 @@ PrefabInstance:
     - target: {fileID: 2409331915340243637, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 2409331915874807336, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: m_Name
       value: MountainGoat
@@ -575,7 +575,7 @@ PrefabInstance:
     - target: {fileID: 2409331915874807340, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 2409331915874807340, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: attackWindup
       value: 0.9
@@ -917,7 +917,7 @@ PrefabInstance:
     - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
       propertyPath: detectionRadius
       value: 3.36
@@ -1016,7 +1016,7 @@ PrefabInstance:
     - target: {fileID: 2409331915340243637, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 2409331915874807336, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: m_Name
       value: MountainGoat (5)
@@ -1068,7 +1068,7 @@ PrefabInstance:
     - target: {fileID: 2409331915874807340, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 2409331915874807340, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: attackWindup
       value: 0.9
@@ -1283,7 +1283,7 @@ PrefabInstance:
     - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
       propertyPath: tentacleAmount
       value: 95
@@ -1919,7 +1919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pointOfReference: {fileID: 0}
-  player: {fileID: 0}
+  player: {fileID: 857000991}
   rotationSensibility: 3.21
   verticalSensibility: 2.15
   radius: 22.5
@@ -2042,6 +2042,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 134e294fefd8ec8468528e219b149092, type: 3}
+--- !u!1 &857000991 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3055087337050774605, guid: aec3e49c7e5fd454d87d9036573f2952, type: 3}
+  m_PrefabInstance: {fileID: 1959339552}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &861215634
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2830,7 +2835,7 @@ PrefabInstance:
     - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
       propertyPath: tentacleAmount
       value: 90
@@ -3137,7 +3142,7 @@ PrefabInstance:
     - target: {fileID: 2409331915340243637, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 2409331915874807336, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: m_Name
       value: MountainGoat (2)
@@ -3189,7 +3194,7 @@ PrefabInstance:
     - target: {fileID: 2409331915874807340, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 2409331915874807340, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: attackWindup
       value: 0.9
@@ -3378,7 +3383,7 @@ PrefabInstance:
     - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
       propertyPath: tentacleAmount
       value: 44
@@ -3667,7 +3672,7 @@ PrefabInstance:
     - target: {fileID: 2409331915340243637, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 2409331915874807336, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: m_Name
       value: MountainGoat (3)
@@ -3719,7 +3724,7 @@ PrefabInstance:
     - target: {fileID: 2409331915874807340, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 2409331915874807340, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: attackWindup
       value: 0.9
@@ -4151,7 +4156,7 @@ PrefabInstance:
     - target: {fileID: 2409331915340243637, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 2409331915874807336, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: m_Name
       value: MountainGoat (4)
@@ -4203,7 +4208,7 @@ PrefabInstance:
     - target: {fileID: 2409331915874807340, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 857000991}
     - target: {fileID: 2409331915874807340, guid: 3b015d82f2a017449b2e16afad8c3e4d, type: 3}
       propertyPath: attackWindup
       value: 0.9
