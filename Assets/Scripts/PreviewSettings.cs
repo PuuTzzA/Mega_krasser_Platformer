@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
@@ -25,7 +24,10 @@ public class PreviewSettings : MonoBehaviour
     private int levelnumber;
 
     [SerializeField]
-    public TextAsset jsonFile;
+    private TextAsset textasset;
+
+    public static TextAsset jsonFile;
+    public static string jsonFilePath = "Assets/JsonFiles/levelSettings.json";
 
     private LevelSettings _settings;
     public float totalCollectables;
@@ -35,8 +37,9 @@ public class PreviewSettings : MonoBehaviour
 
     private void Awake()
     {
-
-        List<LevelSettings> l =  JsonConvert.DeserializeObject<List<LevelSettings>>(jsonFile.text);
+        if (PreviewSettings.jsonFile == null)
+            PreviewSettings.jsonFile = textasset;
+        List<LevelSettings> l = JsonConvert.DeserializeObject<List<LevelSettings>>(jsonFile.text);
         if (l == null)
         {
             l = new List<LevelSettings>();
@@ -52,7 +55,8 @@ public class PreviewSettings : MonoBehaviour
             _settings.fastestTime = -1;
             _settings.levelnumber = l.Count;
             l.Add(_settings);
-            FileStream fcreate = File.Open(AssetDatabase.GetAssetPath(jsonFile), FileMode.Create);
+            FileStream fcreate = File.Open(jsonFilePath, FileMode.Create);
+
             StreamWriter writer = new StreamWriter(fcreate);
             writer.Write(JsonConvert.SerializeObject(l));
             writer.Close();
