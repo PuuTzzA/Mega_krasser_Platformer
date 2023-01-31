@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
     public GameObject wallChecker, uiIngameObj, endScreenPrefab, winScreenPrefab, pausePrefab;
     private bool _isDead;
 
-private bool _isPaused;
+    private bool _isPaused;
     private float _time;
 
     [SerializeField]
@@ -69,6 +69,7 @@ private bool _isPaused;
         {
             _isPaused = true;
             GetComponent<CenterMouse>().enabled = false;
+            GetComponent<PlayerInput>().enabled = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             Time.timeScale = 0;
