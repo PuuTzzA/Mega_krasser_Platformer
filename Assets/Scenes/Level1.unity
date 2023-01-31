@@ -3453,6 +3453,18 @@ MonoBehaviour:
   throwPoint: {fileID: 815701765}
   snowball: {fileID: 5610977760629067448, guid: 1e445aa7279af6b418e867f8d07a8bcf, type: 3}
   throwVelocity: 7
+--- !u!114 &1546128429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546128412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9fe599e48c3c7848bbf2f972d37212e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1587761355
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -30,6 +30,11 @@ public class End : MonoBehaviour
             player.GetComponent<Rigidbody>().isKinematic = true;
             Instantiate(endUI);
             _triggered = true;
+            
+            
+            player.GetComponent<CenterMouse>().enabled = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }
