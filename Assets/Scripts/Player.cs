@@ -69,6 +69,7 @@ public class Player : MonoBehaviour
         {
             _isPaused = true;
             GetComponent<CenterMouse>().enabled = false;
+            GetComponent<PlayerInput>().enabled = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             Time.timeScale = 0;
