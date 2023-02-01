@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -26,7 +25,6 @@ public class UIStart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         _currentPreview = Instantiate(levels[_currentIndex]);
 
         _Doc = GetComponent<UIDocument>();

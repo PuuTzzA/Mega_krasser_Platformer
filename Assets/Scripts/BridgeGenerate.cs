@@ -17,7 +17,11 @@ public class BridgeGenerate : MonoBehaviour
     {
         startposition = start.transform.position;
         endposition = end.transform.position;
+
         GeneratePlank();
+
+
+        //plank.transform.localScale = new Vector3(1, 1, 1);
     }
 
     // Update is called once per frame
@@ -46,8 +50,9 @@ public class BridgeGenerate : MonoBehaviour
         GameObject prev = start;
         for (int i=0; i < numberofplanks; i++)
         {
-            GameObject newplank=Instantiate(plank, start.transform.position + distance * (i + 1) / (numberofplanks + 1), Quaternion.identity); 
-            newplank.transform.SetParent(transform);
+            GameObject newplank=Instantiate(plank, transform);
+
+            newplank.transform.position = start.transform.position + distance * (i + 1) / (numberofplanks + 1);
             newplank.GetComponent<HingeJoint>().connectedBody = prev.GetComponent<Rigidbody>();
             prev = newplank;
         } 

@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -57,8 +56,6 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private int levelnumber;
-    [SerializeField]
-    public TextAsset jsonFile;
 
     private bool _triggered;
 
@@ -370,20 +367,16 @@ public class Player : MonoBehaviour
             UIEnd e = o.GetComponent<UIEnd>();
             e.SetCollectedCoinsText(_coins + "");
             e.SetTimeText(_time);
-            List<LevelSettings> l = JsonConvert.DeserializeObject<List<LevelSettings>>(PreviewSettings.jsonFile.text);
-            LevelSettings settings;
-            try
-            {
-                settings = l[levelnumber];
-                if (settings.fastestTime == -1)
-                    e.SetRecordTimeText("----------",0);
-                else
-                    e.SetRecordTimeText(null,settings.fastestTime);
+            LevelSettings settings = null;
+            foreach (var x in PreviewSettings.levelSettings)
+                if (x.levelnumber == levelnumber)
+                    settings = x;
+            if (settings.fastestTime == -1)
+                e.SetRecordTimeText(-1);
+            else
+                e.SetRecordTimeText(settings.fastestTime);
 
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-            }
+
         }
     }
 
@@ -403,29 +396,18 @@ public class Player : MonoBehaviour
 
             UIEnd e = o.GetComponent<UIEnd>();
             e.SetCollectedCoinsText(_coins + "");
-            e.SetTimeText(_time );
-            List<LevelSettings> l = JsonConvert.DeserializeObject<List<LevelSettings>>(PreviewSettings.jsonFile.text);
-            LevelSettings settings;
-            try
+            e.SetTimeText(_time);
+
+            LevelSettings settings = null;
+            foreach (var x in PreviewSettings.levelSettings)
+                if (x.levelnumber == levelnumber)
+                    settings = x;
+
+            if (settings.fastestTime == -1 || settings.fastestTime > _time)
             {
-                settings = l[levelnumber];
-                if (settings.fastestTime == -1 || settings.fastestTime > _time)
-                {
-                    settings.fastestTime = _time;
-                    FileStream fcreate = File.Open(PreviewSettings.jsonFilePath, FileMode.Create);
-
-                    StreamWriter writer = new StreamWriter(fcreate);
-                    writer.Write(JsonConvert.SerializeObject(l));
-                    writer.Close();
-                }
-
-                e.SetRecordTimeText(null,settings.fastestTime );
-
-
+                settings.fastestTime = _time;
             }
-            catch (ArgumentOutOfRangeException)
-            {
-            }
+            e.SetRecordTimeText(settings.fastestTime);
         }
     }
 
@@ -436,10 +418,10 @@ public class Player : MonoBehaviour
             //Debug.Log(collision.impulse.ToString());
             Vector3 vec;
             bool validVectorFound = false;
-            for(int i = 0; i < collision.contactCount; i++)
+            for (int i = 0; i < collision.contactCount; i++)
             {
                 vec = collision.GetContact(i).point - transform.position;
-                if (-vec.y > new Vector2(vec.x, vec.z).magnitude * 5)
+                if (-vec.y > new Vector2(vec.x, vec.z).magnitude * 3)
                 {
                     validVectorFound = true;
                     break;
@@ -477,7 +459,7 @@ public class Player : MonoBehaviour
             for (int i = 0; i < collision.contactCount; i++)
             {
                 vec = collision.GetContact(i).point - transform.position;
-                if (-vec.y > new Vector2(vec.x, vec.z).magnitude * 5)
+                if (-vec.y > new Vector2(vec.x, vec.z).magnitude * 3)
                 {
                     validVectorFound = true;
                     break;
@@ -491,7 +473,8 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void setPaused(bool paused){
-         _isPaused = paused;
+    public void setPaused(bool paused)
+    {
+        _isPaused = paused;
     }
 }

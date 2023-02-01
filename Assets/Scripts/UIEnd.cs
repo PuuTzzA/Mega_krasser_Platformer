@@ -77,19 +77,20 @@ public class UIEnd : MonoBehaviour
 
     }
 
-    public void SetRecordTimeText(string _text, float text)
+    public void SetRecordTimeText(float text)
     {
-        if (text != 0)
-        {
-            int minutes = Mathf.FloorToInt(text / 60F);
-            int seconds = Mathf.FloorToInt(text - minutes * 60);
-            int milliseconds = Mathf.FloorToInt(text * 1000);
-            milliseconds = milliseconds % 1000;
-            milliseconds /= 10;
-            string format = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
-            _recordTime.text = format;
+        if(text == -1){
+            _recordTime.text = "----------";
         }
-        else _recordTime.text = _text;
+
+        int minutes = Mathf.FloorToInt(text / 60F);
+        int seconds = Mathf.FloorToInt(text - minutes * 60);
+        int milliseconds = Mathf.FloorToInt(text * 1000);
+        milliseconds = milliseconds % 1000;
+        milliseconds /= 10;
+        string format = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
+        _recordTime.text = format;
+
     }
 
 }
