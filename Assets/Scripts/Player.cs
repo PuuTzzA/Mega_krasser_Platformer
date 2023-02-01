@@ -5,6 +5,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -59,6 +60,14 @@ public class Player : MonoBehaviour
 
     private bool _triggered;
 
+
+    public void OnRetry(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
 
     public void OnPause(InputAction.CallbackContext context)
     {
@@ -395,7 +404,7 @@ public class Player : MonoBehaviour
             _triggered = true;
 
             UIEnd e = o.GetComponent<UIEnd>();
-            e.SetCollectedCoinsText(_coins + "");
+            e.SetCollectedCoinsText(_coins + "/" + _ingameUI.collectables);
             e.SetTimeText(_time);
 
             LevelSettings settings = null;
@@ -407,6 +416,11 @@ public class Player : MonoBehaviour
             {
                 settings.fastestTime = _time;
             }
+            if (settings.collectablesCollected == -1 || settings.collectablesCollected < _coins)
+            {
+                settings.collectablesCollected = _coins;
+            }
+
             e.SetRecordTimeText(settings.fastestTime);
         }
     }
