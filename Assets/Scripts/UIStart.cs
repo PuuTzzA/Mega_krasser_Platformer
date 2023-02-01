@@ -33,7 +33,7 @@ public class UIStart : MonoBehaviour
         Button backwardButton = _Doc.rootVisualElement.Q<Button>("BackwardButton");
         _record = _Doc.rootVisualElement.Q<Label>("Record");
 
-
+        Debug.Log(_currentPreview.GetComponent<PreviewSettings>());
         float fastestTime = _currentPreview.GetComponent<PreviewSettings>().settings.fastestTime;
         int minutes = Mathf.FloorToInt(fastestTime / 60F);
         int seconds = Mathf.FloorToInt(fastestTime - minutes * 60);

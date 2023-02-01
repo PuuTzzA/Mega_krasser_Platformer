@@ -12,7 +12,7 @@ public class LevelSettings
     public int levelnumber;
     public float collectablesCollected;
 
-    public float fastestTime;
+    public float fastestTime = -1;
     public float rotationSpeed = 10f;
 
 }
@@ -40,13 +40,16 @@ public class PreviewSettings : MonoBehaviour
         Debug.Log(jsonFilePath);
         if (PreviewSettings.levelSettings == null)
         {
-            StreamReader reader = new StreamReader(jsonFilePath);
-            levelSettings = JsonConvert.DeserializeObject<List<LevelSettings>>(reader.ReadToEnd());
-            reader.Close();
-        }
-        if (PreviewSettings.levelSettings == null)
-        {
-            levelSettings = new List<LevelSettings>();
+            try
+            {
+                StreamReader reader = new StreamReader(jsonFilePath);
+                levelSettings = JsonConvert.DeserializeObject<List<LevelSettings>>(reader.ReadToEnd());
+                reader.Close();
+            }
+            catch (FileNotFoundException)
+            {
+                levelSettings = new List<LevelSettings>();
+            }
         }
 
         foreach (var x in levelSettings)
