@@ -16,7 +16,6 @@ public class DroppingPlatform : MonoBehaviour
     private void Start()
     {
         StartPosition = transform.localPosition;
-        Debug.Log("Startpos: " + StartPosition);
         //GetComponent<Rigidbody>().AddForce(new Vector3(0, -2, 0), ForceMode.Force);
     }
 
