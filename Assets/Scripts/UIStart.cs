@@ -25,7 +25,6 @@ public class UIStart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         _currentPreview = Instantiate(levels[_currentIndex]);
 
         _Doc = GetComponent<UIDocument>();
