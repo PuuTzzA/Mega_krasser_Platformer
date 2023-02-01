@@ -30,10 +30,11 @@ Pingu Tower ist ein 2.5D Platformer, in dem es darum geht, die Spitze jedes Leve
 
 Aktion            | Tastenbelegung
 ----------------- | ------
-Bewegen           | WASD
+Bewegen           | "A" "D"
 Springen          | Space
 Dash              | "O" / rechte Maustaste / Shift
 Schneeball werfen | "I" / linke Maustaste
+Reset             | "W"
 
 Man kann zusätzlich nochmals in der Luft einmal springen und in der Luft einmal dashen. Man kann auch auf dem Boden einen Dash ausführen, allerdings hat dieser einen Cooldown von 2 Sekunden. Es gibt auch einen Wall-Jump, den man immer ausführen kann, wenn man an einer Wand herunter rutscht.
 
