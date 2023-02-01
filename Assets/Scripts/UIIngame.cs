@@ -21,6 +21,8 @@ public class UIIngame : MonoBehaviour
     [SerializeField]
     private Texture2D brokenHeart;
 
+    public int collectables; 
+
 
     // Start is called before the first frame update
     void Awake()

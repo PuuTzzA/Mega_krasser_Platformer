@@ -316,6 +316,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 43a1be2e-8674-47c8-8121-28bd6e809172
     m_ActionName: Player/Snowball[/Keyboard/i,/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3055087337050774598}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnRetry
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9b1b3d0f-09de-4970-93a8-353661e562c4
+    m_ActionName: Player/Retry[/Keyboard/w]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -339,7 +355,6 @@ MonoBehaviour:
   winScreenPrefab: {fileID: 6232111397413692074, guid: d820eaf3f0d3f4342bb407a853b063a7, type: 3}
   pausePrefab: {fileID: 690653138119674789, guid: 899895a9ee294c24bb7a1ab78f71a782, type: 3}
   levelnumber: 0
-  jsonFile: {fileID: 0}
 --- !u!114 &1546128421
 MonoBehaviour:
   m_ObjectHideFlags: 0
