@@ -439,7 +439,7 @@ public class Player : MonoBehaviour
             for(int i = 0; i < collision.contactCount; i++)
             {
                 vec = collision.GetContact(i).point - transform.position;
-                if (-vec.y > new Vector2(vec.x, vec.z).magnitude * 5)
+                if (-vec.y > new Vector2(vec.x, vec.z).magnitude * 3)
                 {
                     validVectorFound = true;
                     break;
@@ -477,7 +477,7 @@ public class Player : MonoBehaviour
             for (int i = 0; i < collision.contactCount; i++)
             {
                 vec = collision.GetContact(i).point - transform.position;
-                if (-vec.y > new Vector2(vec.x, vec.z).magnitude * 5)
+                if (-vec.y > new Vector2(vec.x, vec.z).magnitude * 3)
                 {
                     validVectorFound = true;
                     break;
