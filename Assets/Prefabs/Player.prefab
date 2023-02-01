@@ -339,7 +339,6 @@ MonoBehaviour:
   winScreenPrefab: {fileID: 6232111397413692074, guid: d820eaf3f0d3f4342bb407a853b063a7, type: 3}
   pausePrefab: {fileID: 690653138119674789, guid: 899895a9ee294c24bb7a1ab78f71a782, type: 3}
   levelnumber: 0
-  jsonFile: {fileID: 0}
 --- !u!114 &1546128421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,7 +470,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 1.31
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3055087337763931830
