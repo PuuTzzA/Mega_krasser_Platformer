@@ -37,7 +37,7 @@ public class PreviewSettings : MonoBehaviour
     {
 
         jsonFilePath = Application.persistentDataPath + Path.AltDirectorySeparatorChar + "LevelSettings.json";
-
+        Debug.Log(jsonFilePath);
         if (PreviewSettings.levelSettings == null)
         {
             StreamReader reader = new StreamReader(jsonFilePath);
