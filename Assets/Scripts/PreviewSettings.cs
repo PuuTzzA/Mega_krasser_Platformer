@@ -10,7 +10,7 @@ using UnityEngine;
 public class LevelSettings
 {
     public int levelnumber;
-    public float collectablesCollected;
+    public float collectablesCollected = 0;
 
     public float fastestTime = -1;
     public float rotationSpeed = 10f;
@@ -30,7 +30,6 @@ public class PreviewSettings : MonoBehaviour
     public LevelSettings settings;
     public float totalCollectables;
 
-    [SerializeField]
     public string sceneToLoad;
 
     private void Awake()

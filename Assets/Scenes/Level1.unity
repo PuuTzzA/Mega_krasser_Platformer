@@ -3315,6 +3315,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7139909128722821157, guid: afa0a644186f5464da8fa70e65c214c7, type: 3}
+      propertyPath: collectables
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afa0a644186f5464da8fa70e65c214c7, type: 3}
 --- !u!1001 &1412447173
@@ -4511,7 +4515,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 28
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2122022219
 PrefabInstance:
