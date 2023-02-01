@@ -45,6 +45,7 @@ public class DroppingPlatform : MonoBehaviour
         Debug.Log("Startpos: " + StartPosition);
         yield return new WaitForSeconds(respawnDelay);
         transform.position = StartPosition;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
         SetComponentsEnabled(true);
         GetComponent<Rigidbody>().isKinematic = true;
 
