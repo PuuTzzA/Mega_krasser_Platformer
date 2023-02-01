@@ -22,6 +22,8 @@ public class UIStart : MonoBehaviour
 
     private Label _record;
 
+    private Label _coinRecord;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,15 +34,17 @@ public class UIStart : MonoBehaviour
         Button forwardButton = _Doc.rootVisualElement.Q<Button>("ForwardButton");
         Button backwardButton = _Doc.rootVisualElement.Q<Button>("BackwardButton");
         _record = _Doc.rootVisualElement.Q<Label>("Record");
+        _coinRecord = _Doc.rootVisualElement.Q<Label>("CoinRecord");
 
         Debug.Log(_currentPreview.GetComponent<PreviewSettings>());
-        float fastestTime = _currentPreview.GetComponent<PreviewSettings>().settings.fastestTime;
-        int minutes = Mathf.FloorToInt(fastestTime / 60F);
-        int seconds = Mathf.FloorToInt(fastestTime - minutes * 60);
-        int milliseconds = Mathf.FloorToInt(fastestTime * 1000);
+        LevelSettings l = _currentPreview.GetComponent<PreviewSettings>().settings;
+        int minutes = Mathf.FloorToInt(l.fastestTime / 60F);
+        int seconds = Mathf.FloorToInt(l.fastestTime - minutes * 60);
+        int milliseconds = Mathf.FloorToInt(l.fastestTime * 1000);
         milliseconds = milliseconds % 1000;
         milliseconds /= 10;
-        _record.text = fastestTime == -1 ? "-----------" : string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds); _playButton.clicked += PlayButtonOnClicked;
+        _record.text = l.fastestTime == -1 ? "-----------" : string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds); _playButton.clicked += PlayButtonOnClicked;
+        _coinRecord.text = l.collectablesCollected + "/" + _currentPreview.GetComponent<PreviewSettings>().totalCollectables;
         forwardButton.clicked += ForwardButtonOnClicked;
         backwardButton.clicked += BackwardButtonOnClicked;
 
@@ -49,17 +53,22 @@ public class UIStart : MonoBehaviour
            if (ev.oldRect.width != ev.newRect.width && ev.oldRect.height != ev.newRect.height)
            {
                _playButton.style.fontSize = _playButton.resolvedStyle.height * 90 / 100;
-               _record.style.fontSize = _record.resolvedStyle.height * 4 / 10;
+               _record.style.fontSize = _record.resolvedStyle.height * 7 / 10;
+               _coinRecord.style.fontSize = _coinRecord.resolvedStyle.height * 7 / 10;
            }
 
        });
     }
 
-    public void SetCollectableText(string text)
+    public void SetRecordText(string text)
     {
         _record.text = text;
     }
 
+    public void SetCoinRecordText(string text)
+    {
+        _coinRecord.text = text;
+    }
 
 
     private void PlayButtonOnClicked()
@@ -82,14 +91,14 @@ public class UIStart : MonoBehaviour
         _currentIndex = (_currentIndex + 1) % levels.Length;
         _currentPreview = Instantiate(levels[_currentIndex]);
 
-        float fastestTime = _currentPreview.GetComponent<PreviewSettings>().settings.fastestTime;
-        int minutes = Mathf.FloorToInt(fastestTime / 60F);
-        int seconds = Mathf.FloorToInt(fastestTime - minutes * 60);
-        int milliseconds = Mathf.FloorToInt(fastestTime * 1000);
+        LevelSettings l = _currentPreview.GetComponent<PreviewSettings>().settings;
+        int minutes = Mathf.FloorToInt(l.fastestTime / 60F);
+        int seconds = Mathf.FloorToInt(l.fastestTime - minutes * 60);
+        int milliseconds = Mathf.FloorToInt(l.fastestTime * 1000);
         milliseconds = milliseconds % 1000;
         milliseconds /= 10;
-        _record.text = fastestTime == -1 ? "-----------" : string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
-
+        _record.text = l.fastestTime == -1 ? "-----------" : string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
+        _coinRecord.text = l.collectablesCollected + "/" + _currentPreview.GetComponent<PreviewSettings>().totalCollectables;
     }
 
     public void LastPreview()
@@ -98,12 +107,14 @@ public class UIStart : MonoBehaviour
         _currentIndex = (_currentIndex - 1 + levels.Length) % levels.Length;
         _currentPreview = Instantiate(levels[_currentIndex]);
 
-        float fastestTime = _currentPreview.GetComponent<PreviewSettings>().settings.fastestTime;
-        int minutes = Mathf.FloorToInt(fastestTime / 60F);
-        int seconds = Mathf.FloorToInt(fastestTime - minutes * 60);
-        int milliseconds = Mathf.FloorToInt(fastestTime * 1000);
+        LevelSettings l = _currentPreview.GetComponent<PreviewSettings>().settings;
+        int minutes = Mathf.FloorToInt(l.fastestTime / 60F);
+        int seconds = Mathf.FloorToInt(l.fastestTime - minutes * 60);
+        int milliseconds = Mathf.FloorToInt(l.fastestTime * 1000);
         milliseconds = milliseconds % 1000;
         milliseconds /= 10;
-        _record.text = fastestTime == -1 ? "-----------" : string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
+        _record.text = l.fastestTime == -1 ? "-----------" : string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
+        _coinRecord.text = l.collectablesCollected + "/" + _currentPreview.GetComponent<PreviewSettings>().totalCollectables;
+
     }
 }
