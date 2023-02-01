@@ -7,14 +7,14 @@
             </ui:VisualElement>
             <ui:VisualElement style="height: 5.3%;" />
             <ui:VisualElement name="RecordSection" style="width: 100%; height: 31.8%; margin-top: 0; flex-direction: column; align-items: stretch; justify-content: center;">
-                <ui:VisualElement name="TimeRecord" style="width: 100%; height: 50px; flex-direction: row; align-items: center; justify-content: center; margin-top: 0; margin-bottom: 1%;">
-                    <ui:VisualElement name="RecordPic" style="background-image: url(&apos;project://database/Assets/Icons/Record_Clock.png?fileID=2800000&amp;guid=0591405373cf59642bb888ff787c4f62&amp;type=3#Record_Clock&apos;); width: 17.5%; height: 100%;" />
+                <ui:VisualElement name="TimeRecord" style="width: 100%; height: 50%; flex-direction: row; align-items: center; justify-content: center; margin-top: 0; margin-bottom: 1%;">
+                    <ui:VisualElement name="RecordPic" style="background-image: url(&apos;project://database/Assets/Icons/Record_Clock.png?fileID=2800000&amp;guid=0591405373cf59642bb888ff787c4f62&amp;type=3#Record_Clock&apos;); width: 22.35938%; height: 100%;" />
                     <ui:VisualElement name="RecordLabel" style="width: 52.5%; height: 100%; flex-direction: row; align-items: center;">
                         <ui:Label text="123" display-tooltip-when-elided="true" name="Record" style="width: 100%; height: 100%; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; -unity-text-align: middle-left; color: rgb(255, 255, 255); -unity-font: url(&apos;project://database/Assets/Fonts/Montserrat-ExtraBold.ttf?fileID=12800000&amp;guid=36a5735348a694142b14038d0679e8b2&amp;type=3#Montserrat-ExtraBold&apos;); -unity-font-definition: none;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="CoinRecord" style="width: 100%; height: 50px; flex-direction: row; align-items: center; justify-content: center;">
-                    <ui:VisualElement name="RecordPic" style="background-image: url(&apos;project://database/Assets/Icons/M%C3%BCnze.png?fileID=2800000&amp;guid=e14deaa53f7a9634b9259aab099aa4af&amp;type=3#Münze&apos;); width: 16.5%; height: 100%;" />
+                <ui:VisualElement name="CoinRecord" style="width: 100%; height: 50%; flex-direction: row; align-items: center; justify-content: center;">
+                    <ui:VisualElement name="RecordPic" style="background-image: url(&apos;project://database/Assets/Icons/M%C3%BCnze.png?fileID=2800000&amp;guid=e14deaa53f7a9634b9259aab099aa4af&amp;type=3#Münze&apos;); width: 22.35938%; height: 100%;" />
                     <ui:VisualElement name="RecordLabel" style="width: 51.5%; height: 100%; flex-direction: row; align-items: center;">
                         <ui:Label text="123" display-tooltip-when-elided="true" name="CoinRecord" style="width: 100%; height: 100%; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; -unity-text-align: middle-left; color: rgb(255, 255, 255); -unity-font: url(&apos;project://database/Assets/Fonts/Montserrat-ExtraBold.ttf?fileID=12800000&amp;guid=36a5735348a694142b14038d0679e8b2&amp;type=3#Montserrat-ExtraBold&apos;); -unity-font-definition: none;" />
                     </ui:VisualElement>
