@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelnumber: 0
-  totalCollectables: 0
+  totalCollectables: 3
   sceneToLoad: Assets/Scenes/Level2.unity
 --- !u!1001 &383112133164144902
 PrefabInstance:
