@@ -23,11 +23,9 @@ public class PreviewSettings : MonoBehaviour
     [SerializeField]
     private int levelnumber;
 
-    [SerializeField]
-    private TextAsset textasset;
+    public static List<LevelSettings> levelSettings;
 
-    public static TextAsset jsonFile;
-    public static string jsonFilePath = "Assets/JsonFiles/levelSettings.json";
+    public static string jsonFilePath;
 
     public LevelSettings settings;
     public float totalCollectables;
@@ -37,31 +35,30 @@ public class PreviewSettings : MonoBehaviour
 
     private void Awake()
     {
-        if (PreviewSettings.jsonFile == null)
-            PreviewSettings.jsonFile = textasset;
-        List<LevelSettings> l = JsonConvert.DeserializeObject<List<LevelSettings>>(jsonFile.text);
-        if (l == null)
+
+        jsonFilePath = Application.persistentDataPath + Path.AltDirectorySeparatorChar + "LevelSettings.json";
+
+        if (PreviewSettings.levelSettings == null)
         {
-            l = new List<LevelSettings>();
+            StreamReader reader = new StreamReader(jsonFilePath);
+            levelSettings = JsonConvert.DeserializeObject<List<LevelSettings>>(reader.ReadToEnd());
+            reader.Close();
         }
-        try
+        if (PreviewSettings.levelSettings == null)
         {
-            foreach(var x in l)
-            if(x.levelnumber == levelnumber)
+            levelSettings = new List<LevelSettings>();
+        }
+
+        foreach (var x in levelSettings)
+            if (x.levelnumber == levelnumber)
                 settings = x;
-        }
-        catch (ArgumentOutOfRangeException)
+        if (settings == null)
         {
             settings = new LevelSettings();
             settings.collectablesCollected = 0;
             settings.fastestTime = -1;
-            settings.levelnumber = l.Count;
-            l.Add(settings);
-            FileStream fcreate = File.Open(jsonFilePath, FileMode.Create);
-
-            StreamWriter writer = new StreamWriter(fcreate);
-            writer.Write(JsonConvert.SerializeObject(l));
-            writer.Close();
+            settings.levelnumber = levelSettings.Count;
+            levelSettings.Add(settings);
         }
     }
 
