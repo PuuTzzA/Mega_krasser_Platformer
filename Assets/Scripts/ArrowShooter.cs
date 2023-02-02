@@ -32,6 +32,7 @@ public class ArrowShooter : MonoBehaviour
     private void ShootArrow()
     {
         GameObject newArrow = Instantiate(arrow, transform.position, transform.rotation);
+        newArrow.transform.SetParent(transform);
         newArrow.GetComponent<Arrow>().despawnZone = despawnZone;
         newArrow.GetComponent<Arrow>().player = player;
     }

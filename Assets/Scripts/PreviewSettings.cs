@@ -13,7 +13,6 @@ public class LevelSettings
     public float collectablesCollected = 0;
 
     public float fastestTime = -1;
-    public float rotationSpeed = 10f;
 
 }
 
@@ -62,12 +61,6 @@ public class PreviewSettings : MonoBehaviour
             settings.levelnumber = levelSettings.Count;
             levelSettings.Add(settings);
         }
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        transform.RotateAround(transform.position, Vector3.up, Time.deltaTime * settings.rotationSpeed);
     }
 
     public string GetScene()
