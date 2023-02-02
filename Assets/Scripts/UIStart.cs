@@ -52,7 +52,7 @@ public class UIStart : MonoBehaviour
        {
            if (ev.oldRect.width != ev.newRect.width && ev.oldRect.height != ev.newRect.height)
            {
-               _playButton.style.fontSize = _playButton.resolvedStyle.height * 90 / 100;
+               _playButton.style.fontSize = _playButton.resolvedStyle.height * 75 / 100;
                _record.style.fontSize = _record.resolvedStyle.height * 5 / 10;
                _coinRecord.style.fontSize = _coinRecord.resolvedStyle.height * 5 / 10;
            }
