@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class MountainGoat : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
     [SerializeField] private float detectionRange;
 
     [Header("Patrol Settings")] [SerializeField]
@@ -55,6 +55,7 @@ public class MountainGoat : MonoBehaviour
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -146,6 +147,7 @@ public class MountainGoat : MonoBehaviour
         Vector3 goal = patrolPoints[_currentPatrolPoint].position;
 
         Vector3 dir = (goal - current).normalized;
+        dir = new Vector3(dir.x, 0, dir.z).normalized;
 
         Quaternion tempRotationStart = transform.rotation;
 
