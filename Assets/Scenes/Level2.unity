@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 95f83d171c537e146954a63abcdf5cf5, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 93761cbb3b290af4d8519687c5e012b3, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -333,6 +333,42 @@ PrefabInstance:
     - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
       propertyPath: detectionRadius
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: breakFreeDistance
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: lineRendererColor1.b
+      value: 0.5411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: lineRendererColor1.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: lineRendererColor1.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: lineRendererColor2.b
+      value: 0.7176471
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: lineRendererColor2.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: lineRendererColor2.r
+      value: 0.54901963
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: lineRendererMaxWidth
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: lineRendererMinWidth
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5417875365630371299, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
       propertyPath: m_Name
@@ -643,11 +679,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
       propertyPath: tentacleAmount
-      value: 50
+      value: 61
       objectReference: {fileID: 0}
     - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
       propertyPath: detectionRadius
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: breakFreeDistance
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: lineRendererColor1.b
+      value: 0.5414934
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: lineRendererColor1.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: lineRendererColor1.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: lineRendererColor2.b
+      value: 0.7169812
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: lineRendererColor2.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: lineRendererColor2.r
+      value: 0.54950416
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: lineRendererMaxWidth
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417875365630371297, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
+      propertyPath: lineRendererMinWidth
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5417875365630371299, guid: badebfd437471f243b67c14d4dfd4ab6, type: 3}
       propertyPath: m_Name
