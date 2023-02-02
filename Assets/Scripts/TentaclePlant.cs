@@ -22,7 +22,7 @@ public class TentaclePlant : MonoBehaviour
     [SerializeField] private Color lineRendererColor2;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
 

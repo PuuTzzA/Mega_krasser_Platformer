@@ -96,6 +96,7 @@ public class TentaclePlantTentacle : MonoBehaviour
 
     private void UpdatePositionsIdle()
     {
+        //Debug.Log(_segmentPositions + " " + transform.position);
         _segmentPositions[0] = transform.position;
         _segmentPositions[length - 1] = Vector3.SmoothDamp(
             _segmentPositions[length - 1], _idleGoal,
