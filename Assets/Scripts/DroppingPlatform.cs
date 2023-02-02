@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class DroppingPlatform : MonoBehaviour
@@ -12,10 +13,18 @@ public class DroppingPlatform : MonoBehaviour
     [SerializeField] private float fallDelay = 0.5f;
     [SerializeField] private float fallDuration = 2.0f;
     [SerializeField] private float respawnDelay = 2.0f;
+    [SerializeField] private Material hiddenMaterial;
+
+    private GameObject _indicator;
+    private GameObject _indicatorTemp;
+    private bool _isActivated;
 
     private void Start()
     {
         StartPosition = transform.localPosition;
+        _indicator = new GameObject();
+        _indicator.AddComponent<MeshRenderer>().material = hiddenMaterial;
+        _indicator.AddComponent<MeshFilter>().mesh = GetComponent<MeshFilter>().mesh;
         //GetComponent<Rigidbody>().AddForce(new Vector3(0, -2, 0), ForceMode.Force);
     }
 
@@ -26,8 +35,9 @@ public class DroppingPlatform : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && !_isActivated)
         {
+            _isActivated = true;
             StartCoroutine(drop()); 
         }
     }
@@ -37,6 +47,9 @@ public class DroppingPlatform : MonoBehaviour
         yield return new WaitForSeconds(fallDelay);
         Debug.Log("drop");
         _isFalling = true;
+        Destroy(_indicatorTemp);
+        _indicatorTemp = Instantiate(_indicator, transform.position, transform.rotation);
+        _indicatorTemp.transform.localScale = transform.localScale;
         GetComponent<Rigidbody>().isKinematic = false;
         yield return new WaitForSeconds(fallDuration);
         _isFalling = false;
@@ -48,7 +61,8 @@ public class DroppingPlatform : MonoBehaviour
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         SetComponentsEnabled(true);
         GetComponent<Rigidbody>().isKinematic = true;
-
+        Destroy(_indicatorTemp);
+        _isActivated = false;
     }
     
 
