@@ -24,6 +24,8 @@ public class UIStart : MonoBehaviour
 
     private Label _coinRecord;
 
+    [SerializeField] private Material[] skyboxes;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -99,6 +101,8 @@ public class UIStart : MonoBehaviour
         milliseconds /= 10;
         _record.text = l.fastestTime == -1 ? "-----------" : string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
         _coinRecord.text = l.collectablesCollected + "/" + _currentPreview.GetComponent<PreviewSettings>().totalCollectables;
+        
+        RenderSettings.skybox = skyboxes[_currentIndex];
     }
 
     public void LastPreview()
@@ -116,5 +120,6 @@ public class UIStart : MonoBehaviour
         _record.text = l.fastestTime == -1 ? "-----------" : string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
         _coinRecord.text = l.collectablesCollected + "/" + _currentPreview.GetComponent<PreviewSettings>().totalCollectables;
 
+        RenderSettings.skybox = skyboxes[_currentIndex];
     }
 }
