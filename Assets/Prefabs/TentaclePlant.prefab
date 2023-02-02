@@ -46,12 +46,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tentacle: {fileID: 8603672400452352162, guid: 8ec3a7b865521de4688ae357c974596e, type: 3}
-  player: {fileID: 0}
   tentacleAmount: 39
   detectionRadius: 2.46
   grappleStrength: 10
   breakFreeDistance: 0.15
   maxLength: 7
+  lineRendererMinWidth: 1.2
+  lineRendererMaxWidth: 1.6
+  lineRendererColor1: {r: 0.16078432, g: 1, b: 0, a: 0}
+  lineRendererColor2: {r: 0.23883125, g: 0.764151, b: 0, a: 0}
 --- !u!135 &5417875365630371302
 SphereCollider:
   m_ObjectHideFlags: 0
