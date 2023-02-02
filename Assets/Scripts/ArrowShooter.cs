@@ -6,7 +6,7 @@ public class ArrowShooter : MonoBehaviour
 {
     [SerializeField] private GameObject arrow;
     [SerializeField] private GameObject despawnZone;
-    [SerializeField] private GameObject player;
+    private GameObject player;
     [SerializeField] private float timeBetweenFiring;
     
     private float _timeSinceShooting;
@@ -14,6 +14,7 @@ public class ArrowShooter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         ShootArrow();
     }
 
