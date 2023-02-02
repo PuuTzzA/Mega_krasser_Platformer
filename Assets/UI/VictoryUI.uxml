@@ -2,23 +2,23 @@
     <Style src="project://database/Assets/UI/Buttun%20Styles.uss?fileID=7433441132597879392&amp;guid=d47fb4971c8e20f498003dd4c1fd7679&amp;type=3#Buttun Styles" />
     <ui:VisualElement name="Root" style="width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.98);">
         <ui:VisualElement name="TextBox" style="height: 25%; width: 100%;">
-            <ui:VisualElement style="height: 100%; width: 100%; background-image: url(&apos;project://database/Assets/Icons/Victory_Text.png?fileID=2800000&amp;guid=7fde1c74dac502a40a86fa8da158b02d&amp;type=3#Victory_Text&apos;);" />
+            <ui:VisualElement style="height: 100%; width: 100%; background-image: url(&apos;project://database/Assets/Icons/Victory_Text.png?fileID=2800000&amp;guid=7fde1c74dac502a40a86fa8da158b02d&amp;type=3#Victory_Text&apos;); -unity-background-scale-mode: stretch-to-fill;" />
         </ui:VisualElement>
         <ui:VisualElement name="PictureStats" style="height: 50%; width: 100%; flex-direction: row;">
             <ui:VisualElement name="WinLoose" style="height: 100%; align-items: center; width: 28.13%; padding-left: 0; margin-left: 14%;">
-                <ui:VisualElement name="WinLoosePic" style="width: 100%; height: 100%; background-image: url(&apos;project://database/Assets/Icons/Winner_Pingu.png?fileID=2800000&amp;guid=a999c9caf7be2c84a8bba7f72dbf9595&amp;type=3#Winner_Pingu&apos;);" />
+                <ui:VisualElement name="WinLoosePic" style="width: 100%; height: 100%; background-image: url(&apos;project://database/Assets/Icons/Winner_Pingu.png?fileID=2800000&amp;guid=a999c9caf7be2c84a8bba7f72dbf9595&amp;type=3#Winner_Pingu&apos;); -unity-background-scale-mode: scale-to-fit;" />
             </ui:VisualElement>
             <ui:VisualElement name="Stats" style="height: 100%; width: 57%; background-color: rgba(255, 255, 255, 0);">
                 <ui:VisualElement name="CoinSection" style="width: 100%; height: 33.3%; align-items: center; justify-content: flex-end; flex-direction: row;">
-                    <ui:VisualElement name="Symbol" style="width: 13.1579%; height: 80%; background-image: url(&apos;project://database/Assets/Icons/M%C3%BCnze.png?fileID=2800000&amp;guid=e14deaa53f7a9634b9259aab099aa4af&amp;type=3#Münze&apos;); align-items: flex-start;" />
+                    <ui:VisualElement name="Symbol" style="width: 13.1579%; height: 80%; background-image: url(&apos;project://database/Assets/Icons/M%C3%BCnze.png?fileID=2800000&amp;guid=e14deaa53f7a9634b9259aab099aa4af&amp;type=3#Münze&apos;); align-items: flex-start; -unity-background-scale-mode: scale-to-fit;" />
                     <ui:Label text="10" display-tooltip-when-elided="true" name="CollectedCoins" style="width: 54%; height: 50%; -unity-text-align: middle-left; color: rgb(255, 255, 255); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="TimeSection" style="width: 100%; height: 33.3%; align-items: center; justify-content: flex-end; flex-direction: row;">
-                    <ui:VisualElement name="Symbol" style="width: 13.1579%; height: 80%; background-image: url(&apos;project://database/Assets/Icons/Clock.png?fileID=2800000&amp;guid=ba9551a68755a4f419e5e48d2149afc5&amp;type=3#Clock&apos;);" />
+                    <ui:VisualElement name="Symbol" style="width: 13.1579%; height: 80%; background-image: url(&apos;project://database/Assets/Icons/Clock.png?fileID=2800000&amp;guid=ba9551a68755a4f419e5e48d2149afc5&amp;type=3#Clock&apos;); -unity-background-scale-mode: scale-to-fit;" />
                     <ui:Label text="10" display-tooltip-when-elided="true" name="TimeUsed" style="width: 54%; height: 50%; -unity-text-align: middle-left; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; color: rgb(255, 255, 255);" />
                 </ui:VisualElement>
                 <ui:VisualElement name="RecordSection" style="width: 100%; height: 33.3%; align-items: center; justify-content: flex-end; flex-direction: row;">
-                    <ui:VisualElement name="Symbol" style="width: 13.1579%; height: 80%; background-image: url(&apos;project://database/Assets/Icons/Record_Clock.png?fileID=2800000&amp;guid=0591405373cf59642bb888ff787c4f62&amp;type=3#Record_Clock&apos;);" />
+                    <ui:VisualElement name="Symbol" style="width: 13.1579%; height: 80%; background-image: url(&apos;project://database/Assets/Icons/Record_Clock.png?fileID=2800000&amp;guid=0591405373cf59642bb888ff787c4f62&amp;type=3#Record_Clock&apos;); -unity-background-scale-mode: scale-to-fit;" />
                     <ui:Label text="13" display-tooltip-when-elided="true" name="RecordTime" style="width: 54%; height: 50%; -unity-text-align: middle-left; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; color: rgb(255, 255, 255);" />
                 </ui:VisualElement>
             </ui:VisualElement>
