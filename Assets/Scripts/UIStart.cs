@@ -52,6 +52,21 @@ public class UIStart : MonoBehaviour
 
         _playButton.Focus();
 
+        _playButton.RegisterCallback<MouseOverEvent>((type) =>
+        {
+            _playButton.Focus();
+        });
+
+        forwardButton.RegisterCallback<MouseOverEvent>((type) =>
+        {
+            forwardButton.Focus();
+        });
+
+        backwardButton.RegisterCallback<MouseOverEvent>((type) =>
+        {
+            backwardButton.Focus();
+        });
+
         _Doc.rootVisualElement.RegisterCallback<GeometryChangedEvent>(ev =>
        {
            if (ev.oldRect.width != ev.newRect.width && ev.oldRect.height != ev.newRect.height)
@@ -103,7 +118,7 @@ public class UIStart : MonoBehaviour
         milliseconds /= 10;
         _record.text = l.fastestTime == -1 ? "-----------" : string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
         _coinRecord.text = l.collectablesCollected + "/" + _currentPreview.GetComponent<PreviewSettings>().totalCollectables;
-        
+
         RenderSettings.skybox = skyboxes[_currentIndex];
     }
 

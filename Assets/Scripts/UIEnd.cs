@@ -36,6 +36,16 @@ public class UIEnd : MonoBehaviour
 
         _retryButton.Focus();
 
+        _retryButton.RegisterCallback<MouseOverEvent>((type) =>
+        {
+            _retryButton.Focus();
+        });
+
+        _homeButton.RegisterCallback<MouseOverEvent>((type) =>
+        {
+            _homeButton.Focus();
+        });
+
 
         _Doc.rootVisualElement.RegisterCallback<GeometryChangedEvent>(ev =>
        {

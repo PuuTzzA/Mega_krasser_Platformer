@@ -36,6 +36,21 @@ public class UIPause : MonoBehaviour
 
         _resumeButton.Focus();
 
+        _homeButton.RegisterCallback<MouseOverEvent>((type) =>
+        {
+            _homeButton.Focus();
+        });
+
+        _retryButton.RegisterCallback<MouseOverEvent>((type) =>
+        {
+            _retryButton.Focus();
+        });
+
+        _resumeButton.RegisterCallback<MouseOverEvent>((type) =>
+        {
+            _resumeButton.Focus();
+        });
+
 
         _Doc.rootVisualElement.RegisterCallback<GeometryChangedEvent>(ev =>
         {
@@ -67,7 +82,7 @@ public class UIPause : MonoBehaviour
 
     private void ResumeButtonOnClicked()
     {
-        player. GetComponent<PlayerInput>().enabled = true;
+        player.GetComponent<PlayerInput>().enabled = true;
         player.setPaused(false);
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         UnityEngine.Cursor.visible = false;
