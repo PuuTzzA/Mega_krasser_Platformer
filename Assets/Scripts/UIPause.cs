@@ -34,6 +34,8 @@ public class UIPause : MonoBehaviour
         _homeButton.clicked += HomeButtonOnClicked;
         _resumeButton.clicked += ResumeButtonOnClicked;
 
+        _resumeButton.Focus();
+
 
         _Doc.rootVisualElement.RegisterCallback<GeometryChangedEvent>(ev =>
         {
