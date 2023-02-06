@@ -34,6 +34,8 @@ public class UIEnd : MonoBehaviour
         _retryButton.clicked += RetryButtonOnClicked;
         _homeButton.clicked += HomeButtonOnClicked;
 
+        _retryButton.Focus();
+
 
         _Doc.rootVisualElement.RegisterCallback<GeometryChangedEvent>(ev =>
        {

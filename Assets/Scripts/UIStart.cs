@@ -50,6 +50,8 @@ public class UIStart : MonoBehaviour
         forwardButton.clicked += ForwardButtonOnClicked;
         backwardButton.clicked += BackwardButtonOnClicked;
 
+        _playButton.Focus();
+
         _Doc.rootVisualElement.RegisterCallback<GeometryChangedEvent>(ev =>
        {
            if (ev.oldRect.width != ev.newRect.width && ev.oldRect.height != ev.newRect.height)
