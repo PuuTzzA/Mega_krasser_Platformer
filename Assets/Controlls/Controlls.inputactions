@@ -359,7 +359,7 @@
                 {
                     "name": "",
                     "id": "aa20d8fc-1df6-4e97-bb1e-a783e2ec0a6c",
-                    "path": "<Gamepad>/select",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -404,6 +404,17 @@
                     "name": "",
                     "id": "3fa87f83-813c-4dae-8b68-854ad91378f7",
                     "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Retry",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e924a54-712f-49da-8c6d-17bd635a8d60",
+                    "path": "<Gamepad>/select",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
